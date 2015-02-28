@@ -1,0 +1,14 @@
+{
+  "name": "starter-node-angular",
+  "version": "1.0.0",
+  "dependencies": {
+    "font-awesome": "latest",
+    "d3" : "latest",
+    "three.js" : "latest",
+    "toxiclibsjs" : "latest",
+    "animate.css": "latest",
+    "angular": "latest",
+    "angular-bootstrap": "latest",
+    "angular-route": "latest"
+  }
+}
