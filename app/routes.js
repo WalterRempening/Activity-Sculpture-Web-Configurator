@@ -9,6 +9,24 @@ module.exports = function(app) {
     // handle things like api calls
     // authentication routes
 
+
+    /* For CORS support use as follows =========================================
+    app.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
+
+    app.get('/', function(req, res, next) {
+        // Handle the get for this route
+    });
+
+    app.post('/', function(req, res, next) {
+        // Handle the post for this route
+    });
+    */
+
+
     // sample api route
     app.get('/api/nerds', function(req, res) {
         // use mongoose to get all nerds in the database
@@ -29,7 +47,7 @@ module.exports = function(app) {
     // frontend routes =========================================================
     // route to handle all angular requests
     app.get('*', function(req, res) {
-        res.sendfile('./public/views/index.html'); // load our public/index.html file
+        res.sendFile('./public/index.html'); // load our public/index.html file
     });
 
 };
