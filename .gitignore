@@ -80,3 +80,11 @@ node_modules
 # Dependency directory for public libraries
 public/libs
 
+# compiled stylus css file
+public/css/styles.css
+
+
+public/tile-wide.png
+public/apple-touch-icon.png
+public/favicon.ico
+public/tile.png

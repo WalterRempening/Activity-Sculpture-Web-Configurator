@@ -9,7 +9,7 @@
     "cors" : "~2.5.3",
     "socket.io" : "~1.3.4",
     "stylus" : "latest",
-    "bootstrap-stylus" : "latest",
+    "serve-favicon" : "latest",
     "nib" : "latest"
   }
 }

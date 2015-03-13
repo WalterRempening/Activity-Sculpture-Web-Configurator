@@ -1,9 +1,70 @@
+/**************************************
+
+Styles for the activity sculpture webconfigurator
+a project part of a master thesis for the LMU Munich
+
+Author: Walter Remepning Diaz
+Date: 12.3.2015
+Location: Munich, Germany
+
+============================
+Content Index:
+  1.Imports
+  2.Global Styles
+  3.Login Form
+
+**************************************/
+
+
+
+
+
+/**************************************
+*   1.Imports
+**************************************/
+
 @import nib
-@import bootstrap
+@import '../libs/bootstrap/dist/css/bootstrap.min.css'
+@import '../libs/bootstrap/dist/css/bootstrap-theme.min.css'
+@import url(http://fonts.googleapis.com/css?family=Roboto:900,900italic,100,100italic,400);
+
+
+/**************************************
+*   2.Global Styles
+**************************************/
+
 
 body
-  background: linear-gradient(top, white, black);
-  font-size 40pt
-  width 600px
-  height 700px
+  font-family 'Roboto', sans-serif
+  padding 50px 0 20px 0
+
+.blowit
+  width 100vw
+  height 100vh
+
+  .container
+    padding-top 40px
+
+
+
+/**************************************
+*   3.Login Form
+**************************************/
+
+form.login
+
+  div.form-group
+    width 100%
+    margin-bottom 10px
+
+    > input
+      height 3em
+      width 80%
+      text-align center
+
+  .btn-success
+    width 80%
+    text-align center
+    height 3em
+
 

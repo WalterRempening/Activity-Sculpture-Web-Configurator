@@ -8,8 +8,8 @@
     "toxiclibsjs" : "latest",
     "animate.css": "latest",
     "angular": "latest",
-    "bootstrap" : "latest",
-    "angular-route": "latest",
+    "angular-bootstrap" : "latest",
+    "angular-ui-router" : "latest",
     "underscore"  : "latest"
   }
 }
