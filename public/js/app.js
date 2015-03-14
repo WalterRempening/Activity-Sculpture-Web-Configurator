@@ -1,11 +1,7 @@
-var app = angular.module('app', ['ui.router', 'ui.bootstrap']);
-
-app.controller('SiteController', function () {
-    var copyYear = Date.now();
-
-    this.year = new Date(copyYear).getFullYear();
-
-});
+var app = angular.module('app', ['ui.router',
+                                 'ui.bootstrap',
+                                 'siteMngr',
+                                 'wcFooter']);
 
 app.config(function ($stateProvider,
                      $urlRouterProvider) {

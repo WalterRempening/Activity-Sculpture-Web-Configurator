@@ -5,6 +5,6 @@
 
             this.year = new Date(copyYear).getFullYear();
         });
-});
+})();
 
 

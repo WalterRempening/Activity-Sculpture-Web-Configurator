@@ -17,7 +17,7 @@
     <link rel = "stylesheet" href = "../css/styles.css" type = "text/css"/>
     <title>Activity Sculptures Configurator</title>
 </head>
-<body ng-app = "app" ng-controller = "SiteController as ixctrl">
+<body ng-app = "app">
 <!--[if lt IE 8]>
 <p class = "browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
         href = "http://browsehappy.com/">upgrade your browser</a> to improve your
@@ -52,13 +52,8 @@
 
 <div ui-view></div>
 </div>
-<footer class = "footer">
-    <div class = "container">
-        <p class = "text-center" >&copy; Activity Scultpures Configurator – Walter Remepning
-            Diaz
-            {{ixctrl.year}}</p>
-    </div>
-</footer>
+<dwc-footer></dwc-footer>
+
 <!--Angular -->
 <script src = "libs/angular/angular.js"></script>
 <script src = "libs/angular-bootstrap/ui-bootstrap.min.js"></script>
@@ -71,7 +66,8 @@
 <script src = "libs/toxiclibsjs/build/toxiclibs.min.js"></script>
 
 <!--app files-->
-<script src = "js/src/site-manager/siteMngr.js"></script>
+<script src = "js/src/main-page/siteMngr.js"></script>
+<script src = "js/src/main-page/wcFooter.js"></script>
 <script src = "js/app.js"></script>
 </body>
 </html>
