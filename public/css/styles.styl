@@ -11,13 +11,10 @@ Location: Munich, Germany
 Content Index:
   1.Imports
   2.Global Styles
-  3.Login Form
+  3.Welcome Page Login Form
+  4. 404 Error page
 
 **************************************/
-
-
-
-
 
 /**************************************
 *   1.Imports
@@ -27,44 +24,68 @@ Content Index:
 @import '../libs/bootstrap/dist/css/bootstrap.min.css'
 @import '../libs/bootstrap/dist/css/bootstrap-theme.min.css'
 @import url(http://fonts.googleapis.com/css?family=Roboto:900,900italic,100,100italic,400);
-
+@import wc-mixins
 
 /**************************************
 *   2.Global Styles
 **************************************/
 
+html
+  min-height 100%
+  position relative
 
 body
   font-family 'Roboto', sans-serif
-  padding 50px 0 20px 0
+  margin-bottom 60px
+
 
 .blowit
   width 100vw
   height 100vh
 
   .container
-    padding-top 40px
+    padding-top 80px
 
 
+.row-centered
+  text-align center
 
+.col-centered
+  display inline-block
+  float none
+  text-align left
+  margin-right -4px
+  min-width: 350px
+
+.wrapper
+  min-height 100%
+  height auto !important
+
+footer
+  position absolute
+  height 60px
+  width 100%
+  bottom 0
 /**************************************
-*   3.Login Form
+*   3.Welcome Page Login Form
 **************************************/
 
 form.login
 
   div.form-group
-    width 100%
     margin-bottom 10px
 
     > input
-      height 3em
-      width 80%
-      text-align center
+      input-size()
 
   .btn-success
-    width 80%
-    text-align center
-    height 3em
+    input-size()
 
+
+/**************************************
+*   4. 404 error page
+**************************************/
+
+.error-box.container
+  padding-top 80px
 
