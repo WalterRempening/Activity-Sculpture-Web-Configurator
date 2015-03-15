@@ -63,9 +63,18 @@ body
 
 footer
   position absolute
-  height 60px
+  height 25px
   width 100%
   bottom 0
+  background-color rgba(84, 84, 84, 0.5)
+
+  p
+    margin 4px 0 0 0
+    color #f5f5f5
+    font-weight light
+    font-size 0.9em
+
+
 /**************************************
 *   3.Welcome Page Login Form
 **************************************/
@@ -88,4 +97,35 @@ form.login
 
 .error-box.container
   padding-top 80px
+
+  .error-number
+    font-size 22em
+    font-weight bold
+    font-style italic
+    color #e52284
+    text-align right
+
+  h1
+    font-weight light
+    font-style italic
+    font-size 8.6em
+    text-align right
+    color #e2e2e2
+
+  .error-text
+    font-weight normal
+    font-size 2.3em
+    text-decoration line-through
+    color #e2e2e2
+
+.fullbg
+  background url(../img/404-bg.jpg) no-repeat center center fixed
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  z-index -9999
+  position: fixed;
+  top: 0;
+  left: 0;
 

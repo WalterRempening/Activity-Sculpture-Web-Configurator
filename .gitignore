@@ -82,10 +82,8 @@ public/libs
 
 # compiled stylus css file
 public/css/styles.css
-
-
+public/css/wc-mixins.css
 public/tile-wide.png
 public/apple-touch-icon.png
 public/favicon.ico
 public/tile.png
-public/css/wc-mixins.css
