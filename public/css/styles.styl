@@ -3,16 +3,17 @@
 Styles for the activity sculpture webconfigurator
 a project part of a master thesis for the LMU Munich
 
-Author: Walter Remepning Diaz
-Date: 12.3.2015
-Location: Munich, Germany
+Author  Walter Remepning Diaz
+Date  12.3.2015
+Location  Munich, Germany
 
 ============================
-Content Index:
+Content Index 
   1.Imports
   2.Global Styles
   3.Welcome Page Login Form
   4. 404 Error page
+  5. Page transition animations
 
 **************************************/
 
@@ -23,7 +24,7 @@ Content Index:
 @import nib
 @import '../libs/bootstrap/dist/css/bootstrap.min.css'
 @import '../libs/bootstrap/dist/css/bootstrap-theme.min.css'
-@import url(http://fonts.googleapis.com/css?family=Roboto:900,900italic,100,100italic,400);
+@import url(http //fonts.googleapis.com/css?family=Roboto 900,900italic,100,100italic,400)
 @import wc-mixins
 
 /**************************************
@@ -55,7 +56,7 @@ body
   float none
   text-align left
   margin-right -4px
-  min-width: 350px
+  min-width  350px
 
 .wrapper
   min-height 100%
@@ -102,7 +103,7 @@ form.login
     font-size 22em
     font-weight bold
     font-style italic
-    color #e52284
+    color #FF1C1C
     text-align right
 
   h1
@@ -120,12 +121,52 @@ form.login
 
 .fullbg
   background url(../img/404-bg.jpg) no-repeat center center fixed
-  min-height: 100%;
-  min-width: 1024px;
-  width: 100%;
-  height: auto;
+  min-height  100%
+  min-width  1024px
+  width  100%
+  height  auto
   z-index -9999
-  position: fixed;
-  top: 0;
-  left: 0;
+  position  fixed
+  top  0
+  left  0
+
+
+/**************************************
+*   5. Page transition animations
+**************************************/
+[ui-view].ng-enter, [ui-view].ng-leave
+  position  absolute
+  left  0
+  right  0
+  transition all .5s ease-in-out
+
+
+[ui-view].ng-enter
+  opacity  0
+  -webkit-transform scale3d(0.5, 0.5, 0.5)
+  -moz-transform scale3d(0.5, 0.5, 0.5)
+  transform scale3d(0.5, 0.5, 0.5)
+
+
+[ui-view].ng-enter-active
+  opacity  1
+  -webkit-transform scale3d(1, 1, 1)
+  -moz-transform scale3d(1, 1, 1)
+  transform scale3d(1, 1, 1)
+
+
+[ui-view].ng-leave
+  opacity  1
+  -webkit-transform translate3d(0, 0, 0)
+  -moz-transform translate3d(0, 0, 0)
+  transform translate3d(0, 0, 0)
+
+
+[ui-view].ng-leave-active
+  opacity  0
+  -webkit-transform translate3d(100px, 0, 0)
+  -moz-transform translate3d(100px, 0, 0)
+  transform translate3d(100px, 0, 0)
+ 
+
 

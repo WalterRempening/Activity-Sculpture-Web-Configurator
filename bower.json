@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "dependencies": {
     "font-awesome": "latest",
-    "d3" : "latest",
-    "three.js" : "latest",
-    "toxiclibsjs" : "latest",
+    "d3": "latest",
+    "three.js": "latest",
+    "toxiclibsjs": "latest",
     "animate.css": "latest",
     "angular": "latest",
-    "angular-bootstrap" : "latest",
-    "angular-ui-router" : "latest",
-    "underscore"  : "latest"
+    "angular-animate": "latest",
+    "angular-bootstrap": "latest",
+    "angular-ui-router": "latest",
+    "underscore": "latest"
+  },
+  "resolutions": {
+    "angular": "1.3.14"
   }
 }
