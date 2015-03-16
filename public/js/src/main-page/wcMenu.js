@@ -1,15 +1,16 @@
 (function () {
-    angular.module('wcMenuScroller', [])
+    'use strict';
+    angular.module('wcMenu', [])
         .controller('MenuController', function () {
             this.nav = {
                 main : [
                     {
-                        name: 'About',
-                        state: 'about'
+                        name:'Get Started',
+                        state: 'tutorial'
                     },
                     {
-                        name:'Tutorial',
-                        state: 'tutorial'
+                        name: 'About',
+                        state: 'about'
                     }],
                 configurator : [
                     {

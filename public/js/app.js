@@ -1,8 +1,10 @@
 (function () {
+    'use strict';
     var app = angular.module('app', ['ui.router',
                                      'ui.bootstrap',
                                      'ngAnimate',
-                                     'wcMenuScroller',
+                                     'wcApi',
+                                     'wcMenu',
                                      'wcFooter']);
 
     app.config(['$stateProvider',
@@ -20,6 +22,10 @@
             .state('home', {
                 url: '/',
                 templateUrl: '../views/core/landing-page.html'
+            })
+            .state('tutorial', {
+                url:'/tutorial',
+                templateUrl: '../views/core/tutorial-partial.html',
             })
             .state('about', {
                 url: '/about',

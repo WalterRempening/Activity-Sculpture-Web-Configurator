@@ -1,4 +1,5 @@
 (function () {
+    'use strict';
     var footer = angular.module('wcFooter', []);
     footer.controller('FooterController', function () {
         this.year = new Date(Date.now()).getFullYear();
