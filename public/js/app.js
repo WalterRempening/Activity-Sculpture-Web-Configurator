@@ -1,8 +1,8 @@
 (function () {
     'use strict';
     var app = angular.module('app', ['ui.router',
-                                     'ui.bootstrap',
                                      'ngAnimate',
+                                     'ngMaterial',
                                      'wcApi',
                                      'wcMenu',
                                      'wcFooter']);
@@ -25,7 +25,7 @@
             })
             .state('tutorial', {
                 url:'/tutorial',
-                templateUrl: '../views/core/tutorial-partial.html',
+                templateUrl: '../views/core/tutorial-partial.html'
             })
             .state('about', {
                 url: '/about',
