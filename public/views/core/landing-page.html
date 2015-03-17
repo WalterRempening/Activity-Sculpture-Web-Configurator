@@ -1,20 +1,26 @@
-<div class = "lander">
+<md-content class = "md-padding lander">
     <div class = "container">
-        <h1 class="text-center">Activity Sculpture Web Configurator</h1>
+        <h1 class = "text-center">Activity Sculpture Web Configurator</h1>
 
-        <p class="text-center">Loggin with your tracker's account to start visualizing your activity</p>
+        <p class = "text-center">Loggin with your tracker's account to start visualizing
+            your activity</p>
 
-        <div class="row row-centered">
-            <form class = "login col-centered col-md-4" role = "form">
-                <div class = "form-group">
-                    <input type = "text" placeholder = "User Name" class = "form-control">
+        <md-content>
+            <form role = "form" class="login">
+                <div layout = "column" layout-align = "start center">
+                    <md-input-container flex>
+                        <label>User Name</label>
+                        <input type = "text" placeholder = "User Name">
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Password</label>
+                        <input type = "password" placeholder = "Password">
+                    </md-input-container>
+                    <md-button ui-sref = "configurator" flex
+                               class = "md-raised md-accent md-hue-3">Sign In
+                    </md-button>
                 </div>
-                <div class = "form-group">
-                    <input type = "password" placeholder = "Password"
-                           class = "form-control">
-                </div>
-                <button ui-sref = "configurator" type = "submit" class = "btn btn-success">Sign in</button>
             </form>
-        </div>
+        </md-content>
     </div>
-</div>
+</md-content>

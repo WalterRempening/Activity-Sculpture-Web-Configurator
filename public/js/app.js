@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    var app = angular.module('app', ['ui.router',
+    var app = angular.module('MainApp', ['ui.router',
                                      'ngAnimate',
                                      'ngMaterial',
                                      'wcApi',
@@ -9,8 +9,16 @@
 
     app.config(['$stateProvider',
                 '$urlRouterProvider',
+                '$mdThemingProvider',
                 function ($stateProvider,
-                         $urlRouterProvider) {
+                         $urlRouterProvider,
+                        $mdThemingProvider) {
+
+        $mdThemingProvider.theme('default')
+            .primaryPalette('blue')
+            .accentPalette('yellow')
+            .warnPalette('pink')
+            .backgroundPalette('grey');
 
         $urlRouterProvider.otherwise(function($injector, $location){
             var state = $injector.get('$state');
