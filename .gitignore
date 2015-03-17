@@ -78,7 +78,7 @@ build/Release
 node_modules
 
 # Dependency directory for public libraries
-public/libs
+public/js/libs
 
 # compiled stylus css file
 public/css/styles.css
