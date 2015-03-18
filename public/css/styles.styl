@@ -36,6 +36,7 @@ html
 
 body
   font-family 'Roboto', sans-serif
+  background none
 
 .blowit
   width 100vw
@@ -139,14 +140,17 @@ form.login
     min-height 50px
 
 
-
-
 /**************************************
 *   4. 404 error page
 **************************************/
 
-.error-box.container
-  padding-top 80px
+md-content.error-box
+  background none
+
+.error-box
+  max-width 80%
+  margin 0px auto
+
 
   .error-number
     font-size 22em
@@ -154,6 +158,7 @@ form.login
     font-style italic
     color #FF1C1C
     text-align right
+    display block
 
   h1
     font-weight light
@@ -161,12 +166,15 @@ form.login
     font-size 8.6em
     text-align right
     color #e2e2e2
+    display block
+    margin-top 50px
 
   .error-text
     font-weight normal
     font-size 2.3em
     text-decoration line-through
     color #e2e2e2
+
 
 .fullbg
   background url(../img/404-bg.jpg) no-repeat center center fixed
