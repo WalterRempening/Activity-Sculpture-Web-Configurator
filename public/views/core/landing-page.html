@@ -1,26 +1,47 @@
-<md-content class = "md-padding lander">
-    <div class = "container">
-        <h1 class = "text-center">Activity Sculpture Web Configurator</h1>
+<md-toolbar role="navigation">
+  <nav layout="row" class="md-toolbar-tools">
+    <h3><a class="navbar-brand" ui-sref="home">Web Configurator</a></h3>
+    <ul class="nav navbar" ng-controller="MenuController as menu">
+      <li class='l-left' ng-repeat="navChild in menu.nav.main">
+        <md-button>
+          <a>{{navChild.name}}</a>
+        </md-button>
+      </li>
+    </ul>
+  </nav>
+</md-toolbar>
 
-        <p class = "text-center">Loggin with your tracker's account to start visualizing
-            your activity</p>
+<!--Welcome Screen-->
+<md-content class="md-padding lander blowit">
+  <div class="container">
+    <h1 class="text-center">Activity Sculpture Web Configurator</h1>
 
-        <md-content>
-            <form role = "form" class="login">
-                <div layout = "column" layout-align = "start center">
-                    <md-input-container flex>
-                        <label>User Name</label>
-                        <input type = "text" placeholder = "User Name">
-                    </md-input-container>
-                    <md-input-container flex>
-                        <label>Password</label>
-                        <input type = "password" placeholder = "Password">
-                    </md-input-container>
-                    <md-button ui-sref = "configurator" flex
-                               class = "md-raised md-accent md-hue-3">Sign In
-                    </md-button>
-                </div>
-            </form>
-        </md-content>
-    </div>
+    <p class="text-center">Loggin with your tracker's account to start
+      visualizing
+      your activity</p>
+
+    <md-content>
+      <form role="form" class="login">
+        <div layout="column" layout-align="start center">
+          <md-input-container flex>
+            <label>User Name</label>
+            <input type="text" placeholder="User Name">
+          </md-input-container>
+          <md-input-container flex>
+            <label>Password</label>
+            <input type="password" placeholder="Password">
+          </md-input-container>
+          <md-button ui-sref="configurator" flex
+                     class="md-raised md-accent md-hue-3">Sign In
+          </md-button>
+        </div>
+      </form>
+    </md-content>
+  </div>
 </md-content>
+
+<!--Tutorial Section-->
+<!--About Section-->
+<div ui-view="about"></div>
+<div ui-view="tutorial"></div>
+<dwc-footer></dwc-footer>
