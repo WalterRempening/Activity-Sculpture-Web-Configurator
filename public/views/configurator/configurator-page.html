@@ -5,18 +5,37 @@
     <md-toolbar>
       <h1 class="md-toolbar-tools" >Geometry</h1>
     </md-toolbar>
-    <md-content class="md-padding" ng-controller="LeftController as lctrl">
+    <md-content class="md-padding" ng-controller="LeftController as lefty">
+
       <div layout="column">
         <div flex="10" layout="row" layout-align="space-around center">
-          <span class="slider-name">Control 1</span>
-          <span class="slider-value">{{lctrl.sliderVal.n}}</span>
+          <span class="slider-name">Scale X</span>
+          <span class="slider-value">{{lefty.scale.x | number:2}}</span>
         </div>
-        <md-slider flex min="0" max="255" aria-label="Control Name"
-                   class="md-hue-3" ng-model='lctrl.sliderVal.n'>
+        <md-slider flex min="0.1" max="3" step="0.01" aria-label="Control Name"
+                   class="md-hue-3" ng-model='lefty.scale.x'
+                   ng-change="lefty.onScaleX()">
+        </md-slider>
+        <div flex="10" layout="row" layout-align="space-around center">
+          <span class="slider-name">Scale Y</span>
+          <span class="slider-value">{{lefty.scale.y | number:2}}</span>
+        </div>
+        <md-slider flex min="0.1" max="3" step="0.01" aria-label="Control Name"
+                   class="md-hue-3" ng-model='lefty.scale.y'
+                   ng-change="lefty.onScaleY()">
+        </md-slider>
+        <div flex="10" layout="row" layout-align="space-around center">
+          <span class="slider-name">Scale Z</span>
+          <span class="slider-value">{{lefty.scale.z | number:2}}</span>
+        </div>
+        <md-slider flex min="0.1" max="3" step="0.01" aria-label="Control Name"
+                   class="md-hue-3" ng-model='lefty.scale.z'
+                   ng-change="lefty.onScaleZ()">
         </md-slider>
       </div>
-      <md-switch ng-model="lctrl.switch.n" aria-label="Switch 1">
-        <span class="slider-name">Switch 1: {{ lctrl.switch.n }}</span>
+
+      <md-switch ng-model="lefty.toggle.rotate" aria-label="Rotate" ng-change="lefty.onRotateToggle()">
+        <span class="slider-name">Rotate</span>
       </md-switch>
     </md-content>
   </md-sidenav>

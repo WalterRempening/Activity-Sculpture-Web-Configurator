@@ -2,7 +2,8 @@
   'use strict';
   var viewport = angular.module('wcViewport', []);
   viewport.directive('threeViewport',
-    ['SceneService', 'CameraService', function(SceneService, CameraService) {
+    ['SceneService', 'CameraService','ModelService',
+     function(SceneService, CameraService, ModelService) {
 
       return {
         restrict: 'E',
@@ -33,6 +34,7 @@
 
           function animate() {
             requestAnimationFrame(animate);
+            ModelService.update();
             renderer.render(SceneService.scene, CameraService.perspectiveCam);
             controls.update();
           }
