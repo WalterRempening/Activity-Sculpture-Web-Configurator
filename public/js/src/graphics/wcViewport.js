@@ -1,12 +1,12 @@
-(function () {
+(function() {
+  'use strict';
   var viewport = angular.module('wcViewport', []);
-
   viewport.directive('threeViewport',
-    ['SceneService', 'CameraService', function (SceneService, CameraService) {
+    ['SceneService', 'CameraService', function(SceneService, CameraService) {
 
       return {
-        restrict: 'AE',
-        link: function (scope, element, attribute) {
+        restrict: 'E',
+        link: function(scope, element, attribute) {
           var renderer;
           var controls;
 
@@ -15,11 +15,12 @@
 
           function init() {
             // Add Camera
-            CameraService.perspectiveCam.position(0, 0, 200);
+            CameraService.perspectiveCam.position.set(0, 0, 200);
             SceneService.scene.add(CameraService.perspectiveCam);
             // Create Renderer
-            renderer = new THREE.WebGLRenderer({antialias: true});
-            render.setSize(window.innerWidth, window.innerHeight);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0xFFFFFF, 1);
             // set up the controls with the camera and renderer
             controls = new THREE.OrbitControls(CameraService.perspectiveCam,
               renderer.domElement
@@ -44,7 +45,6 @@
 
 
         }
-
       };
     }]
   );

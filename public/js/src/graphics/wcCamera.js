@@ -1,7 +1,7 @@
-(function () {
+(function() {
   var camera = angular.module('wcCamera', []);
 
-  camera.service('CameraService', function () {
+  camera.service('CameraService', function() {
 
     var viewAngle = 45;
     var aspectRatio = window.innerWidth / window.innerHeight;
