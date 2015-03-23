@@ -1,16 +1,16 @@
 {
-  "name": "starter-node-angular",
+  "name": "activity-scultpure-web-configurator",
   "version": "1.0.0",
   "dependencies": {
     "d3": "latest",
-    "three.js": "0.70.0",
-    "toxiclibsjs": "0.2.4",
+    "threejs": "latest",
+    "threejs-stats" : "latest",
+    "three.js-controls" : "latest",
+    "toxiclibsjs": "latest",
     "animate.css": "latest",
-    "angular": "1.3.14",
+    "angular": "1.3.15",
     "angular-animate": "latest",
-    "angular-bootstrap": "latest",
-    "angular-material" : "latest",
     "angular-ui-router": "latest",
-    "underscore": "1.8.2"
+    "underscore": "latest"
   }
 }

@@ -1,5 +1,25 @@
-<div class = "jumbotron">
-    <div class = "container">
-        <h1>Le Configurator</h1>
-    </div>
-</div>
+<seciton layout="row" flex class="blowit">
+  <md-sidenav id="left-ctrls"
+              class="md-sidenav-left md-whiteframe-z2 md-locked-open"
+              md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+    <md-toolbar>
+      <h1 class="md-toolbar-tools" >Geometry</h1>
+    </md-toolbar>
+    <md-content class="md-padding" ng-controller="LeftController as lctrl">
+      <div layout="column">
+        <div flex="10" layout="row" layout-align="space-around center">
+          <span class="slider-name">Control 1</span>
+          <span class="slider-value">{{lctrl.sliderVal.n}}</span>
+        </div>
+        <md-slider flex min="0" max="255" aria-label="Control Name"
+                   class="md-hue-3" ng-model='lctrl.sliderVal.n'>
+        </md-slider>
+      </div>
+      <md-switch ng-model="lctrl.switch.n" aria-label="Switch 1">
+        <span class="slider-name">Switch 1: {{ lctrl.switch.n }}</span>
+      </md-switch>
+    </md-content>
+  </md-sidenav>
+  <three-viewport></three-viewport>
+</seciton>
+

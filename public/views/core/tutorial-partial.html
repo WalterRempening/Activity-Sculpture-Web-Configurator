@@ -1,16 +1,21 @@
-<div class = "container first-container" ng-controller="ApiDataController as api">
+<md-content class="md-padding blowit" ng-controller="ApiDataController as api">
+  <div class="container">
     <h1>Get Started</h1>
     {{api.test}}
-    <div class = "row">
-        <div class = "col-md-4">
-            <h2>Step by step guide</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus
-                ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa
-                justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-                Donec sed odio dui. </p>
+    <div class="row">
+      <h2>Step by step guide</h2>
 
-            <p ng-click = "api.sayHi()" class = "btn btn-default" href = "#" role = "button">View
-                details &raquo;</p>
-        </div>
+      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+        tellus
+        ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+        massa
+        justo sit amet risus. Etiam porta sem malesuada magna mollis
+        euismod.
+        Donec sed odio dui. </p>
+
+      <md-button ng-click="api.sayHi()" class="md-raised">
+        View
+      </md-button>
     </div>
-</div><!-- /container -->
+  </div>
+</md-content>
