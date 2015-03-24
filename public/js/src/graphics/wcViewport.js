@@ -42,7 +42,6 @@
          }
 
          function animate() {
-           console.log('Im working');
            stats.begin();
            renderer.render(SceneService.scene, CameraService.perspectiveCam);
            ModelService.update();

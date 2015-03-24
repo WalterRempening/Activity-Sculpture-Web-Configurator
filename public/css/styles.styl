@@ -205,7 +205,18 @@ md-content.error-box
 .slider-name
   font-weight fnormal
 
+md-slider:not([md-discrete]):not([disabled]):focus .md-thumb
+  transform: scale(.65)
 
+md-slider:not([md-discrete]):not([disabled]):focus .md-focus-ring
+  transform: scale(0.7)
+
+md-slider .md-focus-thumb
+  left -18px
+  top 6px
+  width 36px
+  height 36px
+  border-radius 36px
 /**************************************
 *   5. WebGL view
 **************************************/

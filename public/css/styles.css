@@ -190,6 +190,28 @@ md-content.error-box {
 .slider-name {
   font-weight: 400;
 }
+md-slider:not([md-discrete]):not([disabled]):focus .md-thumb {
+  -webkit-transform: scale(0.65);
+  -moz-transform: scale(0.65);
+  -o-transform: scale(0.65);
+  -ms-transform: scale(0.65);
+  transform: scale(0.65);
+}
+md-slider:not([md-discrete]):not([disabled]):focus .md-focus-ring {
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  transform: scale(0.7);
+}
+md-slider .md-focus-thumb {
+  left: -18px;
+  top: 6px;
+  width: 36px;
+  height: 36px;
+  -webkit-border-radius: 36px;
+  border-radius: 36px;
+}
 /**************************************
 *   5. WebGL view
 **************************************/
