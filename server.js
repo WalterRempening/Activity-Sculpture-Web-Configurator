@@ -14,7 +14,7 @@ var cors = require('cors');
 
 // configuration ===========================================
 var db = require('./config/db');
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 // connect to our mongoDB database
 // don't forget to initialize mongodb first
