@@ -27,12 +27,19 @@
 
       this.rotate = true;
 
+      var rotationY = 0;
+      var rotationSpeed = 0;
+
       this.update = function() {
 
-        if (this.rotate == true) {
-          var timer = Date.now() * 0.0005;
-          cube.rotation.y = timer;
+        if (this.rotate) {
+          rotationSpeed += Math.sin(Math.PI/8) * 0.009;
+        } else {
+          rotationSpeed = rotationSpeed;
         }
+
+        rotationY = rotationSpeed;
+        cube.rotation.y = rotationY;
 
         cube.scale.set(this.scale.x, this.scale.y, this.scale.z);
       };

@@ -1,4 +1,4 @@
-(function () {
+(function() {
   'use strict';
   var app = angular.module('MainApp',
     ['ui.router',
@@ -18,9 +18,9 @@
     ['$stateProvider',
      '$urlRouterProvider',
      '$mdThemingProvider',
-     function ($stateProvider,
-               $urlRouterProvider,
-               $mdThemingProvider) {
+     function($stateProvider,
+              $urlRouterProvider,
+              $mdThemingProvider) {
 
        $mdThemingProvider.theme('default')
          .primaryPalette('blue')
@@ -28,7 +28,7 @@
          .warnPalette('pink')
          .backgroundPalette('grey');
 
-       $urlRouterProvider.otherwise(function ($injector, $location) {
+       $urlRouterProvider.otherwise(function($injector, $location) {
            var state = $injector.get('$state');
            state.go('home');
            return $location.path();
@@ -43,19 +43,16 @@
              'tutorial@home': {templateUrl: '../views/core/tutorial-partial.html'},
              'about@home': {templateUrl: '../views/core/about-partial.html'}
            }
-         }
-       )
+         })
 
          .state('configurator', {
            url: '/config',
            templateUrl: '../views/configurator/configurator-page.html'
-         }
-       )
+
+         })
          .state('404', {
            templateUrl: '../views/core/404.html'
-         }
-       );
-
+         });
      }]
   );
 

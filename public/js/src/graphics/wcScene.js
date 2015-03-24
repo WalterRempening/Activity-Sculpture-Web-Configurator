@@ -2,8 +2,13 @@
   var scene = angular.module('wcScene', []);
 
   scene.service('SceneService', function () {
+    this.scene = new THREE.Scene();
+
     return {
-      scene: new THREE.Scene()
+      scene: this.scene,
+      destroy: function() {
+        this.scene = null;
+      }
     };
   });
 })();

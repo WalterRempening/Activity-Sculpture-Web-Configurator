@@ -7,7 +7,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var path = require('path');
 var mongoose = require('mongoose');
-var favicon = require('serve-favicon');
+//var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var cors = require('cors');
@@ -18,7 +18,7 @@ var port = process.env.PORT || 8080;
 
 // connect to our mongoDB database
 // don't forget to initialize mongodb first
-mongoose.connect(db.url);
+//mongoose.connect(db.url);
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json
@@ -28,7 +28,7 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 // select favicon
-app.use(favicon(__dirname + '/public/favicon.ico'));
+//app.use(favicon(__dirname + '/public/favicon.ico'));
 // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(methodOverride('X-HTTP-Method-Override'));
 // set the static files location /public/img will be /img for users

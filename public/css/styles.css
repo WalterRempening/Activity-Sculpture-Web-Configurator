@@ -1,0 +1,263 @@
+/**************************************
+
+Styles for the activity sculpture webconfigurator
+a project part of a master thesis for the LMU Munich
+
+Author  Walter Remepning Diaz
+Date  12.3.2015
+Location  Munich, Germany
+
+============================
+Content Index 
+  1.Imports
+  2.Global Styles
+  3.Welcome Page Login Form
+  4. 404 Error page
+  5. Page transition animations
+
+**************************************/
+/**************************************
+*   1.Imports
+**************************************/
+@import '../js/libs/angular-material/angular-material.min.css';
+@import url("http://fonts.googleapis.com/css?family=Roboto:400,100,900italic,900,100italic");
+/**************************************
+*   2.Global Styles
+**************************************/
+html {
+  min-height: 100%;
+  position: relative;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  background: none;
+}
+.blowit {
+  width: 100vw;
+  height: 100vh;
+}
+.blowit .container {
+  padding-top: 80px;
+}
+.row-centered {
+  text-align: center;
+}
+.col-centered {
+  display: inline-block;
+  float: none;
+  text-align: left;
+  margin-right: -4px;
+  min-width: 350px;
+}
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+}
+a {
+  text-decoration: none;
+}
+.first-container {
+  margin-top: 52px;
+}
+.l-left {
+  float: left;
+}
+.l-right {
+  float: right;
+}
+.text-center {
+  text-align: center;
+}
+.container {
+  max-width: 70%;
+  margin: 0px auto;
+}
+/**************************************
+*   2.Footer
+**************************************/
+.footer {
+/*position absolute*/
+  height: 100px;
+  width: 100%;
+  bottom: 0;
+  -webkit-box-shadow: 0px -3px 5px 0 rgba(0,0,0,0.26);
+  box-shadow: 0px -3px 5px 0 rgba(0,0,0,0.26);
+}
+.footer p {
+  color: #f5f5f5;
+  font-size: 0.9em;
+}
+/**************************************
+*   3. Menu Nav
+**************************************/
+nav a {
+  color: #fcfcfc;
+  text-decoration: none;
+  margin: 0px 5px;
+}
+nav ul {
+  list-style: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+nav ul li {
+  margin-right: 20px;
+}
+nav ul li .md-button {
+  min-height: 64px;
+}
+/**************************************
+*   3.Welcome Page Login Form
+**************************************/
+.lander .container h1 {
+  font-size: 4em;
+  font-weight: bold;
+}
+.lander .container p {
+  font-size: 2em;
+  font-weight: light;
+}
+form.login md-input-container,
+form.login .md-button {
+  width: 50%;
+}
+form.login .md-button {
+  min-height: 50px;
+}
+/**************************************
+*   4. 404 error page
+**************************************/
+md-content.error-box {
+  background: none;
+}
+.error-box {
+  max-width: 80%;
+  margin: 0px auto;
+}
+.error-box .error-number {
+  font-size: 22em;
+  font-weight: bold;
+  font-style: italic;
+  color: #ff1c1c;
+  text-align: right;
+  display: block;
+}
+.error-box h1 {
+  font-weight: light;
+  font-style: italic;
+  font-size: 8.6em;
+  text-align: right;
+  color: #e2e2e2;
+  display: block;
+  margin-top: 50px;
+}
+.error-box .error-text {
+  font-weight: normal;
+  font-size: 2.3em;
+  text-decoration: line-through;
+  color: #e2e2e2;
+}
+.fullbg {
+  background: url("../img/404-bg.jpg") no-repeat center center fixed;
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  z-index: -9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+/**************************************
+*   . Configurator Controlls
+**************************************/
+#left-ctrls {
+  position: absolute;
+  width: 35px;
+  min-width: 400px;
+  min-height: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.7);
+}
+#left-ctrls md-content {
+  background-color: rgba(0,0,0,0);
+}
+.slider-value {
+  font-weight: 900;
+  font-style: italic;
+  font-size: 1.3em;
+}
+.slider-name {
+  font-weight: 400;
+}
+/**************************************
+*   5. WebGL view
+**************************************/
+three-viewport {
+  height: 100%;
+  min-height: 100%;
+  width: 90%;
+  margin: 0 auto;
+}
+/**************************************
+*   5. Page transition animations
+**************************************/
+[ui-view].ng-enter,
+[ui-view].ng-leave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+[ui-view].ng-enter {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  -webkit-transform: scale3d(0.5, 0.5, 0.5);
+  -moz-transform: scale3d(0.5, 0.5, 0.5);
+  -webkit-transform: scale3d(0.5, 0.5, 0.5);
+  -moz-transform: scale3d(0.5, 0.5, 0.5);
+  -o-transform: scale3d(0.5, 0.5, 0.5);
+  -ms-transform: scale3d(0.5, 0.5, 0.5);
+  transform: scale3d(0.5, 0.5, 0.5);
+}
+[ui-view].ng-enter-active {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+  -webkit-transform: scale3d(1, 1, 1);
+  -moz-transform: scale3d(1, 1, 1);
+  -webkit-transform: scale3d(1, 1, 1);
+  -moz-transform: scale3d(1, 1, 1);
+  -o-transform: scale3d(1, 1, 1);
+  -ms-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+}
+[ui-view].ng-leave {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+[ui-view].ng-leave-active {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  -webkit-transform: translate3d(100px, 0, 0);
+  -moz-transform: translate3d(100px, 0, 0);
+  -webkit-transform: translate3d(100px, 0, 0);
+  -moz-transform: translate3d(100px, 0, 0);
+  -o-transform: translate3d(100px, 0, 0);
+  -ms-transform: translate3d(100px, 0, 0);
+  transform: translate3d(100px, 0, 0);
+}

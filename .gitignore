@@ -81,7 +81,6 @@ node_modules
 public/js/libs
 
 # compiled stylus css file
-public/css/styles.css
 public/css/wc-mixins.css
 public/tile-wide.png
 public/apple-touch-icon.png
