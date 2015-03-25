@@ -3,10 +3,10 @@
 
   camera.service('CameraService', function() {
 
-    var viewAngle = 45;
+    var viewAngle = 50;
     var aspectRatio = window.innerWidth / window.innerHeight;
-    var near = 0.1;
-    var far = 15000;
+    var near = 1;
+    var far = 1000;
 
     return {
       perspectiveCam: new THREE.PerspectiveCamera(viewAngle, aspectRatio, near,

@@ -6,9 +6,7 @@
     ['$timeout', '$mdSidenav', 'ModelService', '$log', '$scope',
      function($timeout,
               $mdSidenav,
-              ModelService,
-              $log,
-              $scope) {
+              ModelService) {
 
        ModelService.addModel();
 
@@ -34,9 +32,8 @@
          ModelService.scale.z = this.scale.z;
        };
 
-
        this.toggle = {
-         rotate: true
+         rotate: false
        }
 
        this.onRotateToggle = function() {

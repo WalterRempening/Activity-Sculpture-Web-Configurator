@@ -39,7 +39,6 @@ body
   background none
 
 .blowit
-  width 100vw
   height 100vh
 
   .container
@@ -221,9 +220,11 @@ md-slider .md-focus-thumb
 *   5. WebGL view
 **************************************/
 three-viewport
-  height 100%
+  height 100vh
+  width 100vw
+  min-width 100%
   min-height 100%
-  width 90%
+  overflow hidden
   margin 0 auto
 
 /**************************************
