@@ -8,7 +8,11 @@
        function canvas(scope, element, attribute) {
          var renderer;
          var controls;
+         var delta;
+         var INV_MAX_FPS = 1 / 60;
          var stats = new Stats();
+         var clock = new THREE.Clock();
+         clock.start();
 
          init();
          animate();
@@ -42,12 +46,21 @@
          }
 
          function animate() {
-           stats.begin();
-           renderer.render(SceneService.scene, CameraService.perspectiveCam);
-           ModelService.update();
-           controls.update();
-           stats.end();
            requestAnimationFrame(animate);
+           stats.begin();
+           render();
+           stats.end();
+         }
+
+         function render() {
+           delta = clock.getDelta();
+           console.log(delta + " : " + INV_MAX_FPS);
+           while (delta >= INV_MAX_FPS) {
+             renderer.render(SceneService.scene, CameraService.perspectiveCam);
+             ModelService.update(INV_MAX_FPS);
+             controls.update(INV_MAX_FPS);
+             delta -= INV_MAX_FPS;
+           }
          }
 
          function onWindowResize() {
@@ -65,7 +78,7 @@
 
        };
 
-       function destroy(){
+       function destroy() {
          SceneService.destroy();
        }
 
@@ -77,5 +90,4 @@
        };
      }]
   );
-
 }());

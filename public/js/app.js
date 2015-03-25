@@ -51,6 +51,7 @@
 
          })
          .state('404', {
+           url:'/404',
            templateUrl: '../views/core/404.html'
          });
      }]

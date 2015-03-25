@@ -30,15 +30,17 @@
       var rotationY = 0;
       var rotationSpeed = 0;
 
-      this.update = function() {
+      this.update = function(delta) {
 
         if (this.rotate) {
-          rotationSpeed += Math.sin(Math.PI/8) * 0.009;
+
+          rotationSpeed = delta * 0.2;
+          //rotationSpeed += Math.sin(Math.PI/8) * 0.009;
         } else {
-          rotationSpeed = rotationSpeed;
+          rotationSpeed = 0;
         }
 
-        rotationY = rotationSpeed;
+        rotationY += rotationSpeed;
         cube.rotation.y = rotationY;
 
         cube.scale.set(this.scale.x, this.scale.y, this.scale.z);
