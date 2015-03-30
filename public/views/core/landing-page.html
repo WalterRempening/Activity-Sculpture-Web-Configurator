@@ -20,19 +20,23 @@
       visualizing
       your activity</p>
 
-    <md-content>
+    <md-content ng-controller="SigninController as sctrl">
       <form role="form" class="login">
         <div layout="column" layout-align="start center">
           <md-input-container flex>
             <label>User Name</label>
-            <input type="text" placeholder="User Name">
+            <input type="text" placeholder="User Name" ng-model="sctrl.name">
           </md-input-container>
           <md-input-container flex>
             <label>Password</label>
-            <input type="password" placeholder="Password">
+            <input type="password" placeholder="Password"
+                   ng-model="sctrl.password">
           </md-input-container>
-          <md-button ui-sref="configurator" flex
-                     class="md-raised md-accent md-hue-3">Sign In
+          <md-button flex  class="md-raised md-accent md-hue-3">Log In
+          </md-button>
+          <md-button ng-click="sctrl.startFlow()" flex
+                     class="md-raised md-warn md-hue-1">Sign in with
+            Withings
           </md-button>
         </div>
       </form>

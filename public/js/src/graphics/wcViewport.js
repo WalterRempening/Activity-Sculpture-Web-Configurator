@@ -18,7 +18,6 @@
          animate();
 
          function init() {
-           console.log("initation called");
            // Add statistics monitor
            stats.setMode(0);
            stats.domElement.style.position = 'absolute';

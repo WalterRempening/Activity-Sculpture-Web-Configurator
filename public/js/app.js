@@ -7,6 +7,7 @@
      'wcApi',
      'wcMenu',
      'wcFooter',
+     'wcSignin',
      'wcViewport',
      'wcScene',
      'wcControlls',
@@ -50,8 +51,19 @@
            templateUrl: '../views/configurator/configurator-page.html'
 
          })
+
+         .state('withings-flow', {
+           url:'/connect/withings/callback',
+           templateUrl: '../views/login/callback.html'
+         })
+
+         .state('withings-callback', {
+           url:'/connect/withings/callback',
+           templateUrl: '../views/login/callback.html'
+         })
+
          .state('404', {
-           url:'/404',
+           url: '/404',
            templateUrl: '../views/core/404.html'
          });
      }]

@@ -1,40 +1,43 @@
-// server.js
-
-// modules =================================================
 var express = require('express');
 var app = express();
+
+var Grant = require('grant-express');
+grant = new Grant(require('./config/settings.json'));
+
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+
+var mongoose = require('mongoose');
+var db = require('./config/db.json');
+
 var path = require('path');
-//var mongoose = require('mongoose');
-//var favicon = require('serve-favicon');
+var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var cors = require('cors');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 
-// configuration ===========================================
-var db = require('./config/db');
 var port = process.env.PORT || 3000;
+mongoose.connect(db.url);
 
-// connect to our mongoDB database
-// don't forget to initialize mongodb first
-//mongoose.connect(db.url);
-
-// get all data/stuff of the body (POST) parameters
-// parse application/json
 app.use(bodyParser.json());
-// parse application/vnd.api+json as json
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
-// select favicon
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-// override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
+app.use(cookieParser());
+app.use(session({
+  name:'grant',
+  secret: 'very secret',
+  saveUninitialized: true,
+  resave: true
+}));
+app.use(grant);
+
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(methodOverride('X-HTTP-Method-Override'));
-// set the static files location /public/img will be /img for users
 app.use(express.static(path.join(__dirname, '/public')));
+
 // start app ===============================================
-// startup our app at http://localhost:8080
 server.listen(port);
 require('./backend-app/routes')(app); // configure our routes
 require('./backend-app/socket-events')(io); // configure socketio events
@@ -42,11 +45,11 @@ require('./backend-app/socket-events')(io); // configure socketio events
 // frontend routes =========================================================
 // route to handle all angular requests
 app.get('*', cors(), function(req, res) {
-    res.sendFile('/public/index.html', {"root" : __dirname });
+  res.sendFile('/public/index.html', {"root": __dirname});
 });
 
 // shoutout to the user
-console.log('Magic happens on port ' + port);
+console.log('Express server listening on port: ' + port);
 
 // expose app
 exports = module.exports = app;

@@ -122,6 +122,7 @@ form.login .md-button {
 }
 form.login .md-button {
   min-height: 50px;
+  margin-bottom: 15px;
 }
 /**************************************
 *   4. 404 error page
