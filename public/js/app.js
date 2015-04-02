@@ -57,10 +57,6 @@
            templateUrl: '../views/login/callback.html'
          })
 
-         .state('withings-callback', {
-           url:'/connect/withings/callback',
-           templateUrl: '../views/login/callback.html'
-         })
 
          .state('404', {
            url: '/404',

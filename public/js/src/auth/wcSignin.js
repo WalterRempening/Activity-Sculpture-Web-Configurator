@@ -5,19 +5,15 @@
 
     this.name = '';
     this.password = '';
-
     this.validate = function() {
-      var data = {
-        name : this.name,
-        password : this.password
-      }
+      $http.get('api/login')
+        .success(function(resData) {
+          console.log(resData);
 
-      $http.post('/api/login', data)
-        .success(function(data) {
 
         })
-        .error(function(data) {
-
+        .error(function(error) {
+          console.log(error);
         });
 
     };
@@ -25,6 +21,7 @@
     this.startFlow = function() {
       // Redirect to withings flow call
       $window.location.href = "http://localhost:3000/connect/withings";
+
     };
   }]);
 })();

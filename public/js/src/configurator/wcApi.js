@@ -2,25 +2,27 @@
   'use strict';
   var wcApi = angular.module('wcApi', []);
 
-  wcApi.controller('ApiDataController',
-    ['SocketFactory', function(SocketFactory) {
 
-      SocketFactory.on('gotYou', function(msg) {
-        console.log(msg);
-      });
-
-      this.test = 'Hello';
-
-      this.sayHi = function() {
-        SocketFactory.emit('gotYou2', 'What up beach');
-      };
-    }]
-  );
 
   wcApi.service('ApiService', ['SocketFactory', function(SocketFactory) {
+
+
+    function getUserData() {
+      SocketFactory.emit('getUserData');
+
+      SocketFactory.on('recieveData', function(responseData) {
+        return responseData;
+      })
+    };
+
+
     this.getData = function() {
       return 0;
     }
+
+    return {
+      getUserData:getUserData()
+    };
 
   }]);
 })();

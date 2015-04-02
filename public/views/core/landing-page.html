@@ -32,10 +32,10 @@
             <input type="password" placeholder="Password"
                    ng-model="sctrl.password">
           </md-input-container>
-          <md-button flex  class="md-raised md-accent md-hue-3">Log In
+          <md-button ng-click="sctrl.validate()" flex class="md-raised md-accent md-hue-3">Log In
           </md-button>
           <md-button ng-click="sctrl.startFlow()" flex
-                     class="md-raised md-warn md-hue-1">Sign in with
+                     class="md-raised md-warn md-hue-2">Sign in with
             Withings
           </md-button>
         </div>
