@@ -45,19 +45,14 @@
              'about@home': {templateUrl: '../views/core/about-partial.html'}
            }
          })
-
          .state('configurator', {
            url: '/config',
            templateUrl: '../views/configurator/configurator-page.html'
-
          })
-
          .state('withings-flow', {
            url:'/connect/withings/callback',
            templateUrl: '../views/login/callback.html'
          })
-
-
          .state('404', {
            url: '/404',
            templateUrl: '../views/core/404.html'

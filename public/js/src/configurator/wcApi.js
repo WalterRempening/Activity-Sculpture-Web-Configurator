@@ -3,7 +3,6 @@
   var wcApi = angular.module('wcApi', []);
 
 
-
   wcApi.service('ApiService', ['SocketFactory', function(SocketFactory) {
 
 
@@ -15,13 +14,12 @@
       })
     };
 
-
     this.getData = function() {
       return 0;
     }
 
     return {
-      getUserData:getUserData()
+      getUserData: getUserData()
     };
 
   }]);

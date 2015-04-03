@@ -16,9 +16,8 @@ var userSchema = new Schema({
   },
   created_at: Date,
   updated_at: Date,
-  data: {
-
-  }
+  activity: {},
+  sleep:{}
 });
 
 userSchema.pre('save', function(next) {

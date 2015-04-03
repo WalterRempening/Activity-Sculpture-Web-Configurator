@@ -9,15 +9,7 @@ module.exports = function(io, WCUser, withings, grant){
 
             WCUser.find({'meta.userid': userid}, function(err, user){
                 if(err) throw err;
-
-
-
-
                 var resdata = user.data;
-
-
-
-
                 socket.emit('recieveData', resdata);
             });
         });
