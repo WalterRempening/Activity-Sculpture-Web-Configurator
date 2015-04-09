@@ -1,22 +1,49 @@
-module.exports = function(io, WCUser, withings, grant){
-    var userid = 6620563;
+var WCUser = require('./models/user');
 
-    io.on('connection', function (socket) {
-        console.log('Connection recieved');
+module.exports = function(io) {
 
-        socket.on('getUserData', function () {
-            console.log('Fetching data for user:');
+  io.on('connection', function(socket) {
+    console.log('Connection recieved');
 
-            WCUser.find({'meta.userid': userid}, function(err, user){
-                if(err) throw err;
-                var resdata = user.data;
-                socket.emit('recieveData', resdata);
-            });
-        });
+    socket.on('get:user:activty', function(userid) {
+      console.log('Searching data for user:' + userid);
 
+      WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
+        if (err) throw err;
+        var resdata = dbuser.activity;
 
+        console.log('Sending data');
+        console.log(resdata);
+        socket.emit('recieve:user:activty', resdata);
+      });
     });
 
+    socket.on('get:user:sleep', function(userid) {
+      console.log('Searching data for user:' + userid);
 
+      WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
+        if (err) throw err;
+        var resdata = dbuser.sleep;
+
+        console.log('Sending data');
+        console.log(resdata);
+        socket.emit('recieve:user:sleep', resdata);
+      });
+    });
+
+    socket.on('get:user:body:metrics', function(userid) {
+      console.log('Searching data for user:' + userid);
+
+      WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
+        if (err) throw err;
+        var resdata = dbuser.body;
+
+        console.log('Sending data');
+        console.log(resdata);
+        socket.emit('recieve:user:body:metrics', resdata);
+      });
+    });
+
+  });
 };
 

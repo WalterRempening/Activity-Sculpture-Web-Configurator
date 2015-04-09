@@ -20,12 +20,11 @@
       visualizing
       your activity</p>
 
-    <md-content ng-controller="SigninController as sctrl">
+    <md-content ng-controller="OauthController as auth">
       <form role="form" class="login">
         <div layout="column" layout-align="start center">
-          <md-button ng-click="sctrl.startFlow()" flex
-                     class="md-raised md-accent md-hue-3">Sign in with
-            Withings
+          <md-button ng-click="auth.startFlow()" flex
+                     class="md-raised md-accent md-hue-3">Sign in with Withings
           </md-button>
         </div>
       </form>
@@ -33,8 +32,8 @@
   </div>
 </md-content>
 
-<!--Tutorial Section-->
 <!--About Section-->
 <div ui-view="about"></div>
+<!--Tutorial Section-->
 <div ui-view="tutorial"></div>
 <dwc-footer></dwc-footer>

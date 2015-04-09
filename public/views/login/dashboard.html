@@ -1,0 +1,15 @@
+<md-toolbar role="navigation">
+  <nav layout="row" class="md-toolbar-tools">
+    <h3><a class="navbar-brand" ui-sref="home">Web Configurator</a></h3>
+  </nav>
+</md-toolbar>
+<md-content class="md-padding" ng-controller="DasshboardController as dctrl">
+  <div class="container">
+    <h1>{{dctrl.user}}, welcome back!</h1>
+    <div ng-repeat="day in dctrl.activity">
+      Date: {{day.date}}
+      Distance: {{day.distance}}
+      Steps: {{day.steps}}m
+    </div>
+  </div>
+</md-content>

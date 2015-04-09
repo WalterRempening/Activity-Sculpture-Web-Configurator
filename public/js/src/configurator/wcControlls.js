@@ -2,16 +2,8 @@
   'use strict';
   var controlls = angular.module('wcControlls', []);
 
-  controlls.controller('DataController', ['ApiService', function(ApiService) {
-    this.hello = "hello dawg!";
-
-    this.token = function() {
-     return $window.sessionStorage;
-    };
-  }])
-
   controlls.controller('LeftController',
-    ['$timeout', '$mdSidenav', 'ModelService', '$log', '$scope',
+    ['$timeout', '$mdSidenav', 'ModelService', '$log',
      function($timeout,
               $mdSidenav,
               ModelService) {

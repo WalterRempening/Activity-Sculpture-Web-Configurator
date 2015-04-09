@@ -43,7 +43,6 @@
       this.update = function(delta) {
 
         if (this.rotate) {
-
           rotationSpeed = delta * 0.2;
           //rotationSpeed += Math.sin(Math.PI/8) * 0.009;
         }

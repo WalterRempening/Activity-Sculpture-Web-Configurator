@@ -1,26 +1,28 @@
 (function() {
   'use strict';
   var app = angular.module('MainApp',
-    ['ui.router',
-     'ngAnimate',
+    ['ngAnimate',
      'ngMaterial',
+     'ui.router',
      'wcApi',
-     'wcMenu',
+     'wcLander',
      'wcFooter',
-     'wcSignin',
-     'wcViewport',
-     'wcScene',
      'wcControlls',
+     'wcDashboard',
+     'wcScene',
+     'wcCamera',
      'wcModel',
-     'wcCamera']
+     'wcViewport']
   );
 
   app.config(
     ['$stateProvider',
      '$urlRouterProvider',
+     '$urlMatcherFactoryProvider',
      '$mdThemingProvider',
      function($stateProvider,
               $urlRouterProvider,
+              $urlMatcherFactoryProvider,
               $mdThemingProvider) {
 
        $mdThemingProvider.theme('default')
@@ -36,22 +38,21 @@
          }
        );
 
-       $stateProvider
-         .state('home', {
-           url: '/',
-           views: {
-             '': {templateUrl: '../views/core/landing-page.html'},
-             'tutorial@home': {templateUrl: '../views/core/tutorial-partial.html'},
-             'about@home': {templateUrl: '../views/core/about-partial.html'}
-           }
-         })
+       $stateProvider.state('home', {
+         url: '/',
+         views: {
+           '': {templateUrl: '../views/core/landing-page.html'},
+           'tutorial@home': {templateUrl: '../views/core/tutorial-partial.html'},
+           'about@home': {templateUrl: '../views/core/about-partial.html'}
+         }
+       })
          .state('configurator', {
            url: '/config',
            templateUrl: '../views/configurator/configurator-page.html'
          })
          .state('withings-flow', {
-           url:'/connect/withings/callback',
-           templateUrl: '../views/login/callback.html'
+           url: '/user/{userid}',
+           templateUrl: '../views/login/dashboard.html'
          })
          .state('404', {
            url: '/404',
@@ -61,5 +62,3 @@
   );
 
 })();
-
-

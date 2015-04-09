@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-// define our nerd model
-// module.exports allows us to pass this to other files when it is called
+
 var userSchema = new Schema({
   name: String,
   username: {type: String, unique: true},
@@ -16,6 +15,7 @@ var userSchema = new Schema({
   },
   created_at: Date,
   updated_at: Date,
+  body: {},
   activity: {},
   sleep:{}
 });
