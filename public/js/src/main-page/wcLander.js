@@ -1,6 +1,7 @@
 (function() {
   'use strict';
   var lander = angular.module('wcLander', []);
+
   lander.controller('MenuController', function() {
     this.nav = {
       main: [{

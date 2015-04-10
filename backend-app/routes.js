@@ -2,6 +2,9 @@ var request = require('request');
 var wApi = require('./withingsApi');
 var WCUser = require('./models/user');
 var today = new Date(Date.now()).toISOString().slice(0, 10);
+var utc = today.split('-');
+var utctoday = Date.UTC(utc[0], utc[1], utc[2]) / 1000;
+var session;
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -12,9 +15,9 @@ module.exports = function(app) {
   });
 
   app.get('/withings_callback', function(req, res, next) {
-    console.log('')
-    console.log(req);
-
+    console.log('Withings callback');
+    session = req.session;
+    session.auth = req.query;
     WCUser.findOne({
       "meta.userid": req.query.raw.userid
     }, function(err, dbuser) {
@@ -43,21 +46,21 @@ module.exports = function(app) {
         });
       }
     });
-
     res.redirect('/#/user/' + req.query.raw.userid);
-
+    res.end();
   });
 
   app.get("/api/user/:id/data/activity", function(req, res, next) {
-    var userid = req.params.id;
     var activities;
+    var userid = session.auth.raw.userid;
     var options = {
       userid: userid,
       enddate: today,
-      access_token: req.query.access_token,
-      access_secret: req.query.access_secret
+      access_token: session.auth.access_token,
+      access_secret: session.auth.access_secret
     };
 
+    console.log(queryUrl);
     var queryUrl = wApi.activityQuery(options);
     request(queryUrl, function(err, res, body) {
       if (err) throw err;
@@ -73,28 +76,28 @@ module.exports = function(app) {
           if (err) throw err;
         });
       });
-
     });
-
+    res.end();
   });
 
   app.get("/api/user/:id/data/sleep", function(req, res, next) {
-    var userid = req.params.id;
     var sleepSum;
+    var userid = session.auth.raw.userid;
     var options = {
       userid: userid,
       enddate: today,
-      access_token: req.query.access_token,
-      access_secret: req.query.access_secret
+      access_token: session.auth.access_token,
+      access_secret: session.auth.access_secret
     };
 
+    console.log(queryUrl);
     var queryUrl = wApi.sleepSummaryQuery(options);
     request(queryUrl, function(err, res, body) {
       if (err) throw err;
 
       var jbody = JSON.parse(body);
-      console.log(jbody.body.activities);
-      sleepSum = sortByDate(jbody.body.activities);
+      console.log(jbody.body.series);
+      sleepSum = sortByDate(jbody.body.series);
 
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
@@ -103,38 +106,42 @@ module.exports = function(app) {
           if (err) throw err;
         });
       });
-
     });
+
+    res.end();
   });
 
   app.get("/api/user/:id/data/body", function(req, res, next) {
-    var userid = req.params.id;
-    var body;
+    var bodymes;
+    var userid = session.auth.raw.userid;
     var options = {
       userid: userid,
-      enddate: today,
-      access_token: req.query.access_token,
-      access_secret: req.query.access_secret
+      enddate: utctoday,
+      access_token: session.auth.access_token,
+      access_secret: session.auth.access_secret
     };
 
     var queryUrl = wApi.bodyQuery(options);
+    console.log(queryUrl);
     request(queryUrl, function(err, res, body) {
       if (err) throw err;
-
       var jbody = JSON.parse(body);
-      console.log(jbody.body.activities);
-      body = sortByDate(jbody.body.activities);
-
+      console.log(jbody);
+      bodymes = sortByDate(jbody.body.measuregrps);
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
-        dbuser.body = body;
+        dbuser.body = bodymes;
         dbuser.save(function(err) {
           if (err) throw err;
         });
       });
     });
+
+    res.end();
   });
+
 };
+
 
 function sortByDate(data) {
   for (var i = 1; i < data.length; i++) {

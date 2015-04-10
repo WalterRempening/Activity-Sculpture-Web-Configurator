@@ -4,7 +4,6 @@
     ['ngAnimate',
      'ngMaterial',
      'ui.router',
-     'wcApi',
      'wcLander',
      'wcFooter',
      'wcControlls',
