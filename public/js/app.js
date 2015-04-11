@@ -50,16 +50,14 @@
            url: '/config/{userid}',
            templateUrl: '../views/configurator/configurator-page.html'
          })
-         .state('withings-flow', {
+         .state('dashboard', {
            url: '/user/{userid}',
-           templateUrl: '../views/dashboard/dashboard.html',
+           templateUrl: '../views/dashboard/dashboard.html'
          })
          .state('404', {
            url: '/404',
            templateUrl: '../views/core/404.html'
          });
 
-     }]
-  );
-
+     }]);
 })();

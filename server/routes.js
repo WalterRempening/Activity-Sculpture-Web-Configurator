@@ -5,9 +5,8 @@ var WCUser = require('./models/user');
 var today = new Date(Date.now()).toISOString().slice(0, 10);
 var utc = today.split('-');
 var utctoday = Date.UTC(utc[0], utc[1], utc[2]) / 1000;
-var session;
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
   app.use(function(req, res, next) {
     res.header("Accress-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers",
@@ -15,57 +14,32 @@ module.exports = function(app) {
     next();
   });
 
-  app.get('/withings_callback', function(req, res, next) {
-    console.log(req);
-    console.log('Withings callback');
-    session = req.session;
-    session.auth = req.query;
-
-    WCUser.findOne({
-      "meta.userid": req.query.raw.userid
-    }, function(err, dbuser) {
-      if (err) {
-        throw err;
-        res.redirect('/');
-      }
-
-      if (!dbuser) {
-        console.log("User not found, creating new user")
-        WCUser.create({
-          oauth: {
-            token: req.query.access_token,
-            token_secret: req.query.access_secret
-          },
-          meta: {
-            userid: req.query.raw.userid,
-            deviceid: req.query.raw.deviceid
-          }
-        }, function(err, user) {
-          if (err) {
-            throw err;
-          }
-          console.log(user);
-        });
-
-      } else {
-        dbuser.save(function(err) {
-          if (err) throw err;
-          console.log('Updated dbuser');
-        });
-      }
+  app.get('/auth/withings', passport.authenticate('withings'),
+    function(req, res, next) {
+      console.log("Withings flow called");
     });
-    res.redirect('/#/user/' + req.query.raw.userid);
-    res.end();
-  });
+
+  app.get('/auth/withings/callback', passport.authenticate('withings',
+      {
+        failureRedirect: '/'
+      }),
+    function(req, res, next) {
+      //session = req.session;
+      //session.auth = req.query;
+
+      console.log(req);
+      res.redirect('/#/user/' + req.user.id);
+    }
+  );
 
   app.get("/api/user/:id/data/activity", function(req, res, next) {
     var activities;
-    var userid = session.auth.raw.userid;
+    var userid = req.user.id;
     var options = {
       userid: userid,
       enddate: today,
-      access_token: session.auth.access_token,
-      access_secret: session.auth.access_secret
+      access_token: req.user.token,
+      access_secret: req.user.secret
     };
 
     console.log(queryUrl);
@@ -90,12 +64,12 @@ module.exports = function(app) {
 
   app.get("/api/user/:id/data/sleep", function(req, res, next) {
     var sleepSum;
-    var userid = session.auth.raw.userid;
+    var userid = req.user.id;
     var options = {
       userid: userid,
       enddate: today,
-      access_token: session.auth.access_token,
-      access_secret: session.auth.access_secret
+      access_token: req.user.token,
+      access_secret: req.user.secret
     };
 
     console.log(queryUrl);
@@ -121,12 +95,12 @@ module.exports = function(app) {
 
   app.get("/api/user/:id/data/body", function(req, res, next) {
     var bodymes;
-    var userid = session.auth.raw.userid;
+    var userid = req.user.id;
     var options = {
       userid: userid,
       enddate: utctoday,
-      access_token: session.auth.access_token,
-      access_secret: session.auth.access_secret
+      access_token: req.user.token,
+      access_secret: req.user.secret
     };
 
     var queryUrl = wApi.bodyQuery(options);

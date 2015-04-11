@@ -16,7 +16,7 @@
 
   lander.controller('OauthController', ['$window', function($window) {
     this.startFlow = function() {
-      $window.location.href = "http://localhost:3000/connect/withings";
+      $window.location.href = "/auth/withings";
     };
   }]);
 
