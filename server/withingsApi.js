@@ -72,9 +72,24 @@ function sleepQuery(options) {
   });
 }
 
+function userQuery(options) {
+  return withings.generateUrl({
+    url: "http://wbsapi.withings.net/user",
+    parameters: {
+      action: "getbyuserid",
+      userid: options.userid,
+    },
+    consumer_key: settings.withings.key,
+    consumer_secret: settings.withings.secret,
+    access_token: options.access_token,
+    access_token_secret: options.access_secret
+  });
+}
+
 module.exports = {
   activityQuery: activityQuery,
   sleepSummaryQuery: sleepSummaryQuery,
   sleepQuery: sleepQuery,
-  bodyQuery: bodyQuery
+  bodyQuery: bodyQuery,
+  userQuery: userQuery
 };

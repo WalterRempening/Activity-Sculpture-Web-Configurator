@@ -31,6 +31,15 @@
 
          });
 
+       $http.get("/api/user/" + $scope.user + "/data/profile")
+         .success(function(data, status, headers, config) {
+           SocketFactory.emit('get:user:profile', $scope.user);
+           console.log('get user data');
+         })
+         .error(function(data, status, headers, config) {
+
+         });
+
        SocketFactory.on('recieve:user:activity', function(responseData) {
          console.log('recieve user activity' + responseData);
          $scope.activity = responseData;
@@ -44,6 +53,11 @@
        SocketFactory.on('recieve:user:body', function(responseData) {
          console.log('recieve user body' + responseData);
          $scope.body = responseData;
+       });
+
+       SocketFactory.on('recieve:user:profile', function(responseData) {
+         console.log('recieve user' + responseData);
+         $scope.profile = responseData;
        });
 
      }]);

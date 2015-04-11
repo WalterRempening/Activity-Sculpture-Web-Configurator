@@ -19,10 +19,12 @@
     ['$stateProvider',
      '$urlRouterProvider',
      '$urlMatcherFactoryProvider',
+     '$httpProvider',
      '$mdThemingProvider',
      function($stateProvider,
               $urlRouterProvider,
               $urlMatcherFactoryProvider,
+              $httpProvider,
               $mdThemingProvider) {
 
        $mdThemingProvider.theme('default')
@@ -58,6 +60,17 @@
            url: '/404',
            templateUrl: '../views/core/404.html'
          });
+
+       $httpProvider.interceptors.push(function($q, $location) {
+         return {
+           'responseError': function(response) {
+             if(response.status === 401 || response.status === 403) {
+               $location.path('/');
+             }
+             return $q.reject(response);
+           }
+         };
+       });
 
      }]);
 })();

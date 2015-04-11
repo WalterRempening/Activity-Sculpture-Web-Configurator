@@ -5,8 +5,10 @@
 </md-toolbar>
 <md-content class="md-padding" ng-controller="DashboardController">
   <div class="container">
-    <h1>{{user}}, welcome back!</h1>
-
+    <h1>Welcome back {{profile.name}}!</h1>
+    <md-button class="md-raised" ng-click="getUserData()">
+      Get User Data
+    </md-button>
     <div layout="row">
       <div flex>
 
