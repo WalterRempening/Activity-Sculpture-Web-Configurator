@@ -1,12 +1,13 @@
 (function() {
   'use sctrict';
-  
   var dashboard = angular.module('wcDashboard', []);
+
   dashboard.controller('DashboardController',
     ['$http', '$location', '$scope', 'SocketFactory',
      function($http, $location, $scope, SocketFactory) {
       
        $scope.user = $location.url().split('/')[2];
+
        $http.get("/api/user/" + $scope.user + "/data/activity")
          .success(function(data, status, headers, config) {
            SocketFactory.emit('get:user:activity', $scope.user);

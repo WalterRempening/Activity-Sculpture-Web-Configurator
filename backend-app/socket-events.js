@@ -13,7 +13,7 @@ module.exports = function(io) {
         var resdata = dbuser.activity;
 
         console.log('Sending activity data');
-        //console.log(resdata);
+        console.log(resdata);
         socket.emit('recieve:user:activity', resdata);
       });
     });

@@ -10,6 +10,7 @@
      'wcDashboard',
      'wcScene',
      'wcCamera',
+     'wcSocket',
      'wcModel',
      'wcViewport']
   );
@@ -46,17 +47,18 @@
          }
        })
          .state('configurator', {
-           url: '/config',
+           url: '/config/{userid}',
            templateUrl: '../views/configurator/configurator-page.html'
          })
          .state('withings-flow', {
            url: '/user/{userid}',
-           templateUrl: '../views/login/dashboard.html'
+           templateUrl: '../views/dashboard/dashboard.html',
          })
          .state('404', {
            url: '/404',
            templateUrl: '../views/core/404.html'
          });
+
      }]
   );
 

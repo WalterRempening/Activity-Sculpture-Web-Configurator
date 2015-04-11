@@ -1,8 +1,9 @@
 (function() {
-  var model = angular.module('wcModel', ['wcSocket']);
+  'use strict';
+  var model = angular.module('wcModel', []);
 
   model.service('ModelService',
-    ['SceneService', 'ApiService', function(SceneService, ApiService) {
+    ['SceneService', 'SocketFactory', function(SceneService, SocketFactory) {
 
       var cmaterial = new THREE.MeshPhongMaterial({
         shading: THREE.SmoothShading,

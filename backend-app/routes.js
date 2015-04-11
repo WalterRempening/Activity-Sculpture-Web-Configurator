@@ -1,6 +1,7 @@
 var request = require('request');
 var wApi = require('./withingsApi');
 var WCUser = require('./models/user');
+
 var today = new Date(Date.now()).toISOString().slice(0, 10);
 var utc = today.split('-');
 var utctoday = Date.UTC(utc[0], utc[1], utc[2]) / 1000;
@@ -15,21 +16,20 @@ module.exports = function(app) {
   });
 
   app.get('/withings_callback', function(req, res, next) {
+    console.log(req);
     console.log('Withings callback');
     session = req.session;
     session.auth = req.query;
+
     WCUser.findOne({
       "meta.userid": req.query.raw.userid
     }, function(err, dbuser) {
-      if (err) throw err;
+      if (err) {
+        throw err;
+        res.redirect('/');
+      }
 
-      if (dbuser.length !== 0) {
-        dbuser.save(function(err) {
-          if (err) throw err;
-          console.log('Updated dbuser');
-        });
-
-      } else {
+      if (!dbuser) {
         console.log("User not found, creating new user")
         WCUser.create({
           oauth: {
@@ -41,8 +41,16 @@ module.exports = function(app) {
             deviceid: req.query.raw.deviceid
           }
         }, function(err, user) {
-          if (err) throw err;
+          if (err) {
+            throw err;
+          }
           console.log(user);
+        });
+
+      } else {
+        dbuser.save(function(err) {
+          if (err) throw err;
+          console.log('Updated dbuser');
         });
       }
     });
@@ -139,9 +147,7 @@ module.exports = function(app) {
 
     res.end();
   });
-
 };
-
 
 function sortByDate(data) {
   for (var i = 1; i < data.length; i++) {
