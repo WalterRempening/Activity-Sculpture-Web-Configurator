@@ -77,7 +77,7 @@ function userQuery(options) {
     url: "http://wbsapi.withings.net/user",
     parameters: {
       action: "getbyuserid",
-      userid: options.userid,
+      userid: options.userid
     },
     consumer_key: settings.withings.key,
     consumer_secret: settings.withings.secret,

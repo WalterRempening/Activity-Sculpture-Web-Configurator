@@ -89,7 +89,8 @@ passport.deserializeUser(function(id, done) {
     done(err, {
       id: user.meta.userid,
       token: user.oauth.token,
-      secret: user.oauth.token_secret
+      secret: user.oauth.token_secret,
+      logged: true
     });
   });
 });
@@ -102,6 +103,11 @@ require('./server/socket-events')(io); // configure socketio events
 // frontend routes =========================================================
 // route to handle all angular requests
 app.get('*', function(req, res) {
+  console.log(req.user);
+  if(!req.user || req.user.logged == 'undefined'){
+    res.user.logged = false;
+    console.log(res.user);
+  }
   res.sendFile('/public/index.html', {"root": __dirname});
 });
 

@@ -25,7 +25,7 @@ module.exports = function(io) {
         if (err) throw err;
         var resdata = dbuser.sleep;
 
-        console.log('Sending sleep data');;
+        console.log('Sending sleep data');
         //console.log(resdata);
         socket.emit('recieve:user:sleep', resdata);
       });

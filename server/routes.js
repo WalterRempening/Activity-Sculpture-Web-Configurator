@@ -7,9 +7,9 @@ var utc = today.split('-');
 var utctoday = Date.UTC(utc[0], utc[1], utc[2]) / 1000;
 
 function ensureAuthorized(req, res, next) {
-  if (!req.user) {
+  if (!req.user || req.user.logged === 'undefined') {
     res.sendStatus(403);
-    return ;
+    return;
   } else {
     return next();
   }
@@ -62,11 +62,14 @@ module.exports = function(app, passport) {
 
       console.log(queryUrl);
       var queryUrl = wApi.activityQuery(options);
-      request(queryUrl, function(err, res, body) {
-        if (err) throw err;
+      request(queryUrl, function(err, wres, body) {
+        if (err) {
+          throw err;
+          res.sendStatus(500);
+        }
 
         var jbody = JSON.parse(body);
-        console.log(jbody.body.activities);
+        //console.log(jbody.body.activities);
         activities = sortByDate(jbody.body.activities);
 
         WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
@@ -74,10 +77,10 @@ module.exports = function(app, passport) {
           dbuser.activity = activities;
           dbuser.save(function(err) {
             if (err) throw err;
+            res.end();
           });
         });
       });
-      res.end();
     });
 
   app.get("/api/user/:id/data/sleep", ensureAuthorized,
@@ -93,11 +96,14 @@ module.exports = function(app, passport) {
 
       console.log(queryUrl);
       var queryUrl = wApi.sleepSummaryQuery(options);
-      request(queryUrl, function(err, res, body) {
-        if (err) throw err;
+      request(queryUrl, function(err, wres, body) {
+        if (err) {
+          res.sendStatus(500);
+          throw err;
+        }
 
         var jbody = JSON.parse(body);
-        console.log(jbody.body.series);
+        //console.log(jbody.body.series);
         sleepSum = sortByDate(jbody.body.series);
 
         WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
@@ -105,11 +111,10 @@ module.exports = function(app, passport) {
           dbuser.sleep = sleepSum;
           dbuser.save(function(err) {
             if (err) throw err;
+            res.end();
           });
         });
       });
-
-      res.end();
     });
 
   app.get("/api/user/:id/data/body", ensureAuthorized,
@@ -125,8 +130,11 @@ module.exports = function(app, passport) {
 
       var queryUrl = wApi.bodyQuery(options);
       console.log(queryUrl);
-      request(queryUrl, function(err, res, body) {
-        if (err) throw err;
+      request(queryUrl, function(err, wres, body) {
+        if (err) {
+          res.sendStatus(500);
+          throw err;
+        }
         var jbody = JSON.parse(body);
         console.log(jbody);
         bodymes = sortByDate(jbody.body.measuregrps);
@@ -135,11 +143,10 @@ module.exports = function(app, passport) {
           dbuser.body = bodymes;
           dbuser.save(function(err) {
             if (err) throw err;
+            res.end();
           });
         });
       });
-
-      res.end();
     });
 
   app.get("/api/user/:id/data/profile", ensureAuthorized,
@@ -154,8 +161,11 @@ module.exports = function(app, passport) {
 
       var queryUrl = wApi.userQuery(options);
       console.log(queryUrl);
-      request(queryUrl, function(err, res, body) {
-        if (err) throw err;
+      request(queryUrl, function(err, wres, body) {
+        if (err) {
+          res.sendStatus(500);
+          throw err;
+        }
         var jbody = JSON.parse(body);
         console.log(jbody);
         profile = jbody.body.users[0];
@@ -168,10 +178,9 @@ module.exports = function(app, passport) {
 
           dbuser.save(function(err) {
             if (err) throw err;
+            res.end();
           });
         });
       });
-
-      res.end();
     });
 };

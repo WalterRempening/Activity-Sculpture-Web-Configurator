@@ -1,76 +1,79 @@
-(function() {
-  'use strict';
-  var app = angular.module('MainApp',
-    ['ngAnimate',
-     'ngMaterial',
-     'ui.router',
-     'wcLander',
-     'wcFooter',
-     'wcControlls',
-     'wcDashboard',
-     'wcScene',
-     'wcCamera',
-     'wcSocket',
-     'wcModel',
-     'wcViewport']
-  );
+'use strict';
+var app = angular.module('MainApp',
+  ['ngAnimate',
+   'ngMaterial',
+   'ngCookies',
+   'ui.router',
+   'nvd3ChartDirectives',
+   'wcLander',
+   'wcFooter',
+   'wcControlls',
+   'wcDashboard',
+   'wcScene',
+   'wcCamera',
+   'wcSocket',
+   'wcModel',
+   'wcViewport']
+);
 
-  app.config(
-    ['$stateProvider',
-     '$urlRouterProvider',
-     '$urlMatcherFactoryProvider',
-     '$httpProvider',
-     '$mdThemingProvider',
-     function($stateProvider,
-              $urlRouterProvider,
-              $urlMatcherFactoryProvider,
-              $httpProvider,
-              $mdThemingProvider) {
+app.config(
+  ['$stateProvider',
+   '$urlRouterProvider',
+   '$urlMatcherFactoryProvider',
+   '$httpProvider',
+   '$mdThemingProvider',
+   function($stateProvider,
+            $urlRouterProvider,
+            $urlMatcherFactoryProvider,
+            $httpProvider,
+            $mdThemingProvider) {
 
-       $mdThemingProvider.theme('default')
-         .primaryPalette('blue')
-         .accentPalette('yellow')
-         .warnPalette('pink')
-         .backgroundPalette('grey');
+     $mdThemingProvider.theme('default')
+       .primaryPalette('blue')
+       .accentPalette('yellow')
+       .warnPalette('pink')
+       .backgroundPalette('grey');
 
-       $urlRouterProvider.otherwise(function($injector, $location) {
-           var state = $injector.get('$state');
-           state.go('home');
-           return $location.path();
-         }
-       );
+     $urlRouterProvider.otherwise(function($injector, $location) {
+         var state = $injector.get('$state');
+         state.go('home');
+         return $location.path();
+       }
+     );
 
-       $stateProvider.state('home', {
-         url: '/',
-         views: {
-           '': {templateUrl: '../views/core/landing-page.html'},
-           'tutorial@home': {templateUrl: '../views/core/tutorial-partial.html'},
-           'about@home': {templateUrl: '../views/core/about-partial.html'}
-         }
-       })
-         .state('configurator', {
-           url: '/config/{userid}',
-           templateUrl: '../views/configurator/configurator-page.html'
-         })
-         .state('dashboard', {
-           url: '/user/{userid}',
-           templateUrl: '../views/dashboard/dashboard.html'
-         })
-         .state('404', {
-           url: '/404',
-           templateUrl: '../views/core/404.html'
-         });
+     // Public routes
+     $stateProvider.state('home', {
+       url: '/',
+       views: {
+         '': {templateUrl: '../views/core/landing-page.html'},
+         'tutorial@home': {templateUrl: '../views/core/tutorial-partial.html'},
+         'about@home': {templateUrl: '../views/core/about-partial.html'}
+       }
+     }).state('404', {
+       url: '/404',
+       templateUrl: '../views/core/404.html'
+     });
 
-       $httpProvider.interceptors.push(function($q, $location) {
-         return {
-           'responseError': function(response) {
-             if(response.status === 401 || response.status === 403) {
-               $location.path('/');
-             }
-             return $q.reject(response);
-           }
-         };
+     // User routes
+     $stateProvider.state('configurator', {
+       url: '/config/{userid}',
+       templateUrl: '../views/configurator/configurator-page.html'
+     })
+       .state('dashboard', {
+         url: '/user/{userid}',
+         templateUrl: '../views/dashboard/dashboard.html',
+         controller: 'DashboardController'
        });
 
-     }]);
-})();
+
+     $httpProvider.interceptors.push(function($q, $location) {
+       return {
+         'responseError': function(response) {
+           if (response.status === 401 || response.status === 403) {
+             $location.path('/');
+           }
+           return $q.reject(response);
+         }
+       };
+     });
+   }]);
