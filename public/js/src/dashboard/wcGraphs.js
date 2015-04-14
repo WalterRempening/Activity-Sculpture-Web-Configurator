@@ -131,7 +131,10 @@ angular.module('wcGraphs', [])
         yAxis: {
           "axisLabel": "Duration (min)",
           tickFormat: function(d) {
-            return d3.format(',.0f' + 'min')(d/60)
+            var hours = Math.floor(d / 3600);
+            d %= 3600;
+            var minutes = Math.floor(d / 60);
+            return hours+"h, " + minutes+"min";
           }
         }
       }
