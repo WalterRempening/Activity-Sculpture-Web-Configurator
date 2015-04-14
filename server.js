@@ -62,9 +62,9 @@ passport.use(new WithingsStrategy({
         }, function(err, newuser) {
           if (err) throw err;
           return done(err, {
-            id: user.meta.userid,
-            token: user.oauth.token,
-            secret: user.oauth.token_secret
+            id: newuser.meta.userid,
+            token: newuser.oauth.token,
+            secret: newuser.oauth.token_secret
           });
         });
       } else {
