@@ -1,71 +1,44 @@
 <md-toolbar role="navigation">
-  <nav layout="row" class="md-toolbar-tools">
+  <nav layout="row" class="md-toolbar-tools"
+       layout-align="space-between center">
     <h3><a class="navbar-brand">Dashboard</a></h3>
+
+    <h3 id="user_name">Hello, {{profile.name}}</h3>
   </nav>
   <md-progress-linear ng-hide='showProgress()' class="md-accent md-hue-3"
                       md-mode="indeterminate" value="33"></md-progress-linear>
 </md-toolbar>
 <md-content class="md-padding">
-
-  <div class="container" ng-show="showProgress()">
-    <h1>Welcome back {{profile.name}}!</h1>
-
+  <div class="container"
+       ng-class="showProgress() ? 'show-dash' : 'hide-dash'">
     <div layout="row">
       <div flex>
         <h2>Activity Intensity</h2>
-        <nvd3-multi-bar-chart
-          data="intensity"
-          id="intensityGraph"
-          height="500"
-          xAxisTickFormat ="xAxisTickFormatFunction()"
-          showXAxis="true"
-          showYAxis="true"
-          isArea="true"
-          tooltips="true"
-          showlegend="true"
-          stacked = "true"
-          xAxisRotateLabels="-70"
-          interactive="true">
-          <svg></svg>
-        </nvd3-multi-bar-chart>
+        <nvd3 options="options" api="chart1" data="graph.intensity"></nvd3>
       </div>
     </div>
     <div layout="row">
       <div flex>
         <h2>Step Count & Distance</h2>
-        <nvd3-multi-bar-chart
-          data="steps"
-          id="stepsGraph"
-          height="500"
-          xAxisTickFormat ="xAxisTickFormatFunction()"
-          showXAxis="true"
-          showYAxis="true"
-          isArea="true"
-          tooltips="true"
-          stacked="true"
-          showlegend="true"
-          xAxisRotateLabels="-70"
-          interactive="true">
-          <svg></svg>
-        </nvd3-multi-bar-chart>
+        <nvd3 options="options" api="chart2" data="graph.steps"></nvd3>
       </div>
       <div flex>
         <h2>Elevation</h2>
-        <nvd3-multi-bar-chart
-          data="elevation"
-          id="activityGraph"
-          height="500"
-          xAxisTickFormat ="xAxisTickFormatFunction()"
-          showXAxis="true"
-          showYAxis="true"
-          isArea="true"
-          tooltips="true"
-          xAxisRotateLabels="-70"
-          showlegend="true"
-          interactive="true">
-          <svg></svg>
-        </nvd3-multi-bar-chart>
+        <nvd3 options="options" data="graph.elevation" api="chart3"></nvd3>
       </div>
     </div>
+    <div layout="row">
+      <div flex>
+        <h2>Sleep Summary</h2>
+        <nvd3 options="options" data="graph.sleepDepth" api="chart4"></nvd3>
+      </div>
+    </div>
+    <div layout="row">
+      <div flex>
+        <h2>Wakeup Summary</h2>
+        <nvd3 options="options" data="graph.wakeup" api="chart5"></nvd3>
+      </div>
+    </div>
+  </div>
   </div>
 </md-content>

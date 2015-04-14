@@ -15,6 +15,25 @@ function ensureAuthorized(req, res, next) {
   }
 }
 
+function cleanUpDates(data) {
+  var cleanData = [];
+
+  for (var k = 0; k < data.length; k++) {
+    var currentDate = Date.parse(data[k].date);
+    console.log(currentDate);
+    if(k < data.length-1) {
+      if (currentDate !== Date.parse(data[k + 1].date)) {
+        cleanData.push(data[k]);
+      }
+    }else{
+      cleanData.push(data[k]);
+    }
+
+  }
+  console.log(cleanData);
+  return cleanData;
+}
+
 function sortByDate(data) {
   for (var i = 1; i < data.length; i++) {
     var temp = data[i];
@@ -103,9 +122,10 @@ module.exports = function(app, passport) {
         }
 
         var jbody = JSON.parse(body);
-        //console.log(jbody.body.series);
-        sleepSum = sortByDate(jbody.body.series);
-
+        console.log(jbody.body.series);
+        var sortedData = sortByDate(jbody.body.series);
+        sleepSum = cleanUpDates(sortedData);
+        console.log(sleepSum);
         WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
           if (err) throw err;
           dbuser.sleep = sleepSum;

@@ -5,6 +5,48 @@ angular.module('wcDashboard', [])
    function($http, $location, $scope, SocketFactory, $mdDialog) {
      $scope.user = $location.url().split('/')[2];
      $scope.progress = 0;
+     function refreshCharts() {
+       setTimeout(function() {
+         $scope.chart1.refresh();
+         $scope.chart2.refresh();
+         $scope.chart3.refresh();
+         $scope.chart4.refresh();
+         $scope.chart5.refresh();
+       }, 600);
+     }
+
+     $scope.graph = {};
+     $scope.options = {
+       chart: {
+         type: 'multiBarChart',
+         height: 450,
+         margin: {
+           top: 20,
+           right: 20,
+           bottom: 60
+         },
+         x: function(d) {
+           return d[0];
+         },
+         y: function(d) {
+           return d[1];
+         },
+         useVoronoi: false,
+         clipEdge: true,
+         transitionDuration: 500,
+         useInteractiveGuideline: true,
+         xAxis: {
+           showMaxMin: false,
+           tickFormat: function(d) {
+             return d3.time.format('%e/%m/%y')(new Date(d))
+           }
+         },
+         yAxis: {
+           "axisLabel": "Duration (s)"
+         }
+       }
+     };
+
      $scope.showProgress = function() {
        if ($scope.progress === 4) {
          return true;
@@ -19,7 +61,6 @@ angular.module('wcDashboard', [])
        }
      };
 
-
      function errorDialog() {
        $mdDialog.show(
          $mdDialog.alert()
@@ -30,10 +71,7 @@ angular.module('wcDashboard', [])
        );
      }
 
-     // Order data for graph like this;
-     // [{"key": "Series 1",
-     //   "values" : [[date1, val], [date2, val]]}]
-     function prepareGraphData(resData) {
+     function prepareActivityGraphData(resData) {
        var graphData = [];
        var keys = Object.keys(resData[0]);
        keys.splice(0, 1); // delete timezone key
@@ -64,6 +102,34 @@ angular.module('wcDashboard', [])
          steps: [
            graphData[5],
            graphData[6]
+         ]
+       };
+     }
+
+     function prepareSleepGraphData(resData) {
+       var graphData = [];
+       var keys = Object.keys(resData[0].data);
+       console.log(keys);
+       for (var j = 0; j < keys.length; j++) {
+         graphData.push({
+           "key": keys[j],
+           "values": []
+         });
+         for (var i = 0; i < resData.length; i++) {
+           graphData[j].values.push([
+             new Date(resData[i].date), resData[i].data[keys[j]]
+           ]);
+         }
+       }
+       return {
+         depth: [
+           graphData[0],
+           graphData[2],
+           graphData[3],
+           graphData[4]
+         ],
+         wakeup: [
+           graphData[1],
          ]
        };
      }
@@ -104,30 +170,30 @@ angular.module('wcDashboard', [])
 
      //Recieve user data through sockets =============================
      SocketFactory.on('recieve:user:activity', function(responseData) {
-       //console.log('recieve user activity' + responseData);
+       var data = prepareActivityGraphData(responseData);
+       $scope.graph.intensity = data.intensity;
+       $scope.graph.elevation = data.elevation;
+       $scope.graph.steps = data.steps;
        $scope.progress++;
-       var data = prepareGraphData(responseData);
-       $scope.intensity = data.intensity;
-       $scope.elevation = data.elevation;
-       $scope.steps = data.steps;
+       //refreshCharts();
      });
 
      SocketFactory.on('recieve:user:sleep', function(responseData) {
-       //console.log('recieve user sleep' + responseData);
+       var data = prepareSleepGraphData(responseData);
+       $scope.graph.wakeup = data.wakeup;
+       $scope.graph.sleepDepth = data.depth;
        $scope.progress++;
-       $scope.sleep = responseData;
      });
 
      SocketFactory.on('recieve:user:body', function(responseData) {
+       $scope.body = responseData;
        //console.log('recieve user body' + responseData);
        $scope.progress++;
-       $scope.body = responseData;
      });
 
      SocketFactory.on('recieve:user:profile', function(responseData) {
+       $scope.profile = responseData;
        //console.log('recieve user' + responseData);
        $scope.progress++;
-       $scope.profile = responseData;
      });
-
    }]);
