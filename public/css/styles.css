@@ -288,10 +288,6 @@ three-viewport {
 /**************************************
 *   6. Dashbaord graphs
 **************************************/
-nvd3 svg {
-  padding-left: 25px;
-  padding-right: 20px;
-}
 .show-dash {
   visibility: visible;
 }
