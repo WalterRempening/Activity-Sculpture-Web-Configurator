@@ -89,8 +89,7 @@ passport.deserializeUser(function(id, done) {
     done(err, {
       id: user.meta.userid,
       token: user.oauth.token,
-      secret: user.oauth.token_secret,
-      logged: true
+      secret: user.oauth.token_secret
     });
   });
 });

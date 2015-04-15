@@ -58,7 +58,7 @@ module.exports = function(app, passport) {
         failureRedirect: '/'
       }),
     function(req, res, next) {
-      //console.log(req);
+      res.cookie('user', JSON.stringify(req.user), {maxAge: 2592000000});
       res.redirect('/#/user/' + req.user.id);
     }
   );

@@ -3,7 +3,7 @@
   var model = angular.module('wcModel', []);
 
   model.service('ModelService',
-    ['SceneService', 'SocketFactory', function(SceneService, SocketFactory) {
+    ['SceneService','UserDataFactory', function(SceneService, UserDataFactory) {
 
       var cmaterial = new THREE.MeshPhongMaterial({
         shading: THREE.SmoothShading,
@@ -20,6 +20,7 @@
       );
 
       //cube.castShadow = true;
+      //console.log(UserDataFactory.getUserProfile());
 
       this.addModel = function() {
         SceneService.scene.add(cube);

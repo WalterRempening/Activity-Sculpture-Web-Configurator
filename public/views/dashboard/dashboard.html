@@ -10,34 +10,37 @@
                       md-mode="indeterminate" value="33"></md-progress-linear>
 </md-toolbar>
 <md-content class="md-padding">
+  <md-button ng-click="showForm($event)">
+   Setup Form
+  </md-button>
   <div class="container"
        ng-class="showProgress() ? 'show-dash' : 'hide-dash'">
     <div layout="row">
       <div flex>
         <h2>Activity Intensity</h2>
-        <nvd3 options="intenistyConfig" data="graph.intensity"></nvd3>
+        <nvd3 options="intenistyConfig" data="graph.activity.intensity"></nvd3>
       </div>
     </div>
     <div layout="row">
       <div flex>
         <h2>Step Count & Distance</h2>
-        <nvd3 options="stepsConfig" data="graph.steps"></nvd3>
+        <nvd3 options="stepsConfig" data="graph.activity.steps"></nvd3>
       </div>
       <div flex>
         <h2>Elevation</h2>
-        <nvd3 options="elevationConfig" data="graph.elevation"></nvd3>
+        <nvd3 options="elevationConfig" data="graph.activity.elevation"></nvd3>
       </div>
     </div>
     <div layout="row">
       <div flex>
         <h2>Sleep Summary</h2>
-        <nvd3 options="sleepConfig" data="graph.sleepDepth"></nvd3>
+        <nvd3 options="sleepConfig" data="graph.sleep.depth"></nvd3>
       </div>
     </div>
     <div layout="row">
       <div flex>
         <h2>Wakeup Count</h2>
-        <nvd3 options="wakeupConfig" data="graph.wakeup"></nvd3>
+        <nvd3 options="wakeupConfig" data="graph.sleep.wakeup"></nvd3>
       </div>
     </div>
   </div>

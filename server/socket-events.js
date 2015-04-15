@@ -49,9 +49,9 @@ module.exports = function(io) {
 
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
-
         var resdata = {
           name: dbuser.name,
+          id: dbuser.meta.userid,
           gender: dbuser.gender,
           birthdate: dbuser.birthdate
         };

@@ -52,7 +52,7 @@ body
   float none
   text-align left
   margin-right -4px
-  min-width  350px
+  min-width 350px
 
 .wrapper
   min-height 100%
@@ -86,7 +86,7 @@ a
   height 100px
   width 100%
   bottom 0
-  box-shadow 0px -3px 5px 0 rgba(0,0,0,.26)
+  box-shadow 0px -3px 5px 0 rgba(0, 0, 0, .26)
 
   p
     color wc-nav-footer
@@ -113,7 +113,6 @@ nav
       .md-button
         min-height 64px
 
-
 /**************************************
 *   3.Welcome Page Login Form
 **************************************/
@@ -135,7 +134,6 @@ form.login
     min-height 50px
     margin-bottom 15px
 
-
 /**************************************
 *   4. 404 error page
 **************************************/
@@ -146,7 +144,6 @@ md-content.error-box
 .error-box
   max-width 80%
   margin 0px auto
-
 
   .error-number
     font-size 22em
@@ -171,31 +168,30 @@ md-content.error-box
     text-decoration line-through
     color #e2e2e2
 
-
 .fullbg
   background url(../img/404-bg.jpg) no-repeat center center fixed
-  min-height  100%
-  min-width  1024px
-  width  100%
-  height  auto
+  min-height 100%
+  min-width 1024px
+  width 100%
+  height auto
   z-index -9999
-  position  fixed
-  top  0
-  left  0
+  position fixed
+  top 0
+  left 0
 
 /**************************************
 *   . Configurator Controlls
 **************************************/
 #left-ctrls
   position absolute
-  width 35%px
+  width 35% px
   min-width 400px
   min-height 100%
   height 100%
   background-color wc-sidenav-bg
 
   md-content
-    background-color rgba(0,0,0,0)
+    background-color rgba(0, 0, 0, 0)
 
 .slider-value
   font-weight fbold
@@ -217,6 +213,7 @@ md-slider .md-focus-thumb
   width 36px
   height 36px
   border-radius 36px
+
 /**************************************
 *   5. WebGL view
 **************************************/
@@ -232,34 +229,31 @@ three-viewport
 *   5. Page transition animations
 **************************************/
 [ui-view].ng-enter, [ui-view].ng-leave
-  position  absolute
-  left  0
-  right  0
+  position absolute
+  left 0
+  right 0
   transition all .5s ease-in-out
 
-
 [ui-view].ng-enter
-  opacity  0
+  opacity 0
   -webkit-transform scale3d(0.5, 0.5, 0.5)
   -moz-transform scale3d(0.5, 0.5, 0.5)
   transform scale3d(0.5, 0.5, 0.5)
 
-
 [ui-view].ng-enter-active
-  opacity  1
+  opacity 1
   -webkit-transform scale3d(1, 1, 1)
   -moz-transform scale3d(1, 1, 1)
   transform scale3d(1, 1, 1)
 
-
 [ui-view].ng-leave
-  opacity  1
+  opacity 1
   -webkit-transform translate3d(0, 0, 0)
   -moz-transform translate3d(0, 0, 0)
   transform translate3d(0, 0, 0)
 
 [ui-view].ng-leave-active
-  opacity  0
+  opacity 0
   -webkit-transform translate3d(100px, 0, 0)
   -moz-transform translate3d(100px, 0, 0)
   transform translate3d(100px, 0, 0)
@@ -267,11 +261,37 @@ three-viewport
 /**************************************
 *   6. Dashbaord graphs
 **************************************/
+md-dialog
+  width 70%
+  height 100%
+
+  md-content
+    padding 0px
+
+    h2.md-subheader.md-default-theme
+      margin-right: 0px;
+      margin-top: 0px;
+      background-color rgb(213, 242, 255) !important
+
+    .dialog-content
+      padding 24px 24px
+
+    md-subheader-content
+      padding-left: 10px;
+
+    md-input-container
+      margin 15px
+
 .show-dash
   visibility: visible
+
 .hide-dash
   visibility hidden
 
 .help
   cursor help
+
+
+
+
 

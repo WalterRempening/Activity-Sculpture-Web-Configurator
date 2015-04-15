@@ -1,0 +1,32 @@
+<md-dialog class="full" aria-label="Preferences">
+  <md-content>
+    <md-subheader class="md-sticky-no-effect subheader">
+      Preferences
+    </md-subheader>
+    <div class="dialog-content">
+      In order to query the data of your Withings account we need you to
+      provide the following information:
+      <div layout="row">
+        <md-input-container flex>
+          From which date you want to start analyzing your activity?
+          <label>Start date</label>
+          <input type="date" ng-model="user.startDate">
+        </md-input-container>
+        <md-input-container flex>
+          End data? Default end date is today
+          <label>End date</label>
+          <input type="date" ng-model="user.endDate">
+        </md-input-container>
+      </div>
+    </div>
+  </md-content>
+  <div class="md-actions" layout="row">
+    <md-button ng-click="cancel()">
+      Cancel
+    </md-button>
+    <md-button ng-click="hide()">
+      Submit
+    </md-button>
+  </div>
+
+</md-dialog>

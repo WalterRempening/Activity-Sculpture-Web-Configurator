@@ -174,75 +174,13 @@ angular.module('wcGraphs', [])
       }
     };
 
-    function prepareActivityGraphData(resData) {
-      var graphData = [];
-      var keys = Object.keys(resData[0]);
-      keys.splice(0, 1); // delete timezone key
-      keys.pop(); // delete Date key
 
-      for (var j = 0; j < keys.length; j++) {
-        graphData.push({
-          "key": keys[j],
-          "values": []
-        });
-        for (var i = 0; i < resData.length; i++) {
-          graphData[j].values.push([
-            new Date(resData[i].date), resData[i][keys[j]]
-          ]);
-        }
-      }
-      return {
-        intensity: [
-          graphData[0],
-          graphData[1],
-          graphData[2],
-          graphData[4]
-        ],
-        elevation: [
-          graphData[3]
-        ],
-        steps: [
-          graphData[5],
-          graphData[6]
-        ]
-      };
-    }
-
-    function prepareSleepGraphData(resData) {
-      var graphData = [];
-      var keys = Object.keys(resData[0].data);
-      console.log(keys);
-      for (var j = 0; j < keys.length; j++) {
-        graphData.push({
-          "key": keys[j],
-          "values": []
-        });
-        for (var i = 0; i < resData.length; i++) {
-          graphData[j].values.push([
-            new Date(resData[i].date), resData[i].data[keys[j]]
-          ]);
-        }
-      }
-      return {
-        depth: [
-          graphData[0],
-          graphData[2],
-          graphData[3],
-          graphData[4]
-        ],
-        wakeup: [
-          graphData[1],
-        ]
-      };
-    }
 
     return {
       intensityConfig: activityIntensityConfig,
       stepsConfig: stepsConfig,
       elevationConfig: elevationConfig,
       sleepConfig: sleepConfig,
-      wakeupConfig: wakeupConfig,
-      formatActivity: prepareActivityGraphData,
-      formatSleepData: prepareSleepGraphData
+      wakeupConfig: wakeupConfig
     };
   }]);

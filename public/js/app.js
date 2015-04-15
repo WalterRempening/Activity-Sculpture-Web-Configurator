@@ -12,6 +12,7 @@ var app = angular.module('MainApp',
    'wcDashboard',
    'wcScene',
    'wcCamera',
+   'wcUserData',
    'wcSocket',
    'wcModel',
    'wcViewport']
