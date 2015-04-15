@@ -1,8 +1,11 @@
 'use sctrict';
 angular.module('wcDashboard', [])
   .controller('DashboardController',
-  ['$http', '$location', '$scope', 'SocketFactory', '$mdDialog', 'GraphFactory',
-   function($http, $location, $scope, SocketFactory, $mdDialog, GraphFactory) {
+  ['$http', '$location', '$scope', '$mdDialog', '$mdToast', 'SocketFactory', 'GraphFactory',
+   function($http, $location, $scope, $mdDialog, $mdToast, SocketFactory,
+            GraphFactory) {
+     var ALL_MESSAGES_RECEIVED = 4;
+
      $scope.user = $location.url().split('/')[2];
      $scope.progress = 0;
      $scope.graph = {};
@@ -12,11 +15,20 @@ angular.module('wcDashboard', [])
      $scope.sleepConfig = GraphFactory.sleepConfig;
      $scope.wakeupConfig = GraphFactory.wakeupConfig;
      $scope.showProgress = function() {
-       if ($scope.progress === 4) {
+       if ($scope.progress === ALL_MESSAGES_RECEIVED) {
          return true;
        } else {
          return false;
        }
+     };
+
+     $scope.showWelcomeToast = function() {
+       $mdToast.show({
+         controller: 'ToastCtrl',
+         templateUrl: '../../../views/dashboard/welcome-toast.html',
+         hideDelay: 7000,
+         position: 'top left'
+       });
      };
 
      function errorDialog() {
@@ -64,8 +76,8 @@ angular.module('wcDashboard', [])
        });
 
 
-     //Recieve user data through sockets =============================
-     SocketFactory.on('recieve:user:activity', function(responseData) {
+     //receive user data through sockets =============================
+     SocketFactory.on('receive:user:activity', function(responseData) {
        var data = GraphFactory.formatActivity(responseData);
        $scope.graph.intensity = data.intensity;
        $scope.graph.elevation = data.elevation;
@@ -73,23 +85,28 @@ angular.module('wcDashboard', [])
        $scope.progress++;
      });
 
-     SocketFactory.on('recieve:user:sleep', function(responseData) {
+     SocketFactory.on('receive:user:sleep', function(responseData) {
        var data = GraphFactory.formatSleepData(responseData);
        $scope.graph.wakeup = data.wakeup;
        $scope.graph.sleepDepth = data.depth;
        $scope.progress++;
      });
 
-     SocketFactory.on('recieve:user:body', function(responseData) {
+     SocketFactory.on('receive:user:body', function(responseData) {
        $scope.body = responseData;
-       //console.log('recieve user body' + responseData);
+       //console.log('receive user body' + responseData);
        $scope.progress++;
      });
 
-     SocketFactory.on('recieve:user:profile', function(responseData) {
+     SocketFactory.on('receive:user:profile', function(responseData) {
        $scope.profile = responseData;
-       //console.log('recieve user' + responseData);
+       //console.log('receive user' + responseData);
        $scope.progress++;
      });
 
-   }]);
+   }])
+  .controller('ToastCtrl', function($scope, $mdToast) {
+    $scope.closeToast = function() {
+      $mdToast.hide();
+    };
+  });

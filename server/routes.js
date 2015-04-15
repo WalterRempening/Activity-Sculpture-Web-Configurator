@@ -8,8 +8,7 @@ var utctoday = Date.UTC(utc[0], utc[1], utc[2]) / 1000;
 
 function ensureAuthorized(req, res, next) {
   if (!req.user || req.user.logged === 'undefined') {
-    res.sendStatus(403);
-    return;
+    return res.sendStatus(403);
   } else {
     return next();
   }
@@ -17,20 +16,16 @@ function ensureAuthorized(req, res, next) {
 
 function cleanUpDates(data) {
   var cleanData = [];
-
   for (var k = 0; k < data.length; k++) {
     var currentDate = Date.parse(data[k].date);
-    console.log(currentDate);
-    if(k < data.length-1) {
+    if (k < data.length - 1) {
       if (currentDate !== Date.parse(data[k + 1].date)) {
         cleanData.push(data[k]);
       }
-    }else{
+    } else {
       cleanData.push(data[k]);
     }
-
   }
-  console.log(cleanData);
   return cleanData;
 }
 
@@ -63,7 +58,7 @@ module.exports = function(app, passport) {
         failureRedirect: '/'
       }),
     function(req, res, next) {
-      console.log(req);
+      //console.log(req);
       res.redirect('/#/user/' + req.user.id);
     }
   );
@@ -82,23 +77,22 @@ module.exports = function(app, passport) {
       console.log(queryUrl);
       var queryUrl = wApi.activityQuery(options);
       request(queryUrl, function(err, wres, body) {
-        if (err) {
-          throw err;
+        if (!err && JSON.parse(body).status === 0) {
+          var jbody = JSON.parse(body);
+          //console.log(jbody.body.activities);
+          activities = sortByDate(jbody.body.activities);
+
+          WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
+            if (err) throw err;
+            dbuser.activity = activities;
+            dbuser.save(function(err) {
+              if (err) throw err;
+              res.end();
+            });
+          });
+        } else {
           res.sendStatus(500);
         }
-
-        var jbody = JSON.parse(body);
-        //console.log(jbody.body.activities);
-        activities = sortByDate(jbody.body.activities);
-
-        WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
-          if (err) throw err;
-          dbuser.activity = activities;
-          dbuser.save(function(err) {
-            if (err) throw err;
-            res.end();
-          });
-        });
       });
     });
 
@@ -116,24 +110,23 @@ module.exports = function(app, passport) {
       console.log(queryUrl);
       var queryUrl = wApi.sleepSummaryQuery(options);
       request(queryUrl, function(err, wres, body) {
-        if (err) {
-          res.sendStatus(500);
-          throw err;
-        }
-
-        var jbody = JSON.parse(body);
-        console.log(jbody.body.series);
-        var sortedData = sortByDate(jbody.body.series);
-        sleepSum = cleanUpDates(sortedData);
-        console.log(sleepSum);
-        WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
-          if (err) throw err;
-          dbuser.sleep = sleepSum;
-          dbuser.save(function(err) {
+        if (!err && JSON.parse(body).status === 0) {
+          var jbody = JSON.parse(body);
+          //console.log(jbody.body.series);
+          var sortedData = sortByDate(jbody.body.series);
+          sleepSum = cleanUpDates(sortedData);
+          //console.log(sleepSum);
+          WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
             if (err) throw err;
-            res.end();
+            dbuser.sleep = sleepSum;
+            dbuser.save(function(err) {
+              if (err) throw err;
+              res.end();
+            });
           });
-        });
+        } else {
+          res.sendStatus(500);
+        }
       });
     });
 
@@ -149,23 +142,23 @@ module.exports = function(app, passport) {
       };
 
       var queryUrl = wApi.bodyQuery(options);
-      console.log(queryUrl);
+      //console.log(queryUrl);
       request(queryUrl, function(err, wres, body) {
-        if (err) {
-          res.sendStatus(500);
-          throw err;
-        }
-        var jbody = JSON.parse(body);
-        console.log(jbody);
-        bodymes = sortByDate(jbody.body.measuregrps);
-        WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
-          if (err) throw err;
-          dbuser.body = bodymes;
-          dbuser.save(function(err) {
+        if (!err && JSON.parse(body).status === 0) {
+          var jbody = JSON.parse(body);
+          console.log(jbody);
+          bodymes = sortByDate(jbody.body.measuregrps);
+          WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
             if (err) throw err;
-            res.end();
+            dbuser.body = bodymes;
+            dbuser.save(function(err) {
+              if (err) throw err;
+              res.end();
+            });
           });
-        });
+        } else {
+          res.sendStatus(500);
+        }
       });
     });
 
@@ -180,27 +173,27 @@ module.exports = function(app, passport) {
       };
 
       var queryUrl = wApi.userQuery(options);
-      console.log(queryUrl);
       request(queryUrl, function(err, wres, body) {
-        if (err) {
-          res.sendStatus(500);
-          throw err;
-        }
-        var jbody = JSON.parse(body);
-        console.log(jbody);
-        profile = jbody.body.users[0];
-        console.log(profile);
-        WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
-          if (err) throw err;
-          dbuser.name = profile.firstname + " " + profile.lastname;
-          dbuser.gender = profile.gender;
-          dbuser.birthdate = new Date(profile.birthdate * 1000);
-
-          dbuser.save(function(err) {
+        if (!err && JSON.parse(body).status === 0) {
+          var jbody = JSON.parse(body);
+          //console.log(jbody);
+          profile = jbody.body.users[0];
+          //console.log(profile);
+          WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
             if (err) throw err;
-            res.end();
+            dbuser.name = profile.firstname + " " + profile.lastname;
+            dbuser.gender = profile.gender;
+            dbuser.birthdate = new Date(profile.birthdate * 1000);
+            dbuser.save(function(err) {
+              if (err) throw err;
+              res.end();
+            });
           });
-        });
+        } else {
+          //console.warn(err);
+          //console.warn(body.status);
+          res.sendStatus(500);
+        }
       });
     });
 };

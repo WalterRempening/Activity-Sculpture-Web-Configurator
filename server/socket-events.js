@@ -3,7 +3,7 @@ var WCUser = require('./models/user');
 module.exports = function(io) {
 
   io.on('connection', function(socket) {
-    console.log('Connection recieved');
+    console.log('Connection received');
 
     socket.on('get:user:activity', function(userid) {
       console.log('Searching data for user:' + userid);
@@ -14,7 +14,7 @@ module.exports = function(io) {
 
         console.log('Sending activity data');
         //console.log(resdata);
-        socket.emit('recieve:user:activity', resdata);
+        socket.emit('receive:user:activity', resdata);
       });
     });
 
@@ -27,7 +27,7 @@ module.exports = function(io) {
 
         console.log('Sending sleep data');
         //console.log(resdata);
-        socket.emit('recieve:user:sleep', resdata);
+        socket.emit('receive:user:sleep', resdata);
       });
     });
 
@@ -40,7 +40,7 @@ module.exports = function(io) {
 
         console.log('Sending body data');
         //console.log(resdata);
-        socket.emit('recieve:user:body', resdata);
+        socket.emit('receive:user:body', resdata);
       });
     });
 
@@ -58,7 +58,7 @@ module.exports = function(io) {
 
         console.log('Sending user data');
         console.log(resdata);
-        socket.emit('recieve:user:profile', resdata);
+        socket.emit('receive:user:profile', resdata);
       });
     });
   });

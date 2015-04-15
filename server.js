@@ -103,10 +103,10 @@ require('./server/socket-events')(io); // configure socketio events
 // frontend routes =========================================================
 // route to handle all angular requests
 app.get('*', function(req, res) {
-  console.log(req.user);
+  console.log('Main rout' + req.user);
   if(!req.user || req.user.logged == 'undefined'){
     res.user.logged = false;
-    console.log(res.user);
+    console.log('Main rout' + res.user);
   }
   res.sendFile('/public/index.html', {"root": __dirname});
 });
