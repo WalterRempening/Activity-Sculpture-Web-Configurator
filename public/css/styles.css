@@ -147,7 +147,7 @@ md-content.error-box {
   font-style: italic;
   font-size: 8.6em;
   text-align: right;
-  color: #e2e2e2;
+  color: #fff;
   display: block;
   margin-top: 50px;
 }
@@ -155,7 +155,7 @@ md-content.error-box {
   font-weight: normal;
   font-size: 2.3em;
   text-decoration: line-through;
-  color: #e2e2e2;
+  color: #fff;
 }
 .fullbg {
   background: url("../img/404-bg.jpg") no-repeat center center fixed;
@@ -288,26 +288,32 @@ three-viewport {
 /**************************************
 *   6. Dashbaord graphs
 **************************************/
-md-dialog {
-  width: 70%;
-  height: 100%;
-}
-md-dialog md-content {
+md-dialog.setup md-content {
   padding: 0px;
 }
-md-dialog md-content h2.md-subheader.md-default-theme {
+md-dialog.setup h2.md-subheader.md-default-theme {
   margin-right: 0px;
   margin-top: 0px;
-  background-color: #d5f2ff !important;
+  background-color: #ecde64;
 }
-md-dialog md-content .dialog-content {
+md-dialog.setup .dialog-content {
   padding: 24px 24px;
 }
-md-dialog md-content md-subheader-content {
+md-dialog.setup .dialog-content .gender {
+  margin: 17px 10px;
+}
+md-dialog.setup .dialog-content md-subheader-content {
   padding-left: 10px;
 }
-md-dialog md-content md-input-container {
-  margin: 15px;
+md-dialog.setup .dialog-content md-input-container {
+  margin: 5px 10px;
+}
+md-dialog.setup .dialog-content md-input-container input[type='date'] {
+  width: 150px;
+}
+md-dialog.setup .dialog-content md-input-container input[type='text'],
+md-dialog.setup .dialog-content md-input-container input[type='number'] {
+  width: 90%;
 }
 .show-dash {
   visibility: visible;

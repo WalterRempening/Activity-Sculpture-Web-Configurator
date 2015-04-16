@@ -61,8 +61,52 @@ app.config(
        url: '/config/{userid}',
        templateUrl: '../views/configurator/configurator-page.html'
      })
-       .state('dashboard', {
+       .state('settings', {
          url: '/user/{userid}',
+         onEnter: ['$mdDialog', '$stateParams', '$state', '$cookieStore','$cookies',
+                   function($mdDialog, $stateParams, $state, $cookieStore, $cookies) {
+                     var params = {};
+
+                     if (!$cookies.user) {
+                       $state.go('dashboard');
+                     } else {
+                       $mdDialog.show({
+                         controller: SetupController,
+                         templateUrl: '../../../views/dashboard/setup-form.tmpl.html',
+                         escapeToClose: false,
+                         clickOutsideToClose: false
+                       })
+                         .then(function(save) {
+
+                           if (save) {
+                             $cookieStore.put('settings', params);
+                             $state.go('dashboard');
+                           }
+                         }, function() {
+                           $state.go('home');
+                         });
+
+                     }
+
+                     function SetupController($scope, $mdDialog) {
+                       $scope.settings = {
+                         age : '',
+                         gender : '',
+                         country: '',
+                         city: '',
+                         startDate: '',
+                         endDate: new Date(Date.now()),
+                         show: true
+                       };
+
+                       $scope.submit = function(save) {
+                         $mdDialog.hide(save);
+                         params = $scope.settings;
+                       };
+                     }
+                   }]
+       })
+       .state('dashboard', {
          templateUrl: '../views/dashboard/dashboard.html',
          controller: 'DashboardController'
        });

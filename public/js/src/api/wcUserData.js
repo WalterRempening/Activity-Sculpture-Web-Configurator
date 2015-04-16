@@ -1,12 +1,21 @@
 'use strict';
 angular.module('wcUserData', [])
   .factory('UserDataFactory',
-  ['$http', 'SocketFactory', '$cookies', function($http, SocketFactory,
-                                                  $cookies) {
+  ['$http', 'SocketFactory', '$cookies', '$mdDialog', function($http,
+                                                               SocketFactory,
+                                                               $cookies,
+                                                               $mdDialog) {
+
+    var sessuser = JSON.parse($cookies.user);
+    var settings = JSON.parse($cookies.settings);
+
+    var DATA_RESPONSE_ERROR= 'An error was found while fetching data for your user. Try again later';
+    var SAVE_SETTINGS_RESPONSE_ERROR = 'User settings could not be saved';
+
     // initialize user object
     var user = {
       profile: [],
-      id: JSON.parse($cookies.user).id,
+      id: sessuser.id,
       sleep: {
         depth: [],
         wakeup: []
@@ -16,7 +25,11 @@ angular.module('wcUserData', [])
         elevation: [],
         intensity: []
       },
-      body:[]
+      body: [],
+      config: {
+        startdate: "",
+        enddate: ""
+      }
     };
 
     // setters and getters for module
@@ -41,16 +54,30 @@ angular.module('wcUserData', [])
       user.activity.intensity = data.intensity;
     }
 
-    function errorDialog() {
+    function setDates(dates) {
+      user.config.startdate = dates.startdate;
+      user.config.enddate = dates.enddate;
+    }
+
+    function errorDialog(msg) {
       $mdDialog.show(
         $mdDialog.alert()
           .title('Server Error')
-          .content('An error was found while fetching data for your user. Try again later')
+          .content(msg)
           .ariaLabel('Server Error Dialog')
           .ok('OK')
       );
     }
 
+    function saveSettings(settings){
+      $http.post("/api/user/" + user.id +"/settings", settings)
+        .succes(function(data, status, headers, config) {
+          console.log('User saved succesfully');
+        })
+        .error(function(data, status, headers, config) {
+          if (status == 500) errorDialog(SAVE_SETTINGS_RESPONSE_ERROR);
+        });
+    }
 
     function init() {
       // Query User Data to API======================================
@@ -60,7 +87,7 @@ angular.module('wcUserData', [])
         })
         .error(function(data, status, headers, config) {
           // Display error dialog
-          if (status === 500) errorDialog();
+          if (status === 500) errorDialog(DATA_RESPONSE_ERROR);
         });
 
       $http.get("/api/user/" + user.id + "/data/sleep")
@@ -68,7 +95,7 @@ angular.module('wcUserData', [])
           SocketFactory.emit('get:user:sleep', user.id);
         })
         .error(function(data, status, headers, config) {
-          if (status === 500) errorDialog();
+          if (status === 500) errorDialog(DATA_RESPONSE_ERROR);
         });
 
       $http.get("/api/user/" + user.id + "/data/body")
@@ -76,7 +103,7 @@ angular.module('wcUserData', [])
           SocketFactory.emit('get:user:body', user.id);
         })
         .error(function(data, status, headers, config) {
-          if (status === 500) errorDialog();
+          if (status === 500) errorDialog(DATA_RESPONSE_ERROR);
         });
 
 
@@ -85,39 +112,38 @@ angular.module('wcUserData', [])
           SocketFactory.emit('get:user:profile', user.id);
         })
         .error(function(data, status, headers, config) {
-          if (status === 500) errorDialog();
+          if (status === 500) errorDialog(DATA_RESPONSE_ERROR);
         });
     }
 
     //receive user data through sockets =============================
     var progress = 0;
-    function getProgress(){console.log(progress);return progress};
+
+    function getProgress() {return progress};
 
     SocketFactory.on('receive:user:activity', function(responseData) {
       var data = formatActivity(responseData);
       user.activity = data;
-      console.log(user.activity);
+      //console.log(user.activity);
       progress++;
     });
 
     SocketFactory.on('receive:user:sleep', function(responseData) {
       var data = formatSleepData(responseData);
       user.sleep = data;
-      //user.sleep.wakeup = data.wakeup;
-      //user.sleep.depth = data.depth;
-      console.log(user.sleep);
+      //console.log(user.sleep);
       progress++;
     });
 
     SocketFactory.on('receive:user:body', function(responseData) {
       user.body = responseData;
-      console.log('receive user body' + responseData);
+      //console.log('receive user body' + responseData);
       progress++;
     });
 
     SocketFactory.on('receive:user:profile', function(responseData) {
       user.profile = responseData;
-      console.log(user.profile);
+      //console.log(user.profile);
       progress++;
     });
 
@@ -184,7 +210,7 @@ angular.module('wcUserData', [])
     }
 
     return {
-      init : init,
+      init: init,
       getUser: getUser,
       getUserProfile: getUserProfile,
       setUserProfile: setUserProfile,
@@ -192,7 +218,8 @@ angular.module('wcUserData', [])
       setUserSleep: setUserSleep,
       getUserActivity: getUserActivity,
       setUserActivity: setUserActivity,
-      getProgress: getProgress
+      getProgress: getProgress,
+      setDates: setDates
     };
 
 

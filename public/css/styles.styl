@@ -158,7 +158,7 @@ md-content.error-box
     font-style italic
     font-size 8.6em
     text-align right
-    color #e2e2e2
+    color #fff
     display block
     margin-top 50px
 
@@ -166,7 +166,7 @@ md-content.error-box
     font-weight normal
     font-size 2.3em
     text-decoration line-through
-    color #e2e2e2
+    color #fff
 
 .fullbg
   background url(../img/404-bg.jpg) no-repeat center center fixed
@@ -261,26 +261,34 @@ three-viewport
 /**************************************
 *   6. Dashbaord graphs
 **************************************/
-md-dialog
-  width 70%
-  height 100%
+md-dialog.setup
 
   md-content
     padding 0px
 
-    h2.md-subheader.md-default-theme
-      margin-right: 0px;
-      margin-top: 0px;
-      background-color rgb(213, 242, 255) !important
+  h2.md-subheader.md-default-theme
+    margin-right 0px
+    margin-top 0px
+    background-color #ECDE64
 
-    .dialog-content
-      padding 24px 24px
+  .dialog-content
+    padding 24px 24px
+
+    .gender
+      margin 17px 10px
 
     md-subheader-content
-      padding-left: 10px;
+      padding-left 10px
 
     md-input-container
-      margin 15px
+      margin 5px 10px
+
+      input[type='date']
+        width 150px
+
+      input[type='text']
+      input[type='number']
+        width 90%
 
 .show-dash
   visibility: visible

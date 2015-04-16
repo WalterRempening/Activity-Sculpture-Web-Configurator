@@ -63,6 +63,14 @@ module.exports = function(app, passport) {
     }
   );
 
+  app.post("/api/user/" + user.id + "/settings", ensureAuthorized,
+    function(req, res, next) {
+
+
+
+    });
+
+
   app.get("/api/user/:id/data/activity", ensureAuthorized,
     function(req, res, next) {
       var activities;

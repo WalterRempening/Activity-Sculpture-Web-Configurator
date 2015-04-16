@@ -9,10 +9,7 @@
   <md-progress-linear ng-hide='showProgress()' class="md-accent md-hue-3"
                       md-mode="indeterminate" value="33"></md-progress-linear>
 </md-toolbar>
-<md-content class="md-padding">
-  <md-button ng-click="showForm($event)">
-   Setup Form
-  </md-button>
+<md-content class="md-padding setup">
   <div class="container"
        ng-class="showProgress() ? 'show-dash' : 'hide-dash'">
     <div layout="row">
