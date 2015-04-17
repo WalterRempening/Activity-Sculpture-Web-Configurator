@@ -2,10 +2,6 @@ var request = require('request');
 var wApi = require('./withingsApi');
 var WCUser = require('./models/user');
 
-var today = new Date(Date.now()).toISOString().slice(0, 10);
-var utc = today.split('-');
-var utctoday = Date.UTC(utc[0], utc[1], utc[2]) / 1000;
-
 function ensureAuthorized(req, res, next) {
   if (!req.user || req.user.logged === 'undefined') {
     return res.sendStatus(403);
@@ -63,21 +59,50 @@ module.exports = function(app, passport) {
     }
   );
 
-  app.post("/api/user/" + user.id + "/settings", ensureAuthorized,
+  app.get("/api/user/:id/settings", ensureAuthorized,
     function(req, res, next) {
+      WCUser.findOne({'meta.userid': req.user.id}, function(err, dbuser) {
+        if(!err){
+          try{
+            console.log('User settings found');
+            res.cookie('settings', JSON.stringify(dbuser.settings));
+            res.send(dbuser.settings);
+          } catch(err){
+            console.log('user settings NOT found');
+            res.send('undefined');
+          }
 
-
-
+        }else{
+          res.sendStatus(500);
+        }
+      });
     });
 
+  app.post("/api/user/:id/settings", ensureAuthorized,
+    function(req, res, next) {
+      WCUser.findOne({'meta.userid': req.user.id}, function(err, dbuser) {
+        if(!err){
+          dbuser.settings = JSON.parse(req.cookies.settings);
+          dbuser.save(function(err) {
+            if(err) throw err;
+            res.end();
+          });
+        }else{
+          res.sendStatus(500);
+        }
+      });
+    });
 
   app.get("/api/user/:id/data/activity", ensureAuthorized,
     function(req, res, next) {
+
+      var settings = JSON.parse(req.cookies.settings);
       var activities;
       var userid = req.user.id;
       var options = {
         userid: userid,
-        enddate: today,
+        startDate: wApi.formatDate(settings.startDate, wApi.constNormal),
+        endDate: wApi.formatDate(settings.endDate, wApi.constNormal),
         access_token: req.user.token,
         access_secret: req.user.secret
       };
@@ -108,9 +133,11 @@ module.exports = function(app, passport) {
     function(req, res, next) {
       var sleepSum;
       var userid = req.user.id;
+      var settings = JSON.parse(req.cookies.settings);
       var options = {
         userid: userid,
-        enddate: today,
+        startDate: wApi.formatDate(settings.startDate, wApi.constNormal),
+        endDate: wApi.formatDate(settings.endDate, wApi.constNormal),
         access_token: req.user.token,
         access_secret: req.user.secret
       };
@@ -142,9 +169,11 @@ module.exports = function(app, passport) {
     function(req, res, next) {
       var bodymes;
       var userid = req.user.id;
+      var settings = JSON.parse(req.cookies.settings);
       var options = {
         userid: userid,
-        enddate: utctoday,
+        startDate: wApi.formatDate(settings.startDate, wApi.constUTC),
+        endDate: wApi.formatDate(settings.endDate, wApi.constUTC),
         access_token: req.user.token,
         access_secret: req.user.secret
       };
@@ -154,7 +183,7 @@ module.exports = function(app, passport) {
       request(queryUrl, function(err, wres, body) {
         if (!err && JSON.parse(body).status === 0) {
           var jbody = JSON.parse(body);
-          console.log(jbody);
+          //console.log(jbody);
           bodymes = sortByDate(jbody.body.measuregrps);
           WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
             if (err) throw err;
@@ -198,8 +227,6 @@ module.exports = function(app, passport) {
             });
           });
         } else {
-          //console.warn(err);
-          //console.warn(body.status);
           res.sendStatus(500);
         }
       });

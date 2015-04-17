@@ -63,35 +63,38 @@ app.config(
      })
        .state('settings', {
          url: '/user/{userid}',
-         onEnter: ['$mdDialog', '$stateParams', '$state', '$cookieStore','$cookies',
-                   function($mdDialog, $stateParams, $state, $cookieStore, $cookies) {
+         onEnter: ['$mdDialog', '$stateParams', '$state', '$cookieStore', 'UserDataFactory',
+                   function($mdDialog, $stateParams, $state, $cookieStore,
+                            UserDataFactory) {
                      var params = {};
+                     UserDataFactory.queryUserSettings(function(data) {
+                       if (data !== 'undefined') {
+                         $state.go('dashboard');
+                       } else {
 
-                     if (!$cookies.user) {
-                       $state.go('dashboard');
-                     } else {
-                       $mdDialog.show({
-                         controller: SetupController,
-                         templateUrl: '../../../views/dashboard/setup-form.tmpl.html',
-                         escapeToClose: false,
-                         clickOutsideToClose: false
-                       })
-                         .then(function(save) {
+                         $mdDialog.show({
+                           controller: SetupController,
+                           templateUrl: '../../../views/dashboard/setup-form.tmpl.html',
+                           escapeToClose: false,
+                           clickOutsideToClose: false
+                         })
+                           .then(function(save) {
+                             if (save) {
+                               UserDataFactory.saveUserSettings(params);
+                               $cookieStore.put('settings', params);
+                               $state.go('dashboard');
+                             }
+                           }, function() {
+                             $state.go('home');
+                           });
+                       }
+                     });
 
-                           if (save) {
-                             $cookieStore.put('settings', params);
-                             $state.go('dashboard');
-                           }
-                         }, function() {
-                           $state.go('home');
-                         });
-
-                     }
 
                      function SetupController($scope, $mdDialog) {
                        $scope.settings = {
-                         age : '',
-                         gender : '',
+                         age: '',
+                         gender: '',
                          country: '',
                          city: '',
                          startDate: '',

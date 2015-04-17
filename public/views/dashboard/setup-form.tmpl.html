@@ -48,8 +48,12 @@
               <input required type="date" ng-model="settings.endDate">
             </md-input-container>
           </div>
-          <input type="submit" class="md-button md-default-theme md-raised"
-                 ng-class="!$setupForm.$valid ? 'md-warn' : 'md-primary'">
+          <div layout="row" layout-align="end end">
+            <input type="submit"
+                   class="md-button md-hue-3 md-default-theme md-raised"
+                   ng-class="!$setupForm.$valid ? 'md-accent' : 'md-primary'">
+          </div>
+
         </form>
       </div>
     </div>

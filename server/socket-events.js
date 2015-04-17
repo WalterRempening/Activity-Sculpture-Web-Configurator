@@ -6,7 +6,7 @@ module.exports = function(io) {
     console.log('Connection received');
 
     socket.on('get:user:activity', function(userid) {
-      console.log('Searching data for user:' + userid);
+      console.log('Searching activity for user:' + userid);
 
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
@@ -19,7 +19,7 @@ module.exports = function(io) {
     });
 
     socket.on('get:user:sleep', function(userid) {
-      console.log('Searching data for user:' + userid);
+      console.log('Searching sleep for user:' + userid);
 
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
@@ -32,7 +32,7 @@ module.exports = function(io) {
     });
 
     socket.on('get:user:body', function(userid) {
-      console.log('Searching data for user:' + userid);
+      console.log('Searching body for user:' + userid);
 
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
@@ -45,7 +45,7 @@ module.exports = function(io) {
     });
 
     socket.on('get:user:profile', function(userid) {
-      console.log('Searching data for user:' + userid);
+      console.log('Searching profile for user:' + userid);
 
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
@@ -56,11 +56,12 @@ module.exports = function(io) {
           birthdate: dbuser.birthdate
         };
 
-        console.log('Sending user data');
-        console.log(resdata);
+        console.log('Sending profile data');
+        //console.log(resdata);
         socket.emit('receive:user:profile', resdata);
       });
     });
+
   });
 };
 

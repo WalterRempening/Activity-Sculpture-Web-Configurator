@@ -1,7 +1,23 @@
 var settings = require('../config/settings.json');
 var withings = require('withings-api');
-var beginning = '2015-02-25';
-var utcbegin = Date.UTC(2015, 02, 25) / 1000;
+//  Beginning 25.2.2015
+var NORMAL_DATE = 0;
+var UTC_DATE = 1;
+
+function formatDate(date, format) {
+  var formated = new Date(date).toISOString().slice(0, 10);
+  switch (format) {
+    case NORMAL_DATE:
+      return formated;
+      breake;
+
+    case UTC_DATE:
+      var utc = date.split('-');
+      return Date.UTC(utc[0], utc[1], utc[2]) / 1000;
+      breake;
+  }
+}
+
 
 function activityQuery(options) {
   return withings.generateUrl({
@@ -9,8 +25,8 @@ function activityQuery(options) {
     parameters: {
       action: "getactivity",
       userid: options.userid,
-      startdateymd: beginning,
-      enddateymd: options.enddate
+      startdateymd: options.startDate,
+      enddateymd: options.endDate
     },
     consumer_key: settings.withings.key,
     consumer_secret: settings.withings.secret,
@@ -28,9 +44,8 @@ function bodyQuery(options) {
     parameters: {
       action: "getmeas",
       userid: options.userid,
-      //startdate: utcbegin,
-      //enddate: options.enddate,
-      lastupdate :utcbegin,
+      startdate: options.startDate,
+      enddate: options.endDate,
       category: 1
     },
     consumer_key: settings.withings.key,
@@ -46,8 +61,8 @@ function sleepSummaryQuery(options) {
     parameters: {
       action: "getsummary",
       userid: options.userid,
-      startdate: beginning,
-      enddate: options.enddate
+      startdate: options.startDate,
+      enddate: options.endDate
     },
     consumer_key: settings.withings.key,
     consumer_secret: settings.withings.secret,
@@ -62,8 +77,8 @@ function sleepQuery(options) {
     parameters: {
       action: "get",
       userid: options.userid,
-      startdateymd: beginning,
-      enddateymd: options.enddate
+      startdateymd: options.startDate,
+      enddateymd: options.endDate
     },
     consumer_key: settings.withings.key,
     consumer_secret: settings.withings.secret,
@@ -91,5 +106,8 @@ module.exports = {
   sleepSummaryQuery: sleepSummaryQuery,
   sleepQuery: sleepQuery,
   bodyQuery: bodyQuery,
-  userQuery: userQuery
+  userQuery: userQuery,
+  constNormal: NORMAL_DATE,
+  constUTC: UTC_DATE,
+  formatDate: formatDate
 };

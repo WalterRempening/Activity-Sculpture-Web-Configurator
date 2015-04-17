@@ -7,9 +7,8 @@ angular.module('wcUserData', [])
                                                                $mdDialog) {
 
     var sessuser = JSON.parse($cookies.user);
-    var settings = JSON.parse($cookies.settings);
 
-    var DATA_RESPONSE_ERROR= 'An error was found while fetching data for your user. Try again later';
+    var DATA_RESPONSE_ERROR = 'An error was found while fetching data for your user. Try again later';
     var SAVE_SETTINGS_RESPONSE_ERROR = 'User settings could not be saved';
 
     // initialize user object
@@ -29,7 +28,8 @@ angular.module('wcUserData', [])
       config: {
         startdate: "",
         enddate: ""
-      }
+      },
+      settings: {}
     };
 
     // setters and getters for module
@@ -69,14 +69,32 @@ angular.module('wcUserData', [])
       );
     }
 
-    function saveSettings(settings){
-      $http.post("/api/user/" + user.id +"/settings", settings)
-        .succes(function(data, status, headers, config) {
-          console.log('User saved succesfully');
+
+    function queryUserSettings(callback) {
+      $http.get("/api/user/" + user.id + "/settings")
+        .success(function(data, status, headers, config) {
+          console.log(JSON.stringify(data));
+          console.log('User settings query succesfully');
+          callback(data);
         })
         .error(function(data, status, headers, config) {
           if (status == 500) errorDialog(SAVE_SETTINGS_RESPONSE_ERROR);
         });
+    }
+
+    function saveUserSettings(settings) {
+      $http.post("/api/user/" + user.id + "/settings", settings)
+        .success(function(data, status, headers, config) {
+          user.settings = settings;
+          console.log('User saved successfully');
+        })
+        .error(function(data, status, headers, config) {
+          if (status == 500) errorDialog(SAVE_SETTINGS_RESPONSE_ERROR);
+        });
+    }
+
+    function getUserSettings() {
+      return user.settings;
     }
 
     function init() {
@@ -146,6 +164,7 @@ angular.module('wcUserData', [])
       //console.log(user.profile);
       progress++;
     });
+
 
     //Reorganize activty and sleep data for graphs/models =============================
     function formatActivity(resData) {
@@ -218,6 +237,9 @@ angular.module('wcUserData', [])
       setUserSleep: setUserSleep,
       getUserActivity: getUserActivity,
       setUserActivity: setUserActivity,
+      queryUserSettings: queryUserSettings,
+      getUserSettings: getUserSettings,
+      saveUserSettings: saveUserSettings,
       getProgress: getProgress,
       setDates: setDates
     };
