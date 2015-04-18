@@ -2,22 +2,32 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-  name: String,
-  gender: {type: Number},
-  birthdate: Date,
+  profile: {
+    name: String,
+    gender: Number,
+    age: Number ,
+    location: String
+  },
   oauth: {
     token: {type: String, required: true},
     token_secret: {type: String, required: true, unique: true}
   },
   meta: {
     userid: {type: Number, unique: true},
-    deviceid: {type: Number, unique: true}
+    deviceid: {type: Number, unique: true},
+    created_at: Date,
+    updated_at: Date
   },
-  created_at: Date,
-  updated_at: Date,
-  body: {},
-  activity: {},
-  sleep:{}
+  data:{
+    body: {},
+    activity: {},
+    sleep:{}
+  },
+  settings:{
+    startDate: Date,
+    endDate: Date,
+    show: Boolean
+  }
 });
 
 userSchema.pre('save', function(next) {

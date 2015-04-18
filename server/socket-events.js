@@ -10,7 +10,7 @@ module.exports = function(io) {
 
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
-        var resdata = dbuser.activity;
+        var resdata = dbuser.data.activity;
 
         console.log('Sending activity data');
         //console.log(resdata);
@@ -23,7 +23,7 @@ module.exports = function(io) {
 
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
-        var resdata = dbuser.sleep;
+        var resdata = dbuser.data.sleep;
 
         console.log('Sending sleep data');
         //console.log(resdata);
@@ -36,7 +36,7 @@ module.exports = function(io) {
 
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
-        var resdata = dbuser.body;
+        var resdata = dbuser.data.body;
 
         console.log('Sending body data');
         //console.log(resdata);
@@ -50,10 +50,10 @@ module.exports = function(io) {
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
         var resdata = {
-          name: dbuser.name,
-          id: dbuser.meta.userid,
-          gender: dbuser.gender,
-          birthdate: dbuser.birthdate
+          name: dbuser.profile.name,
+          age: dbuser.profile.age,
+          gender: dbuser.profile.gender,
+          id: dbuser.meta.userid
         };
 
         console.log('Sending profile data');

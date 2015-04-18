@@ -102,16 +102,8 @@ require('./server/socket-events')(io); // configure socketio events
 // frontend routes =========================================================
 // route to handle all angular requests
 app.get('*', function(req, res) {
-  console.log('Main rout' + req.user);
-  if(!req.user || req.user.logged == 'undefined'){
-    res.user.logged = false;
-    console.log('Main rout' + res.user);
-  }
   res.sendFile('/public/index.html', {"root": __dirname});
 });
 
-// shoutout to the user
 console.log('Express server listening on port: ' + port);
-
-// expose app
 exports = module.exports = app;
