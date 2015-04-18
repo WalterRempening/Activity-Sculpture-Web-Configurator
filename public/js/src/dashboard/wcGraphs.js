@@ -1,6 +1,7 @@
 'use strict';
 angular.module('wcGraphs', [])
   .factory('GraphFactory', [function() {
+
     var activityIntensityConfig = {
       chart: {
         type: 'multiBarChart',
@@ -38,6 +39,7 @@ angular.module('wcGraphs', [])
       chart: {
         type: 'multiBarChart',
         height: 450,
+        color: d3.scale.category20().range(),
         margin: {
           top: 20,
           bottom: 60,
@@ -134,7 +136,7 @@ angular.module('wcGraphs', [])
             var hours = Math.floor(d / 3600);
             d %= 3600;
             var minutes = Math.floor(d / 60);
-            return hours+"h, " + minutes+"min";
+            return hours + "h, " + minutes + "min";
           }
         }
       }
@@ -174,6 +176,55 @@ angular.module('wcGraphs', [])
       }
     };
 
+    var bodyConfig = {
+      chart: {
+        type: 'scatterChart',
+        height: 450,
+        margin: {
+          top: 20,
+          bottom: 60,
+          left: 75
+        },
+        color: d3.scale.category10().range(),
+        scatter: {
+          "onlyCircles": false,
+          "dispatch": {},
+          "interactive": true,
+          "padDataOuter": 0.1,
+          "padData": false,
+          "clipEdge": false,
+          "clipVoronoi": true,
+          "margin": {
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "duration": 250,
+          "useVoronoi": true,
+          "clearHighlights": null
+        },
+        showDistX: true,
+        showDistY: true,
+        tooltipContent: function(key) {
+          return '<h3>' + key + '</h3>';
+        },
+        useVoronoi: false,
+        clipEdge: true,
+        showControls: false,
+        transitionDuration: 500,
+        xAxis: {
+          showMaxMin: false,
+          tickFormat: function(d) {
+            return d3.time.format('%e/%m/%y')(new Date(d))
+          }
+        },
+        yAxis: {
+          "axisLabel": "Heart puslse (bpm) / SPO2 (%)"
+        }
+      }
+    };
+
 
 
     return {
@@ -181,6 +232,7 @@ angular.module('wcGraphs', [])
       stepsConfig: stepsConfig,
       elevationConfig: elevationConfig,
       sleepConfig: sleepConfig,
-      wakeupConfig: wakeupConfig
+      wakeupConfig: wakeupConfig,
+      bodyConfig: bodyConfig
     };
   }]);

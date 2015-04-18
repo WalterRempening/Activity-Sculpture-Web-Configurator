@@ -18,6 +18,7 @@ angular.module('wcDashboard', [])
      $scope.elevationConfig = GraphFactory.elevationConfig;
      $scope.sleepConfig = GraphFactory.sleepConfig;
      $scope.wakeupConfig = GraphFactory.wakeupConfig;
+     $scope.bodyConfig = GraphFactory.bodyConfig;
 
      //Form data ==========================================================
      $scope.startDate;
@@ -46,6 +47,14 @@ angular.module('wcDashboard', [])
          $scope.graph.activity = UserDataFactory.getUserActivity();
        }
      });
+
+     $scope.graph.body = UserDataFactory.getUserBody();
+     $scope.$watch(function(newVal, oldVal) {
+       if (newVal != oldVal) {
+         $scope.graph.body = UserDataFactory.getUserBody();
+       }
+     });
+
 
      $scope.graph.sleep = UserDataFactory.getUserSleep();
      $scope.$watch(function(newVal, oldVal) {

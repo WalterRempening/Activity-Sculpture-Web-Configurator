@@ -24,7 +24,9 @@ angular.module('wcUserData', [])
         elevation: [],
         intensity: []
       },
-      body: [],
+      body: {
+        heartpulse: []
+      },
       config: {
         startdate: "",
         enddate: ""
@@ -44,6 +46,12 @@ angular.module('wcUserData', [])
     function setUserSleep(data) {
       user.sleep.depth = data.depth;
       user.sleep.wakeup = data.wakeup;
+    }
+
+    function getUserBody() {return user.body;}
+
+    function setUserBody(data) {
+      user.body.heartpulse = data.heartpulse;
     }
 
     function getUserActivity() {return user.activity;}
@@ -154,7 +162,8 @@ angular.module('wcUserData', [])
     });
 
     SocketFactory.on('receive:user:body', function(responseData) {
-      user.body = responseData;
+      var data = formatBodyData(responseData);
+      user.body = data;
       //console.log('receive user body' + responseData);
       progress++;
     });
@@ -228,6 +237,47 @@ angular.module('wcUserData', [])
       };
     }
 
+    function formatBodyData(resData) {
+      var graphData = {};
+      var mesType = {
+        1: 'Weight',
+        4: 'Height',
+        11: 'Heart Pulse',
+        54: 'SPO2'
+      };
+
+      var shapes = ['diamond', 'circle', 'square'];
+
+      for (var label in mesType) {
+        graphData[mesType[label]] = {
+          "key": mesType[label],
+          "values": []
+        };
+      }
+
+      for (var i = 0; i < resData.length; i++) {
+        for (var j = 0; j < resData[i].measures.length; j++) {
+          var cat = mesType[resData[i].measures[j].type];
+          graphData[cat].values.push({
+            x:new Date(resData[i].date),
+            y:resData[i].measures[j].value,
+            size: j,
+            shape: shapes[j]
+        });
+        }
+      }
+
+
+      return {
+        weight: [graphData['Weight']],
+        height: [graphData['Height']],
+        heartpulse: [
+          graphData['Heart Pulse'],
+          graphData['SPO2']
+        ]
+      };
+    }
+
     return {
       init: init,
       getUser: getUser,
@@ -237,6 +287,8 @@ angular.module('wcUserData', [])
       setUserSleep: setUserSleep,
       getUserActivity: getUserActivity,
       setUserActivity: setUserActivity,
+      getUserBody: getUserBody,
+      setUserBody: setUserBody,
       queryUserSettings: queryUserSettings,
       getUserSettings: getUserSettings,
       saveUserSettings: saveUserSettings,
