@@ -12,38 +12,63 @@
 <md-content class="md-padding setup">
   <div class="container"
        ng-class="showProgress() ? 'show-dash' : 'hide-dash'">
-    <div layout="row">
-      <div flex>
-        <h2>Activity Intensity</h2>
-        <nvd3 options="intenistyConfig" data="graph.activity.intensity"></nvd3>
+    <h1>Sculptures</h1>
+    <md-content class="md-padding">
+      <md-grid-list
+        md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+        md-row-height-gt-md="1:1" md-row-height="2:2"
+        md-gutter="12px" md-gutter-gt-sm="8px">
+        <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1">
+        <md-button class="md-raised newconfig"
+                   ng-click="toConfigurator()">
+          New Sculpture
+        </md-button>
+        </md-grid-tile>
+        <md-grid-tile
+          md-rowspan="1" md-colspan="1" md-colspan-sm="1">
+          <md-grid-tile-footer>
+            <h3>Sculpture's Date</h3>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+      </md-grid-list>
+    </md-content>
+    <md-divider></md-divider>
+    <h1>Activity Report</h1>
+    <md-content class="md-padding">
+      <div layout="row">
+        <div flex>
+          <h3>Activity Intensity</h3>
+          <nvd3 options="intenistyConfig"
+                data="graph.activity.intensity"></nvd3>
+        </div>
       </div>
-    </div>
-    <div layout="row">
-      <div flex>
-        <h2>Step Count & Distance</h2>
-        <nvd3 options="stepsConfig" data="graph.activity.steps"></nvd3>
+      <div layout="row">
+        <div flex>
+          <h3>Step Count & Distance</h3>
+          <nvd3 options="stepsConfig" data="graph.activity.steps"></nvd3>
+        </div>
+        <div flex>
+          <h3>Elevation</h3>
+          <nvd3 options="elevationConfig"
+                data="graph.activity.elevation"></nvd3>
+        </div>
       </div>
-      <div flex>
-        <h2>Elevation</h2>
-        <nvd3 options="elevationConfig" data="graph.activity.elevation"></nvd3>
+      <div layout="row">
+        <div flex>
+          <h3>Sleep Summary</h3>
+          <nvd3 options="sleepConfig" data="graph.sleep.depth"></nvd3>
+        </div>
       </div>
-    </div>
-    <div layout="row">
-      <div flex>
-        <h2>Sleep Summary</h2>
-        <nvd3 options="sleepConfig" data="graph.sleep.depth"></nvd3>
+      <div layout="row">
+        <div flex>
+          <h3>Wakeup Count</h3>
+          <nvd3 options="wakeupConfig" data="graph.sleep.wakeup"></nvd3>
+        </div>
+        <div flex>
+          <h3>Heart pulse and SPO2</h3>
+          <nvd3 options="bodyConfig" data="graph.body.heartpulse"></nvd3>
+        </div>
       </div>
-    </div>
-    <div layout="row">
-      <div flex>
-        <h2>Wakeup Count</h2>
-        <nvd3 options="wakeupConfig" data="graph.sleep.wakeup"></nvd3>
-      </div>
-      <div flex>
-        <h2>Heart pulse and SPO2</h2>
-        <nvd3 options="bodyConfig" data="graph.body.heartpulse"></nvd3>
-      </div>
-    </div>
-  </div>
+    </md-content>
   </div>
 </md-content>

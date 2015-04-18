@@ -31,11 +31,14 @@ angular.module('wcUserData', [])
         startdate: "",
         enddate: ""
       },
-      settings: {}
+      settings: {},
+      sculptures: []
     };
 
     // setters and getters for module
     function getUser() {return user;}
+
+    function getUserId(){return user.id;}
 
     function getUserProfile() {return user.profile;}
 
@@ -77,7 +80,6 @@ angular.module('wcUserData', [])
       );
     }
 
-
     function queryUserSettings(callback) {
       $http.get("/api/user/" + user.id + "/settings")
         .success(function(data, status, headers, config) {
@@ -104,6 +106,29 @@ angular.module('wcUserData', [])
     function getUserSettings() {
       return user.settings;
     }
+
+    //User Sculpture Management =============================
+    function getUserSculptures() {
+      SocketFactory.emit('get:user:sculptures', user.id);
+    }
+
+    function saveUserSculptures(sculpture) {
+      $http.post("/api/user/" + user.id + "/sculptures", sculpture)
+        .success(function(data, status, headers, config) {
+          SocketFactory.emit('get:user:sculptures', user.id);
+        })
+        .error(function(data, status, headers, config) {
+          // Display error dialog
+          if (status === 500) errorDialog(DATA_RESPONSE_ERROR);
+        });
+    }
+
+    SocketFactory.on('receive:user:sculptures', function(responseData) {
+      var data = formatActivity(responseData);
+      user.sculptures = data;
+      //console.log(user.sculptures);
+    });
+
 
     function init() {
       // Query User Data to API======================================
@@ -259,11 +284,11 @@ angular.module('wcUserData', [])
         for (var j = 0; j < resData[i].measures.length; j++) {
           var cat = mesType[resData[i].measures[j].type];
           graphData[cat].values.push({
-            x:new Date(resData[i].date),
-            y:resData[i].measures[j].value,
+            x: new Date(resData[i].date),
+            y: resData[i].measures[j].value,
             size: j,
             shape: shapes[j]
-        });
+          });
         }
       }
 
@@ -281,6 +306,7 @@ angular.module('wcUserData', [])
     return {
       init: init,
       getUser: getUser,
+      getUserId: getUserId,
       getUserProfile: getUserProfile,
       setUserProfile: setUserProfile,
       getUserSleep: getUserSleep,
@@ -292,6 +318,8 @@ angular.module('wcUserData', [])
       queryUserSettings: queryUserSettings,
       getUserSettings: getUserSettings,
       saveUserSettings: saveUserSettings,
+      getUserSculptures: getUserSculptures,
+      saveUserSculptures: saveUserSculptures,
       getProgress: getProgress,
       setDates: setDates
     };

@@ -62,6 +62,19 @@ module.exports = function(io) {
       });
     });
 
+    socket.on('get:user:sculptures', function(userid) {
+      console.log('Searching profile for user:' + userid);
+
+      WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
+        if (err) throw err;
+        var resdata = dbuser.sculptures;
+
+        console.log('Sending profile data');
+        //console.log(resdata);
+        socket.emit('receive:user:sculptures', resdata);
+      });
+    });
+
   });
 };
 

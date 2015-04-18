@@ -58,7 +58,7 @@ app.config(
 
      // User routes
      $stateProvider.state('configurator', {
-       url: '/config/{userid}',
+       url: '/user/{userid}/configurator/',
        templateUrl: '../views/configurator/configurator-page.html'
      })
        .state('settings', {

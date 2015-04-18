@@ -100,6 +100,22 @@ module.exports = function(app, passport) {
       });
     });
 
+  app.post("/api/user/:id/sculptures", ensureAuthorized,
+    function(req, res, next) {
+      var userid = req.user.id;
+
+      WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
+        if (err) throw err;
+        console.log(req.body);
+        //dbuser.sculptures.push = req.body.sculpture
+        dbuser.save(function(err) {
+          if (err) {
+            res.sendStatus(500);
+          }
+        });
+      });
+    });
+
   app.get("/api/user/:id/data/activity", ensureAuthorized,
     function(req, res, next) {
 
@@ -241,5 +257,4 @@ module.exports = function(app, passport) {
         }
       });
     });
-}
-;
+};

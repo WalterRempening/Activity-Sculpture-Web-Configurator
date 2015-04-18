@@ -1,9 +1,9 @@
 'use sctrict';
 angular.module('wcDashboard', [])
   .controller('DashboardController',
-  ['$scope', '$mdDialog', '$mdToast', 'GraphFactory', 'UserDataFactory','$cookies',
+  ['$scope', '$mdDialog', '$mdToast', 'GraphFactory', 'UserDataFactory','$cookies', '$state',
    function($scope, $mdDialog, $mdToast, GraphFactory,
-            UserDataFactory, $cookies) {
+            UserDataFactory, $cookies, $state) {
 
      var settings = JSON.parse($cookies.settings);
 
@@ -20,9 +20,22 @@ angular.module('wcDashboard', [])
      $scope.wakeupConfig = GraphFactory.wakeupConfig;
      $scope.bodyConfig = GraphFactory.bodyConfig;
 
-     //Form data ==========================================================
+     //Form data =====================================================================
      $scope.startDate;
      $scope.endDate = new Date(Date.now()).toISOString().slice(0, 10);
+
+     //Sculpture archive =============================================================
+     $scope.sculptures = UserDataFactory.getUser
+     $scope.$watch(function(newVal, oldVal) {
+       if (newVal != oldVal) {
+         $scope.sculptures = UserDataFactory.getUserSculptures();
+       }
+     });
+
+     $scope.toConfigurator = function() {
+       var id = UserDataFactory.getUserId();
+      $state.go('configurator', {userid: id});
+     }
 
      //User Data Assignment ==========================================================
      var ALL_MESSAGES_RECEIVED = 4;
@@ -79,10 +92,6 @@ angular.module('wcDashboard', [])
          position: 'top left'
        });
      };
-
-     //Setup Form Dialog =============================================================
-
-
    }])
 
   .controller('ToastController',

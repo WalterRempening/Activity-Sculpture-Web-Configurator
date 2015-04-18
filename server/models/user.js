@@ -5,7 +5,7 @@ var userSchema = new Schema({
   profile: {
     name: String,
     gender: Number,
-    age: Number ,
+    age: Number,
     location: String
   },
   oauth: {
@@ -18,16 +18,17 @@ var userSchema = new Schema({
     created_at: Date,
     updated_at: Date
   },
-  data:{
+  data: {
     body: {},
     activity: {},
-    sleep:{}
+    sleep: {}
   },
-  settings:{
+  settings: {
     startDate: Date,
     endDate: Date,
     show: Boolean
-  }
+  },
+  sculptures: {type: Array, "default": []}
 });
 
 userSchema.pre('save', function(next) {
