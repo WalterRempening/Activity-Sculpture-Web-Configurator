@@ -1,50 +1,64 @@
-(function() {
+(function () {
   'use strict';
-  var model = angular.module('wcModel', []);
+  var model = angular.module( 'wcModel', [] );
 
-  model.service('ModelService',
-    ['SceneService','UserDataFactory', function(SceneService, UserDataFactory) {
+  model.service( 'ModelService',
+    [ 'SceneService', 'UserDataFactory', function ( SceneService,
+                                                    UserDataFactory ) {
 
-      var cmaterial = new THREE.MeshPhongMaterial({
-        shading: THREE.SmoothShading,
-        color: 0xfffe00,
-        ambient: 0xfaeb07,
-        emissive: 0x000000,
-        specular: 0xffffff,
-        shininess: 1
-      });
+      this.matParams = {
+        color: 0xfffe00
+      }
 
-      var cube = new THREE.Mesh(
-        new THREE.BoxGeometry(40, 40, 40),
-        cmaterial
-      );
-
-      //cube.castShadow = true;
-      //console.log(UserDataFactory.getUserProfile());
-
-      this.addModel = function() {
-        SceneService.scene.add(cube);
-        //ApiService.getData().then(function(data) {
-        //  // do something with the data
-        //  // this is going to be the place where the model is going to be build
-        //});
-
+      this.geoParams = {
+        data: UserDataFactory.getUserActivity(),
+        outerRadius: 50,
+        innerRadius: 40,
+        height: 100,
+        radialSegments: 100,
+        heightSegments: 100
       };
 
-      this.scale = {
-        x: 1,
-        y: 1,
-        z: 1
+      function makeSculpture ( geoArgs, matArgs ) {
+        return new THREE.Mesh(
+          new WCVaseGeometry(
+            geoArgs.data,
+            geoArgs.outerRadius,
+            geoArgs.innerRadius,
+            geoArgs.height,
+            geoArgs.radialSegments,
+            geoArgs.heightSegments
+          ),
+          new THREE.MeshPhongMaterial( {
+            shading: THREE.FlatShading,
+            color: matArgs.color,
+            ambient: 0xfaeb07,
+            emissive: 0x000000,
+            specular: 0xffffff,
+            shininess: 1
+          } )
+        );
+      }
+
+      var sculpture = makeSculpture( this.geoParams, this.matParams );
+
+      this.addModel = function () {
+        SceneService.scene.add( sculpture );
       };
 
-      this.rotate = false;
+      this.updateMesh = function () {
+        SceneService.scene.remove( sculpture );
+        sculpture = makeSculpture( this.geoParams, this.matParams );
+        SceneService.scene.add( sculpture );
+      }
 
       var rotationY = 0;
       var rotationSpeed = 0;
+      this.rotate = false;
 
-      this.update = function(delta) {
+      this.update = function ( delta ) {
 
-        if (this.rotate) {
+        if ( this.rotate ) {
           rotationSpeed = delta * 0.2;
           //rotationSpeed += Math.sin(Math.PI/8) * 0.009;
         }
@@ -53,11 +67,10 @@
         }
 
         rotationY += rotationSpeed;
-        cube.rotation.y = rotationY;
+        sculpture.rotation.y = rotationY;
 
-        cube.scale.set(this.scale.x, this.scale.y, this.scale.z);
       };
 
 
-    }]);
+    } ] );
 })();

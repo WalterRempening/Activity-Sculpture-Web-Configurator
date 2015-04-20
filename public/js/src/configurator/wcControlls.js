@@ -1,46 +1,51 @@
-(function() {
+(function () {
   'use strict';
-  var controlls = angular.module('wcControlls', []);
+  var controlls = angular.module( 'wcControlls', [] );
 
-  controlls.controller('LeftController',
-    ['$timeout', '$mdSidenav', 'ModelService', '$log',
-     function($timeout,
-              $mdSidenav,
-              ModelService) {
+  controlls.controller( 'LeftController',
+    [ '$timeout', '$mdSidenav', 'ModelService', '$log',
+      function ( $timeout,
+                 $mdSidenav,
+                 ModelService ) {
 
-       ModelService.addModel();
+        ModelService.addModel();
 
-       this.toggleLeft = function() {
-         $mdSidenav('left').toggle();
-       };
+        this.toggleLeft = function () {
+          $mdSidenav( 'left' ).toggle();
+        };
 
-       this.scale = {
-         x: 1.00,
-         y: 1.00,
-         z: 1.00
-       };
+        this.uiMatParams = {
+          color: 0xfffe00
+        }
 
-       this.onScaleX = function() {
-         ModelService.scale.x = this.scale.x;
-       };
+        this.uiGeoParams = {
+          outerRadius: 50,
+          innerRadius: 40,
+          height: 70,
+          radialSegments: 40,
+          heightSegments: 2
+        };
 
-       this.onScaleY = function() {
-         ModelService.scale.y = this.scale.y;
-       };
+        this.onUiGeoParamsChange = function ( key ) {
+          ModelService.geoParams[ key ] = this.uiGeoParams[ key ];
+          ModelService.updateMesh();
+        }
 
-       this.onScaleZ = function() {
-         ModelService.scale.z = this.scale.z;
-       };
-
-       this.toggle = {
-         rotate: false
-       }
-
-       this.onRotateToggle = function() {
-         ModelService.rotate = this.toggle.rotate;
-       };
+        this.onUiMatParamsChange = function ( key ) {
+          ModelService.matParams[ key ] = this.uiMatParams[ key ];
+          ModelService.updateMesh();
+        }
 
 
-     }]
+        this.toggle = {
+          rotate: false
+        }
+
+        this.onRotateToggle = function () {
+          ModelService.rotate = this.toggle.rotate;
+        };
+
+
+      } ]
   );
 })();

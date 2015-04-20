@@ -4,6 +4,7 @@ var WCUser = require('./models/user');
 
 function ensureAuthorized(req, res, next) {
   if (!req.user) {
+    console.log( 'Not authorized' );
     return res.sendStatus(403);
   } else {
     return next();
