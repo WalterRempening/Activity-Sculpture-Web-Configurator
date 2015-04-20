@@ -3,17 +3,26 @@
               class="md-sidenav-left md-whiteframe-z2 md-locked-open"
               md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
     <md-toolbar>
-      <h1 class="md-toolbar-tools" >Geometry</h1>
+      <h1 class="md-toolbar-tools">Geometry</h1>
     </md-toolbar>
     <md-content class="md-padding" ng-controller="LeftController as lefty">
 
       <div layout="column">
 
         <div flex="10" layout="row" layout-align="space-around center">
+          <span class="slider-name">Outer Radius</span>
+          <span class="slider-value">{{lefty.uiGeoParams.outerRadius}}</span>
+        </div>
+        <md-slider flex min="5" max="80" aria-label="Control Name"
+                   class="md-hue-3" ng-model='lefty.uiGeoParams.outerRadius'
+                   ng-change="lefty.onUiGeoParamsChange('outerRadius')">
+        </md-slider>
+
+        <div flex="10" layout="row" layout-align="space-around center">
           <span class="slider-name">Height</span>
           <span class="slider-value">{{lefty.uiGeoParams.height}}</span>
         </div>
-        <md-slider flex min="10" max="150"  aria-label="Control Name"
+        <md-slider flex min="10" max="150" aria-label="Control Name"
                    class="md-hue-3" ng-model='lefty.uiGeoParams.height'
                    ng-change="lefty.onUiGeoParamsChange('height')">
         </md-slider>
@@ -22,7 +31,7 @@
           <span class="slider-name">Radial Segments</span>
           <span class="slider-value">{{lefty.uiGeoParams.radialSegments}}</span>
         </div>
-        <md-slider flex min="3" max="50"  aria-label="Control Name"
+        <md-slider flex min="3" max="50" aria-label="Control Name"
                    class="md-hue-3" ng-model='lefty.uiGeoParams.radialSegments'
                    ng-change="lefty.onUiGeoParamsChange('radialSegments')">
         </md-slider>
@@ -31,17 +40,18 @@
           <span class="slider-name">Height Segments</span>
           <span class="slider-value">{{lefty.uiGeoParams.heightSegments}}</span>
         </div>
-        <md-slider flex min="3" max="50"  aria-label="Control Name"
+        <md-slider flex min="3" max="50" aria-label="Control Name"
                    class="md-hue-3" ng-model='lefty.uiGeoParams.heightSegments'
                    ng-change="lefty.onUiGeoParamsChange('heightSegments')">
         </md-slider>
       </div>
 
-      <md-switch ng-model="lefty.toggle.rotate" aria-label="Rotate" ng-change="lefty.onRotateToggle()">
+      <md-switch ng-model="lefty.toggle.rotate" aria-label="Rotate"
+                 ng-change="lefty.onRotateToggle()">
         <span class="slider-name">Rotate</span>
       </md-switch>
     </md-content>
   </md-sidenav>
-<three-viewport></three-viewport>
+  <three-viewport></three-viewport>
 </section>
 

@@ -21,7 +21,8 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
   height = height !== undefined ? height : 100;
 
   radialSegments = radialSegments || 8;
-  heightSegments = heightSegments || 1;
+  //heightSegments = heightSegments || 1;
+  heightSegments = data.length;
 
   var heightHalf = height / 2;
   var x, y, vertices = [], uvs = [];
@@ -38,9 +39,9 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
       // Infuse user data here to manipulate sides
       var u = x / radialSegments;
       var vertex = new THREE.Vector3();
-      vertex.x = radius * Math.sin( u * 2 * Math.PI ); // Math.PI is for thetaLength
+      vertex.x = data[y] + radius * Math.sin( u * 2 * Math.PI ); // Math.PI is for thetaLength
       vertex.y = -v * height + heightHalf;
-      vertex.z = radius * Math.cos( u * 2 * Math.PI );
+      vertex.z = data[y] + radius * Math.cos( u * 2 * Math.PI );
 
       this.vertices.push( vertex );
 
