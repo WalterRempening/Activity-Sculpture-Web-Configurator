@@ -3,8 +3,8 @@
   var model = angular.module( 'wcModel', [] );
 
   model.service( 'ModelService',
-    [ 'SceneService', 'UserDataFactory', 'DataUpdaterService',
-      function ( SceneService, UserDataFactory, DataUpdaterService ) {
+    [ 'SceneService', 'UserDataFactory', 'DataUpdaterService', 'wcEvents',
+      function ( SceneService, UserDataFactory, DataUpdaterService, wcEvents ) {
 
         var utils = {
           format: wcDataUtils.format,
@@ -16,7 +16,7 @@
         };
 
         this.data = UserDataFactory.getUserActivity();
-        DataUpdaterService.listenActivity( function ( data ) {
+        DataUpdaterService.listenForUserData(wcEvents.ACTIVITY, function ( data ) {
           this.data = data;
         } );
 

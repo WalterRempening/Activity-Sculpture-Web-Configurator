@@ -89,6 +89,10 @@ angular.module( 'wcUserData', [] )
         return user.settings;
       }
 
+      function getDataForSculpture () {
+
+      }
+
       //User Sculpture Management =============================
       function getUserSculptures () {
         SocketFactory.emit( 'get:user:sculptures', user.id );
@@ -151,33 +155,31 @@ angular.module( 'wcUserData', [] )
 
       //receive user data through sockets =============================
       SocketFactory.on( 'receive:user:activity', function ( responseData ) {
-        var data = format.Activity( responseData );
-        user.activity = data;
+        //var data = format.Activity( responseData );
+        user.activity = responseData;
         DataUpdaterService.broadcastUserData( wcEvents.ACTIVITY,
           user.activity );
         //console.log(user.activity);
         progress++;
-        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS,progress);
+        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS, progress );
       } );
 
       SocketFactory.on( 'receive:user:sleep', function ( responseData ) {
-        var data = format.Sleep( responseData );
-        user.sleep = data;
+        user.sleep = responseData;
         DataUpdaterService.broadcastUserData( wcEvents.SLEEP,
           user.sleep );
         //console.log(user.sleep);
         progress++;
-        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS,progress);
+        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS, progress );
       } );
 
       SocketFactory.on( 'receive:user:body', function ( responseData ) {
-        var data = format.Body( responseData );
-        user.body = data;
+        user.body = responseData;
         DataUpdaterService.broadcastUserData( wcEvents.BODY,
           user.body );
         //console.log('receive user body' + responseData);
         progress++;
-        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS,progress);
+        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS, progress );
       } );
 
       SocketFactory.on( 'receive:user:profile', function ( responseData ) {
@@ -186,7 +188,7 @@ angular.module( 'wcUserData', [] )
           user.profile );
         //console.log(user.profile);
         progress++;
-        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS,progress);
+        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS, progress );
       } );
 
 
@@ -201,6 +203,7 @@ angular.module( 'wcUserData', [] )
         queryUserSettings: queryUserSettings,
         getUserSettings: getUserSettings,
         saveUserSettings: saveUserSettings,
+        getDataForSculpture: getDataForSculpture,
         getUserSculptures: getUserSculptures,
         saveUserSculptures: saveUserSculptures,
         getProgress: getProgress
@@ -223,6 +226,7 @@ angular.module( 'wcUserData', [] )
     "ACTIVITY": "activity",
     "BODY": "body",
     "SLEEP": "sleep",
+    "DATA_FOR_SCULPTURE": "scultpure-data",
     "PROFILE": "profile",
     "SCULPTURES": "sculptures",
     "PROGRESS": "progress"
