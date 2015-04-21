@@ -1,17 +1,19 @@
 'use strict';
 angular.module( 'wcUserData', [] )
   .factory( 'UserDataFactory',
-  [ '$http', 'SocketFactory', '$cookies', '$mdDialog', 'DataUpdaterService',
+  [ '$http', 'SocketFactory', '$cookies', '$mdDialog', 'DataUpdaterService', 'wcEvents',
     function ( $http,
                SocketFactory,
                $cookies,
                $mdDialog,
-               DataUpdaterService ) {
+               DataUpdaterService,
+               wcEvents ) {
 
       var sessuser = JSON.parse( $cookies.user );
       var format = wcDataUtils.format;
       var DATA_RESPONSE_ERROR = 'An error was found while fetching data for your user. Try again later';
       var SAVE_SETTINGS_RESPONSE_ERROR = 'User settings could not be saved';
+      var progress = 0;
 
       // initialize user object
       var user = {
@@ -50,6 +52,7 @@ angular.module( 'wcUserData', [] )
 
       function getUserActivity () {return user.activity;}
 
+      function getProgress () {return progress};
 
       function errorDialog ( msg ) {
         $mdDialog.show(
@@ -147,36 +150,43 @@ angular.module( 'wcUserData', [] )
       }
 
       //receive user data through sockets =============================
-      var progress = 0;
-
-      function getProgress () {return progress};
-
       SocketFactory.on( 'receive:user:activity', function ( responseData ) {
         var data = format.Activity( responseData );
         user.activity = data;
-        DataUpdaterService.broadcastActivity( user.activity );
+        DataUpdaterService.broadcastUserData( wcEvents.ACTIVITY,
+          user.activity );
         //console.log(user.activity);
         progress++;
+        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS,progress);
       } );
 
       SocketFactory.on( 'receive:user:sleep', function ( responseData ) {
         var data = format.Sleep( responseData );
         user.sleep = data;
+        DataUpdaterService.broadcastUserData( wcEvents.SLEEP,
+          user.sleep );
         //console.log(user.sleep);
         progress++;
+        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS,progress);
       } );
 
       SocketFactory.on( 'receive:user:body', function ( responseData ) {
         var data = format.Body( responseData );
         user.body = data;
+        DataUpdaterService.broadcastUserData( wcEvents.BODY,
+          user.body );
         //console.log('receive user body' + responseData);
         progress++;
+        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS,progress);
       } );
 
       SocketFactory.on( 'receive:user:profile', function ( responseData ) {
         user.profile = responseData;
+        DataUpdaterService.broadcastUserData( wcEvents.PROFILE,
+          user.profile );
         //console.log(user.profile);
         progress++;
+        DataUpdaterService.broadcastUserData( wcEvents.PROGRESS,progress);
       } );
 
 
@@ -193,18 +203,27 @@ angular.module( 'wcUserData', [] )
         saveUserSettings: saveUserSettings,
         getUserSculptures: getUserSculptures,
         saveUserSculptures: saveUserSculptures,
-        getProgress: getProgress,
+        getProgress: getProgress
       };
     } ] )
+
   .service( 'DataUpdaterService', [ '$rootScope', function ( $rootScope ) {
 
-    this.broadcastActivity = function ( data ) {
-      $rootScope.$broadcast( 'activity', data );
+    this.broadcastUserData = function ( event, data ) {
+      $rootScope.$broadcast( event, data );
     };
 
-    this.listenActivity = function ( callback ) {
-      $rootScope.$on( 'activity', function ( event, data ) {
+    this.listenForUserData = function ( event, callback ) {
+      $rootScope.$on( event, function ( event, data ) {
         callback( data );
       } );
     };
-  } ] );
+  } ] )
+  .constant( 'wcEvents', {
+    "ACTIVITY": "activity",
+    "BODY": "body",
+    "SLEEP": "sleep",
+    "PROFILE": "profile",
+    "SCULPTURES": "sculptures",
+    "PROGRESS": "progress"
+  } );

@@ -1,9 +1,10 @@
 'use sctrict';
 angular.module( 'wcDashboard', [] )
   .controller( 'DashboardController',
-  [ '$scope', '$mdDialog', '$mdToast', 'GraphFactory', 'UserDataFactory', '$cookies', '$state', 'DataUpdaterService',
+  [ '$scope', '$mdDialog', '$mdToast', 'GraphFactory', 'UserDataFactory', '$cookies', '$state', 'DataUpdaterService', 'wcEvents',
     function ( $scope, $mdDialog, $mdToast, GraphFactory,
-               UserDataFactory, $cookies, $state, DataUpdaterService ) {
+               UserDataFactory, $cookies, $state, DataUpdaterService,
+               wcEvents ) {
 
       var settings = JSON.parse( $cookies.settings );
 
@@ -13,7 +14,7 @@ angular.module( 'wcDashboard', [] )
 
       //Graph Configuration Loading ===================================================
       $scope.graph = {};
-      $scope.intenistyConfig = GraphFactory.intensityConfig;
+      $scope.intensityConfig = GraphFactory.intensityConfig;
       $scope.stepsConfig = GraphFactory.stepsConfig;
       $scope.elevationConfig = GraphFactory.elevationConfig;
       $scope.sleepConfig = GraphFactory.sleepConfig;
@@ -26,11 +27,10 @@ angular.module( 'wcDashboard', [] )
 
       //Sculpture archive =============================================================
       $scope.sculptures = UserDataFactory.getUser
-      $scope.$watch( function ( newVal, oldVal ) {
-        if ( newVal != oldVal ) {
-          $scope.sculptures = UserDataFactory.getUserSculptures();
-        }
-      } );
+      DataUpdaterService.listenForUserData( wcEvents.SCULPTURES,
+        function ( data ) {
+          $scope.sculptures = data;
+        } );
 
       $scope.toConfigurator = function () {
         var id = UserDataFactory.getUserId();
@@ -48,38 +48,35 @@ angular.module( 'wcDashboard', [] )
       };
 
       $scope.profile = UserDataFactory.getUserProfile();
-      $scope.$watch( function ( newVal, oldVal ) {
-        if ( newVal != oldVal ) {
-          $scope.profile = UserDataFactory.getUserProfile();
-        }
+      DataUpdaterService.listenForUserData( wcEvents.PROFILE,
+        function ( data ) {
+          $scope.profile = data;
       } );
 
       $scope.graph.activity = UserDataFactory.getUserActivity();
-      DataUpdaterService.listenActivity( function ( data ) {
-        $scope.graph.activity = data;
-      } );
+      DataUpdaterService.listenForUserData( wcEvents.ACTIVITY,
+        function ( data ) {
+          $scope.graph.activity = data;
+        } );
 
       $scope.graph.body = UserDataFactory.getUserBody();
-      $scope.$watch( function ( newVal, oldVal ) {
-        if ( newVal != oldVal ) {
-          $scope.graph.body = UserDataFactory.getUserBody();
-        }
-      } );
+      DataUpdaterService.listenForUserData( wcEvents.BODY,
+        function ( data ) {
+          $scope.graph.body = data;
+        } );
 
 
       $scope.graph.sleep = UserDataFactory.getUserSleep();
-      $scope.$watch( function ( newVal, oldVal ) {
-        if ( newVal != oldVal ) {
-          $scope.graph.sleep = UserDataFactory.getUserSleep();
-        }
-      } );
+      DataUpdaterService.listenForUserData( wcEvents.SLEEP,
+        function ( data ) {
+          $scope.graph.sleep = data;
+        } );
 
       $scope.progress = UserDataFactory.getProgress();
-      $scope.$watch( function ( newVal, oldVal ) {
-        if ( newVal != oldVal ) {
-          $scope.progress = UserDataFactory.getProgress();
-        }
-      } );
+      DataUpdaterService.listenForUserData( wcEvents.PROGRESS,
+        function ( data ) {
+          $scope.progress = data;
+        } );
 
       //Help Toast =====================================================================
       $scope.showWelcomeToast = function () {
