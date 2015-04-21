@@ -13,16 +13,14 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
     heightSegments: heightSegments
   };
 
-
-  data = data !== undefined ? data : [];
+  data = data !== undefined ? data : 1;
 
   outerRadius = outerRadius !== undefined ? outerRadius : 20;
   innerRadius = innerRadius !== undefined ? innerRadius : 15;
   height = height !== undefined ? height : 100;
 
   radialSegments = radialSegments || 8;
-  //heightSegments = heightSegments || 1;
-  heightSegments = data.length;
+  heightSegments = heightSegments || 1;
 
   var heightHalf = height / 2;
   var x, y, vertices = [], uvs = [];
@@ -33,15 +31,15 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
     var uvsRow = [];
 
     var v = y / heightSegments;
-    var radius = outerRadius;
+    var radius = data[ 0 ][ y ] + outerRadius;
 
     for ( x = 0; x <= radialSegments; x++ ) {
-      // Infuse user data here to manipulate sides
       var u = x / radialSegments;
       var vertex = new THREE.Vector3();
-      vertex.x = data[y] + radius * Math.sin( u * 2 * Math.PI ); // Math.PI is for thetaLength
+      vertex.x = radius * Math.sin( u * 2 * Math.PI ); // Math.PI is for thetaLength
       vertex.y = -v * height + heightHalf;
-      vertex.z = data[y] + radius * Math.cos( u * 2 * Math.PI );
+      //vertex.y = -v * height;
+      vertex.z = radius * Math.cos( u * 2 * Math.PI );
 
       this.vertices.push( vertex );
 
@@ -92,9 +90,6 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
     }
   }
   // top cap
-
-  //if ( openEnded === false && radiusTop > 0 ) {
-  //
   this.vertices.push( new THREE.Vector3( 0, heightHalf, 0 ) );
 
   for ( x = 0; x < radialSegments; x++ ) {
@@ -116,11 +111,7 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
 
   }
 
-  //}
-
   // bottom cap
-  //if ( openEnded === false && radiusBottom > 0 ) {
-  //
   this.vertices.push( new THREE.Vector3( 0, -heightHalf, 0 ) );
 
   for ( x = 0; x < radialSegments; x++ ) {
@@ -141,8 +132,6 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
     this.faceVertexUvs[ 0 ].push( [ uv1, uv2, uv3 ] );
 
   }
-  //
-  //}
 
   this.computeFaceNormals();
 

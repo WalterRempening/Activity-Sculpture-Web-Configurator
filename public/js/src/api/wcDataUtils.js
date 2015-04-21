@@ -5,15 +5,15 @@
     Sleep: formatSleepData,
     Body: formatBodyData
   };
-
+  var GRAPH = 42, SCULPTURE = 43;
   exports.target = {
-    "GRAPH": 42,
-    "SCULPTURE": 43
+    "GRAPH": GRAPH,
+    "SCULPTURE": SCULPTURE
   };
 
-  exports.normalize = normalizeArray;
+  //exports.normalize = normalizeArray;
 
-  var GRAPH = 42, SCULPTURE = 43;
+
 
   //Restructure activty, sleep, body data for graphs/models =============================
   function formatActivityData ( resData, target ) {
@@ -56,15 +56,10 @@
         ]
       };
     } else if ( target === SCULPTURE ) {
-      data = [
-        graphData[ 0 ],
-        graphData[ 1 ],
-        graphData[ 2 ],
-        graphData[ 3 ],
-        graphData[ 4 ],
-        graphData[ 5 ],
-        graphData[ 6 ]
-      ];
+      data = [];
+      for (var k = 0; k < graphData.length; k++){
+        data.push( normalizeArray(graphData[ k ].values, 50) );
+      }
     }
 
     return data;

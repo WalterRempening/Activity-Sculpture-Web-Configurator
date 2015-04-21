@@ -21,9 +21,9 @@
         this.uiGeoParams = {
           outerRadius: 50,
           innerRadius: 40,
-          height: 70,
-          radialSegments: 40,
-          heightSegments: 2
+          height: 100,
+          radialSegments: 7,
+          heightSegments: 47
         };
 
         this.onUiGeoParamsChange = function ( key ) {

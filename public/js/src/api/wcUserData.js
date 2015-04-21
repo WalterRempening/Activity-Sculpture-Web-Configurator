@@ -90,7 +90,11 @@ angular.module( 'wcUserData', [] )
       }
 
       function getDataForSculpture () {
-
+        return [
+          user.activity,
+          user.sleep,
+          user.body
+        ];
       }
 
       //User Sculpture Management =============================

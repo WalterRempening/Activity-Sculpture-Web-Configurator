@@ -8,27 +8,27 @@
 
         var utils = {
           format: wcDataUtils.format,
-          normal: wcDataUtils.normalize
+          target: wcDataUtils.target
         };
 
         this.matParams = {
           color: 0xfffe00
         };
 
-        this.data = UserDataFactory.getUserActivity();
-        DataUpdaterService.listenForUserData(wcEvents.ACTIVITY, function ( data ) {
-          this.data = data;
-        } );
+        this.data = utils.format.Activity( UserDataFactory.getUserActivity(),
+          utils.target.SCULPTURE )
+        DataUpdaterService.listenForUserData( wcEvents.ACTIVITY,
+          function ( data ) {
+            this.data = utils.format.Activity( data, utils.target.SCULPTURE );
+          } );
 
         this.geoParams = {
-          data: utils.normal.Array(
-            this.data.steps[ 1 ].values
-            , 0, 20 ),
+          data: this.data,
           outerRadius: 50,
           innerRadius: 40,
           height: 100,
-          radialSegments: 100,
-          heightSegments: 100
+          radialSegments: this.data.length,
+          heightSegments: this.data[ 0 ].length
         };
 
         function makeSculpture ( geoArgs, matArgs ) {
@@ -72,7 +72,6 @@
 
           if ( this.rotate ) {
             rotationSpeed = delta * 0.2;
-            //rotationSpeed += Math.sin(Math.PI/8) * 0.009;
           }
           else {
             rotationSpeed = 0;
