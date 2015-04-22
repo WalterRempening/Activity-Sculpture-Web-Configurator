@@ -60,6 +60,7 @@
       for (var k = 0; k < graphData.length; k++){
         data.push( normalizeArray(graphData[ k ].values, 50) );
       }
+      data.push( [] );
     }
 
     return data;
@@ -173,7 +174,7 @@
     var normalized = [];
     var ratio = Math.max.apply( Math, data ) / max;
 
-    for ( i = 0; i < data.length; i++ ) {
+    for ( var i = 0; i < data.length; i++ ) {
       normalized.push( Math.round( data[ i ] / ratio ) );
     }
 

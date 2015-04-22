@@ -53,7 +53,6 @@
         this.rotate = false;
 
         this.update = function ( delta ) {
-
           if ( this.rotate ) {
             rotationSpeed = delta * 0.2;
           }
@@ -63,7 +62,6 @@
 
           rotationY += rotationSpeed;
           sculpture.rotation.y = rotationY;
-
         };
 
 

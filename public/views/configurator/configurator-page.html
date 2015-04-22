@@ -31,7 +31,10 @@
           <span class="slider-name">Radial Segments</span>
           <span class="slider-value">{{lefty.uiGeoParams.radialSegments}}</span>
         </div>
-        <md-slider flex min="3" max="50" aria-label="Control Name"
+        <md-slider flex
+                   min="{{lefty.sliderParams.radialSegments.min}}"
+                   max="{{lefty.sliderParams.radialSegments.max}}"
+                   aria-label="Control Name"
                    class="md-hue-3" ng-model='lefty.uiGeoParams.radialSegments'
                    ng-change="lefty.onUiGeoParamsChange('radialSegments')">
         </md-slider>
@@ -40,7 +43,10 @@
           <span class="slider-name">Date Range</span>
           <span class="slider-value">{{lefty.uiGeoParams.heightSegments}}</span>
         </div>
-        <md-slider flex min="1" max="46" aria-label="Control Name"
+        <md-slider flex
+                   min="{{lefty.sliderParams.heightSegments.min}}"
+                   max="{{lefty.sliderParams.heightSegments.max}}"
+                   aria-label="Control Name"
                    class="md-hue-3" ng-model='lefty.uiGeoParams.heightSegments'
                    ng-change="lefty.onUiGeoParamsChange('heightSegments')">
         </md-slider>

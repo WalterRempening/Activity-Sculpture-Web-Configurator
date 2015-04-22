@@ -31,13 +31,24 @@
           wireframe: false
         };
 
+        this.sliderParams = {
+          radialSegments: {
+            min: 1,
+            max: this.data.length -1
+          },
+          heightSegments: {
+            min: 1,
+            max: this.data[0 ].length -1
+          }
+        };
+
         this.uiGeoParams = {
           data: this.data,
           outerRadius: 30,
           innerRadius: 40,
           height: 100,
-          radialSegments: 30,
-          heightSegments: 46
+          radialSegments: this.data.length -1,
+          heightSegments: this.data[ 0 ].length -1
         };
 
         ModelService.addModel( this.uiGeoParams, this.uiMatParams );
