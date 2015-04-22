@@ -3,36 +3,13 @@
   var model = angular.module( 'wcModel', [] );
 
   model.service( 'ModelService',
-    [ 'SceneService', 'UserDataFactory', 'DataUpdaterService', 'wcEvents',
-      function ( SceneService, UserDataFactory, DataUpdaterService, wcEvents ) {
+    [ 'SceneService',
+      function ( SceneService ) {
 
-        var utils = {
-          format: wcDataUtils.format,
-          target: wcDataUtils.target
-        };
-
-        this.matParams = {
-          color: 0xfffe00
-        };
-
-        this.data = utils.format.Activity( UserDataFactory.getUserActivity(),
-          utils.target.SCULPTURE )
-        DataUpdaterService.listenForUserData( wcEvents.ACTIVITY,
-          function ( data ) {
-            this.data = utils.format.Activity( data, utils.target.SCULPTURE );
-          } );
-
-        this.geoParams = {
-          data: this.data,
-          outerRadius: 50,
-          innerRadius: 40,
-          height: 100,
-          radialSegments: this.data.length,
-          heightSegments: this.data[ 0 ].length
-        };
+        var SCULPTURE_NAME = 'vase';
 
         function makeSculpture ( geoArgs, matArgs ) {
-          return new THREE.Mesh(
+          var sculpture = new THREE.Mesh(
             new WCVaseGeometry(
               geoArgs.data,
               geoArgs.outerRadius,
@@ -47,20 +24,27 @@
               ambient: 0xfaeb07,
               emissive: 0x000000,
               specular: 0xffffff,
-              shininess: 1
+              shininess: 3,
+              wireframe: matArgs.wireframe,
+              wireframeLinewidth: 1
             } )
           );
+          sculpture.castShadow = true;
+          sculpture.name = SCULPTURE_NAME;
+
+          return sculpture;
         }
 
-        var sculpture = makeSculpture( this.geoParams, this.matParams );
-
-        this.addModel = function () {
+        var sculpture;
+        this.addModel = function ( geoArgs, matArgs ) {
+          sculpture = makeSculpture( geoArgs, matArgs );
           SceneService.scene.add( sculpture );
         };
 
-        this.updateMesh = function () {
-          SceneService.scene.remove( sculpture );
-          sculpture = makeSculpture( this.geoParams, this.matParams );
+        this.updateMesh = function ( geoArgs, matArgs ) {
+          var oldSculpture = SceneService.scene.getObjectByName( 'vase' );
+          SceneService.scene.remove( oldSculpture );
+          sculpture = makeSculpture( geoArgs, matArgs );
           SceneService.scene.add( sculpture );
         }
 

@@ -28,51 +28,54 @@
             CameraService.perspectiveCam.position.set( 0, 0, 200 );
             SceneService.scene.add( CameraService.perspectiveCam );
             // Create Renderer
-            renderer = new THREE.WebGLRenderer( { antialias: true } );
+            renderer = new THREE.WebGLRenderer( {
+              antialias: true,
+              alpha: true
+            } );
             renderer.setSize( element[ 0 ].offsetWidth,
               element[ 0 ].offsetHeight );
-            renderer.setClearColor( 0xFFFFFF, 1 );
-            //renderer.shadowMapEnabled = true;
+            renderer.shadowMapEnabled = true;
+            renderer.shadowMapSoft = true;
+
             // set up the controls with the camera and renderer
             controls = new THREE.OrbitControls( CameraService.perspectiveCam,
               renderer.domElement
             );
 
-            // init world scenary
-            SceneService.scene.fog = new THREE.Fog( 0x454545, 4849, 5976.44 );
+            controls.minDistance = 200;
+            controls.maxDistance = 500;
 
+            // init world scenary
             var ambientLight = new THREE.AmbientLight( 0x000000 );
             SceneService.scene.add( ambientLight );
 
-            var frontDirectionalLight = new THREE.DirectionalLight( 0xffffff,
-              0.78 );
-            frontDirectionalLight.position.set( 0, 1, 1 );
-            frontDirectionalLight.castShadow = true;
-            SceneService.scene.add( frontDirectionalLight );
+            var frontLight = new THREE.DirectionalLight( 0xffffff,
+              0.55 );
 
-            var backDirectionalLight = frontDirectionalLight.clone();
-            backDirectionalLight.position.set( 0, -1, -1 );
-            SceneService.scene.add( backDirectionalLight );
+            frontLight.castShadow = true;
+            frontLight.shadowDarkness = 0.2;
+            //frontLight.shadowCameraVisible = true;
+            frontLight.shadowCameraNear = 100;
+            frontLight.shadowCameraFar = 300;
+            frontLight.shadowCameraLeft = -100;
+            frontLight.shadowCameraRight = 100;
+            frontLight.shadowCameraTop = 100;
+            frontLight.shadowCameraBottom = -100;
 
-            var wgeometry = new THREE.PlaneBufferGeometry( 1000, 1000, 50, 50 );
-            var wmaterial = new THREE.MeshBasicMaterial( {
-              color: 0xFFFFFF
-            } );
+            frontLight.position.set( 0, 200, 300 );
+            frontLight.target.position.set(0, 1, 0);
 
-            var plane = new THREE.Mesh( wgeometry );
-            plane.rotation.x = -Math.PI / 2;
-            plane.position.y = -20;
-            plane.scale.set( 2, 2, 2 );
-            plane.visible = false;
 
-            var wireplane = new THREE.EdgesHelper( plane, 0xb3b3b3, 0 );
-            wireplane.material.linewidth = 0.7;
+            SceneService.scene.add( frontLight );
 
-            SceneService.scene.add( plane );
-            SceneService.scene.add( wireplane );
+            var backLight = frontLight.clone();
+            backLight.position.z *= -1;
+            SceneService.scene.add( backLight );
 
-            // Disable zooming with mouse scroll
-            controls.noZoom = true;
+            var bottomLight = frontLight.clone();
+            bottomLight.position.set( 0, -400, 0 );
+            SceneService.scene.add( bottomLight );
+
             // add renderer to DOM
             element[ 0 ].appendChild( renderer.domElement );
             // handle window resizing
@@ -104,24 +107,19 @@
             CameraService.perspectiveCam.updateProjectionMatrix();
           }
 
-
           scope.$on( '$destroy', function () {
             //destroy();
             console.log( 'Destroy' );
           } );
-
-
         };
 
         function destroy () {
           SceneService.destroy();
         }
 
-
         return {
           restrict: 'E',
           link: canvas
-
         };
       } ]
   );

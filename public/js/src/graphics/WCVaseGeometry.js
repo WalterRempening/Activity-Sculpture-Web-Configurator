@@ -31,14 +31,13 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
     var uvsRow = [];
 
     var v = y / heightSegments;
-    var radius = data[ 0 ][ y ] + outerRadius;
+    var radius = data[ 1 ][ y ] + outerRadius;
 
     for ( x = 0; x <= radialSegments; x++ ) {
       var u = x / radialSegments;
       var vertex = new THREE.Vector3();
       vertex.x = radius * Math.sin( u * 2 * Math.PI ); // Math.PI is for thetaLength
       vertex.y = -v * height + heightHalf;
-      //vertex.y = -v * height;
       vertex.z = radius * Math.cos( u * 2 * Math.PI );
 
       this.vertices.push( vertex );

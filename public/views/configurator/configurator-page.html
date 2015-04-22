@@ -10,7 +10,7 @@
       <div layout="column">
 
         <div flex="10" layout="row" layout-align="space-around center">
-          <span class="slider-name">Outer Radius</span>
+          <span class="slider-name">Radius</span>
           <span class="slider-value">{{lefty.uiGeoParams.outerRadius}}</span>
         </div>
         <md-slider flex min="5" max="80" aria-label="Control Name"
@@ -22,7 +22,7 @@
           <span class="slider-name">Height</span>
           <span class="slider-value">{{lefty.uiGeoParams.height}}</span>
         </div>
-        <md-slider flex min="10" max="150" aria-label="Control Name"
+        <md-slider flex min="60" max="300" aria-label="Control Name"
                    class="md-hue-3" ng-model='lefty.uiGeoParams.height'
                    ng-change="lefty.onUiGeoParamsChange('height')">
         </md-slider>
@@ -37,14 +37,19 @@
         </md-slider>
 
         <div flex="10" layout="row" layout-align="space-around center">
-          <span class="slider-name">Height Segments</span>
+          <span class="slider-name">Date Range</span>
           <span class="slider-value">{{lefty.uiGeoParams.heightSegments}}</span>
         </div>
-        <md-slider flex min="3" max="50" aria-label="Control Name"
+        <md-slider flex min="1" max="46" aria-label="Control Name"
                    class="md-hue-3" ng-model='lefty.uiGeoParams.heightSegments'
                    ng-change="lefty.onUiGeoParamsChange('heightSegments')">
         </md-slider>
       </div>
+
+      <md-switch ng-model="lefty.uiMatParams.wireframe" aria-label="Rotate"
+                 ng-change="lefty.onUiMatParamsChange('wireframe')">
+        <span class="slider-name">Wireframe</span>
+      </md-switch>
 
       <md-switch ng-model="lefty.toggle.rotate" aria-label="Rotate"
                  ng-change="lefty.onRotateToggle()">

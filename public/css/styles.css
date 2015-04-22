@@ -171,6 +171,13 @@ md-content.error-box {
 /**************************************
 *   . Configurator Controlls
 **************************************/
+three-viewport {
+  background: -webkit-radial-gradient(ellipse at center, #fff 0%, #f7f7f7 61%, #cfcfcf 100%);
+  background: -moz-radial-gradient(ellipse at center, #fff 0%, #f7f7f7 61%, #cfcfcf 100%);
+  background: -o-radial-gradient(ellipse at center, #fff 0%, #f7f7f7 61%, #cfcfcf 100%);
+  background: -ms-radial-gradient(ellipse at center, #fff 0%, #f7f7f7 61%, #cfcfcf 100%);
+  background: radial-gradient(ellipse at center, #fff 0%, #f7f7f7 61%, #cfcfcf 100%);
+}
 #left-ctrls {
   position: absolute;
   width: 35px;
