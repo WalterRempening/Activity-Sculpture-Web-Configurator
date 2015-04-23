@@ -30,13 +30,16 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
   var radialIncrement, segmentIncrement;
 
   if ( !interpolate ) {
-
     segmentIncrement = radialSegments === 1 || radialSegments === 2 ? definition : 0;
+  } else {
+    segmentIncrement = definition;
+  }
+  for ( y = 0; y <= heightSegments; y++ ) {
+    var verticesRow = [];
+    var uvsRow = [];
+    var v = y / heightSegments;
 
-    for ( y = 0; y <= heightSegments; y++ ) {
-      var verticesRow = [];
-      var uvsRow = [];
-      var v = y / heightSegments;
+    if ( !interpolate ) {
 
       for ( x = 0; x <= radialSegments + segmentIncrement; x++ ) {
         var radius, percent;
@@ -50,12 +53,10 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
             radialIncrement = 1;
           }
           radius = data[ radialIncrement ][ y ] + outerRadius;
-
         } else {
           radialIncrement = x;
           radius = data[ radialIncrement ][ y ] + outerRadius;
         }
-
 
         var u = x / (radialSegments + segmentIncrement);
         var vertex = new THREE.Vector3();
@@ -68,64 +69,40 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
         verticesRow.push( this.vertices.length - 1 );
         uvsRow.push( new THREE.Vector2( u, 1 - v ) );
       }
+    } else {
+      var step = Math.floor( (radialSegments + segmentIncrement) / radialSegments );
 
-      vertices.push( verticesRow );
-      uvs.push( uvsRow );
+      for ( var k = 0; k < radialSegments; k++ ) {
+        for ( x = 0; x <= step; x++ ) {
 
-    }
-  } else {
+          var radius, percent;
+          if ( radialSegments === 1 ) {
+            radialIncrement = 0;
+            radius = data[ radialIncrement ][ y ] + outerRadius;
+          } else {
+            percent = ( step / ( radialSegments + x ) ) / 100;
+            //if(k < radialSegments){
+              var rlerp = lerp( data[ k ][ y ], data[ k + 1 ][ y ], percent );
+              radius = rlerp + outerRadius;
+            //}
 
-    segmentIncrement = radialSegments === 1 || radialSegments === 2 ? definition : 0;
+          }
 
-    for ( y = 0; y <= heightSegments; y++ ) {
-      var verticesRow = [];
-      var uvsRow = [];
-      var v = y / heightSegments;
+          var u = x / (radialSegments + segmentIncrement);
+          var vertex = new THREE.Vector3();
+          vertex.x = radius * Math.sin( u * 2 * Math.PI ); // Math.PI is for thetaLength
+          vertex.y = -v * height + heightHalf;
+          vertex.z = radius * Math.cos( u * 2 * Math.PI );
 
-      for ( x = 0; x <= radialSegments + segmentIncrement; x++ ) {
-        var radius, percent;
-        if ( radialSegments === 1 ) {
-          radialIncrement = 0;
-          radius = data[ radialIncrement ][ y ] + outerRadius;
-        } else if ( radialSegments === 2 ) {
-          //if ( x < (radialSegments + segmentIncrement) / 2 ) {
-          //  radialIncrement = 0;
-          //} else {
-          //  radialIncrement = 1;
-          //}
-          //radius = data[ radialIncrement ][ y ] + outerRadius;
-          percent = segmentIncrement / ((radialSegments + x) * 100);
-          var rlerp = lerp( data[ 0 ][ y ], data[ 1 ][ y ], percent );
-          radius = rlerp + outerRadius;
+          this.vertices.push( vertex );
 
-          //if(x < (radialSegments + segmentIncrement) -1){
-          //  var rlerp = lerp( data[ x ][ y ], data[ x + 1 ][ y ], percent );
-          //  radius = rlerp + outerRadius;
-          //}
-
-        } else {
-          radialIncrement = x;
-          radius = data[ radialIncrement ][ y ] + outerRadius;
+          verticesRow.push( this.vertices.length - 1 );
+          uvsRow.push( new THREE.Vector2( u, 1 - v ) );
         }
-
-
-        var u = x / (radialSegments + segmentIncrement);
-        var vertex = new THREE.Vector3();
-        vertex.x = radius * Math.sin( u * 2 * Math.PI ); // Math.PI is for thetaLength
-        vertex.y = -v * height + heightHalf;
-        vertex.z = radius * Math.cos( u * 2 * Math.PI );
-
-        this.vertices.push( vertex );
-
-        verticesRow.push( this.vertices.length - 1 );
-        uvsRow.push( new THREE.Vector2( u, 1 - v ) );
       }
-
-      vertices.push( verticesRow );
-      uvs.push( uvsRow );
-
     }
-
+    vertices.push( verticesRow );
+    uvs.push( uvsRow );
   }
 
   for ( x = 0; x < radialSegments + segmentIncrement - 1; x++ ) {

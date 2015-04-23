@@ -219,6 +219,10 @@ md-slider .md-focus-thumb {
   -webkit-border-radius: 36px;
   border-radius: 36px;
 }
+.subslider {
+  width: 80%;
+  margin-left: 60px;
+}
 /**************************************
 *   5. WebGL view
 **************************************/
