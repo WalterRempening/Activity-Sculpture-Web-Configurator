@@ -16,7 +16,9 @@
               geoArgs.innerRadius,
               geoArgs.height,
               geoArgs.radialSegments,
-              geoArgs.heightSegments
+              geoArgs.heightSegments,
+              geoArgs.definition,
+              geoArgs.interpolate
             ),
             new THREE.MeshPhongMaterial( {
               shading: THREE.FlatShading,

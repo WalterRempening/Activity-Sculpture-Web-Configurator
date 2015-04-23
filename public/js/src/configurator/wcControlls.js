@@ -34,11 +34,11 @@
         this.sliderParams = {
           radialSegments: {
             min: 1,
-            max: this.data.length -1
+            max: this.data.length - 1
           },
           heightSegments: {
             min: 1,
-            max: this.data[0 ].length -1
+            max: this.data[ 0 ].length - 1
           }
         };
 
@@ -47,18 +47,20 @@
           outerRadius: 30,
           innerRadius: 40,
           height: 100,
-          radialSegments: this.data.length -1,
-          heightSegments: this.data[ 0 ].length -1
+          radialSegments: this.data.length - 1,
+          heightSegments: this.data[ 0 ].length - 1,
+          definition: 49,
+          interpolate: false
         };
 
         ModelService.addModel( this.uiGeoParams, this.uiMatParams );
 
-        this.onUiGeoParamsChange = function ( key ) {
+        this.onUiGeoParamsChange = function () {
           //ModelService.geoParams[ key ] = this.uiGeoParams[ key ];
           ModelService.updateMesh( this.uiGeoParams, this.uiMatParams );
         }
 
-        this.onUiMatParamsChange = function ( key ) {
+        this.onUiMatParamsChange = function () {
           //ModelService.matParams[ key ] = this.uiMatParams[ key ];
           ModelService.updateMesh( this.uiGeoParams, this.uiMatParams );
         }

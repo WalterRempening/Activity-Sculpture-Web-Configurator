@@ -15,7 +15,7 @@
         </div>
         <md-slider flex min="5" max="80" aria-label="Control Name"
                    class="md-hue-3" ng-model='lefty.uiGeoParams.outerRadius'
-                   ng-change="lefty.onUiGeoParamsChange('outerRadius')">
+                   ng-change="lefty.onUiGeoParamsChange()">
         </md-slider>
 
         <div flex="10" layout="row" layout-align="space-around center">
@@ -24,7 +24,7 @@
         </div>
         <md-slider flex min="60" max="300" aria-label="Control Name"
                    class="md-hue-3" ng-model='lefty.uiGeoParams.height'
-                   ng-change="lefty.onUiGeoParamsChange('height')">
+                   ng-change="lefty.onUiGeoParamsChange()">
         </md-slider>
 
         <div flex="10" layout="row" layout-align="space-around center">
@@ -36,7 +36,7 @@
                    max="{{lefty.sliderParams.radialSegments.max}}"
                    aria-label="Control Name"
                    class="md-hue-3" ng-model='lefty.uiGeoParams.radialSegments'
-                   ng-change="lefty.onUiGeoParamsChange('radialSegments')">
+                   ng-change="lefty.onUiGeoParamsChange()">
         </md-slider>
 
         <div flex="10" layout="row" layout-align="space-around center">
@@ -48,12 +48,18 @@
                    max="{{lefty.sliderParams.heightSegments.max}}"
                    aria-label="Control Name"
                    class="md-hue-3" ng-model='lefty.uiGeoParams.heightSegments'
-                   ng-change="lefty.onUiGeoParamsChange('heightSegments')">
+                   ng-change="lefty.onUiGeoParamsChange()">
         </md-slider>
       </div>
 
-      <md-switch ng-model="lefty.uiMatParams.wireframe" aria-label="Rotate"
-                 ng-change="lefty.onUiMatParamsChange('wireframe')">
+      <md-switch ng-model="lefty.uiGeoParams.interpolate"
+                 aria-label="Interpolate"
+                 ng-change="lefty.onUiGeoParamsChange()">
+        <span class="slider-name">Interpolate</span>
+      </md-switch>
+
+      <md-switch ng-model="lefty.uiMatParams.wireframe" aria-label="Wireframe"
+                 ng-change="lefty.onUiMatParamsChange()">
         <span class="slider-name">Wireframe</span>
       </md-switch>
 
