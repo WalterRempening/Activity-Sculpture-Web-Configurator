@@ -55,7 +55,7 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
 
   var na, nb;
 
-  for ( x = 0; x < radialSegments; x++ ) {
+  for ( x = 0; x < radialSegments -1; x++ ) {
 
     na = this.vertices[ vertices[ 1 ][ x ] ].clone();
     nb = this.vertices[ vertices[ 1 ][ x + 1 ] ].clone();
@@ -94,8 +94,8 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
   for ( var h = 0; h < heightSegments; h++ ) {
     var na, nb;
 
-    na = this.vertices[ vertices[ h ][ 1 ] ].clone();
-    nb = this.vertices[ vertices[ h + 1 ][ 1 ] ].clone();
+    na = this.vertices[ vertices[ h ][ 0 ] ].clone();
+    nb = this.vertices[ vertices[ h + 1 ][ 0 ] ].clone();
 
     na.setY( Math.sqrt( na.x * na.x + na.z * na.z ) * tanTheta ).normalize();
     nb.setY( Math.sqrt( nb.x * nb.x + nb.z * nb.z ) * tanTheta ).normalize();
@@ -127,75 +127,64 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
   this.vertices.push( new THREE.Vector3( 0, heightHalf, 0 ) );
 
   for ( x = 0; x < radialSegments; x++ ) {
-    var v1 = vertices[ 0 ][ x ];
-    var v2 = vertices[ 0 ][ x + 1 ];
-    var v3 = this.vertices.length - 1;
-
     var n1 = new THREE.Vector3( 0, 1, 0 );
     var n2 = new THREE.Vector3( 0, 1, 0 );
     var n3 = new THREE.Vector3( 0, 1, 0 );
 
-    var uv1 = uvs[ 0 ][ x ].clone();
-    var uv2 = uvs[ 0 ][ x + 1 ].clone();
-    var uv3 = new THREE.Vector2( uv2.x, 0 );
+    if ( x !== radialSegments -1 ) {
+      var v1 = vertices[ 0 ][ x ];
+      var v2 = vertices[ 0 ][ x + 1 ];
+      var v3 = this.vertices.length - 1;
+
+      var uv1 = uvs[ 0 ][ x ].clone();
+      var uv2 = uvs[ 0 ][ x + 1 ].clone();
+      var uv3 = new THREE.Vector2( uv2.x, 0 );
+    } else {
+      var v1 = vertices[ 0 ][ radialSegments - 1 ];
+      var v2 = vertices[ 0 ][ 0 ];
+      var v3 = this.vertices.length - 1;
+
+      var uv1 = uvs[ 0 ][ radialSegments - 1 ].clone();
+      var uv2 = uvs[ 0 ][ 0 ].clone();
+      var uv3 = new THREE.Vector2( uv2.x, 0 );
+    }
 
     this.faces.push( new THREE.Face3( v1, v2, v3, [ n1, n2, n3 ] ) );
     this.faceVertexUvs[ 0 ].push( [ uv1, uv2, uv3 ] );
 
   }
-
-  var v1 = vertices[ 0 ][ radialSegments - 1 ];
-  var v2 = vertices[ 0 ][ 0 ];
-  var v3 = this.vertices.length - 1;
-
-  var n1 = new THREE.Vector3( 0, 1, 0 );
-  var n2 = new THREE.Vector3( 0, 1, 0 );
-  var n3 = new THREE.Vector3( 0, 1, 0 );
-
-  var uv1 = uvs[ 0 ][ radialSegments - 1 ].clone();
-  var uv2 = uvs[ 0 ][ 0 ].clone();
-  var uv3 = new THREE.Vector2( uv2.x, 0 );
-
-  this.faces.push( new THREE.Face3( v1, v2, v3, [ n1, n2, n3 ] ) );
-  this.faceVertexUvs[ 0 ].push( [ uv1, uv2, uv3 ] );
 
   // bottom cap
   this.vertices.push( new THREE.Vector3( 0, -heightHalf, 0 ) );
 
   for ( x = 0; x < radialSegments; x++ ) {
 
-    var v1 = vertices[ heightSegments ][ x + 1 ];
-    var v2 = vertices[ heightSegments ][ x ];
-    var v3 = this.vertices.length - 1;
-
     var n1 = new THREE.Vector3( 0, -1, 0 );
     var n2 = new THREE.Vector3( 0, -1, 0 );
     var n3 = new THREE.Vector3( 0, -1, 0 );
 
-    var uv1 = uvs[ heightSegments ][ x + 1 ].clone();
-    var uv2 = uvs[ heightSegments ][ x ].clone();
-    var uv3 = new THREE.Vector2( uv2.x, 1 );
+    if ( x !== radialSegments -1) {
+      var v1 = vertices[ heightSegments ][ x + 1 ];
+      var v2 = vertices[ heightSegments ][ x ];
+      var v3 = this.vertices.length - 1;
+
+      var uv1 = uvs[ heightSegments ][ x + 1 ].clone();
+      var uv2 = uvs[ heightSegments ][ x ].clone();
+      var uv3 = new THREE.Vector2( uv2.x, 1 );
+    } else {
+      var uv1 = uvs[ heightSegments ][ 0 ].clone();
+      var uv2 = uvs[ heightSegments ][ radialSegments - 1 ].clone();
+      var uv3 = new THREE.Vector2( uv2.x, 1 );
+
+      var v1 = vertices[ heightSegments ][ 0 ];
+      var v2 = vertices[ heightSegments ][ radialSegments - 1 ];
+      var v3 = this.vertices.length - 1;
+    }
 
     this.faces.push( new THREE.Face3( v1, v2, v3, [ n1, n2, n3 ] ) );
     this.faceVertexUvs[ 0 ].push( [ uv1, uv2, uv3 ] );
 
   }
-
-  var v1 = vertices[ heightSegments ][ 0 ];
-  var v2 = vertices[ heightSegments ][ radialSegments - 1 ];
-  var v3 = this.vertices.length - 1;
-
-  var n1 = new THREE.Vector3( 0, -1, 0 );
-  var n2 = new THREE.Vector3( 0, -1, 0 );
-  var n3 = new THREE.Vector3( 0, -1, 0 );
-
-  var uv1 = uvs[ heightSegments ][ 0 ].clone();
-  var uv2 = uvs[ heightSegments ][ radialSegments - 1 ].clone();
-  var uv3 = new THREE.Vector2( uv2.x, 1 );
-
-  this.faces.push( new THREE.Face3( v1, v2, v3, [ n1, n2, n3 ] ) );
-  this.faceVertexUvs[ 0 ].push( [ uv1, uv2, uv3 ] );
-
 
   this.computeFaceNormals();
 
