@@ -49,19 +49,17 @@
           height: 100,
           radialSegments: this.data.length - 1,
           heightSegments: this.data[ 0 ].length - 1,
-          definition: 49,
+          definition: 50,
           interpolate: false
         };
 
         ModelService.addModel( this.uiGeoParams, this.uiMatParams );
 
         this.onUiGeoParamsChange = function () {
-          //ModelService.geoParams[ key ] = this.uiGeoParams[ key ];
           ModelService.updateMesh( this.uiGeoParams, this.uiMatParams );
         }
 
         this.onUiMatParamsChange = function () {
-          //ModelService.matParams[ key ] = this.uiMatParams[ key ];
           ModelService.updateMesh( this.uiGeoParams, this.uiMatParams );
         }
 

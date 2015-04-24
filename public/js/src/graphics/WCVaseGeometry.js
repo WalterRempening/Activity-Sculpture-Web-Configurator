@@ -16,7 +16,7 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
   };
 
   interpolate = interpolate !== undefined ? interpolate : false;
-  definition = definition !== undefined ? definition : 49;
+  definition = definition !== undefined ? definition : 50;
   outerRadius = outerRadius !== undefined ? outerRadius : 20;
   innerRadius = innerRadius !== undefined ? innerRadius : 15;
   height = height !== undefined ? height : 100;
@@ -70,6 +70,7 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
         uvsRow.push( new THREE.Vector2( u, 1 - v ) );
       }
     } else {
+      // number of steps between each segment
       var step = Math.floor( (radialSegments + segmentIncrement) / radialSegments );
 
       for ( var k = 0; k < radialSegments; k++ ) {
@@ -79,16 +80,17 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
           if ( radialSegments === 1 ) {
             radialIncrement = 0;
             radius = data[ radialIncrement ][ y ] + outerRadius;
+            var u = x / (radialSegments + segmentIncrement);
           } else {
-            percent = ( step / ( radialSegments + x ) ) / 100;
-            //if(k < radialSegments){
-              var rlerp = lerp( data[ k ][ y ], data[ k + 1 ][ y ], percent );
-              radius = rlerp + outerRadius;
-            //}
-
+            percent = x / step;
+            var start = data[ k ][ y ];
+            var end = data[ k + 1 ][ y ] !== undefined ? data[ k + 1 ][ y ] : data[ k ][ y ];
+            var rlerp = lerp( start, end, percent );
+            radius = rlerp + outerRadius;
+            u = (x / (radialSegments + segmentIncrement)) + (k / radialSegments );
           }
 
-          var u = x / (radialSegments + segmentIncrement);
+
           var vertex = new THREE.Vector3();
           vertex.x = radius * Math.sin( u * 2 * Math.PI ); // Math.PI is for thetaLength
           vertex.y = -v * height + heightHalf;
@@ -139,7 +141,7 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
     }
   }
 
-  // side blank
+  // side gap connections
   for ( var h = 0; h < heightSegments; h++ ) {
     var na, nb;
 
@@ -171,7 +173,6 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
       [ n2.clone(), n3, n4.clone() ] ) );
     this.faceVertexUvs[ 0 ].push( [ uv2.clone(), uv3, uv4.clone() ] );
   }
-
   // top cap
   this.vertices.push( new THREE.Vector3( 0, heightHalf, 0 ) );
 
