@@ -78,7 +78,6 @@
           ModelService.rotate = this.toggle.rotate;
         };
 
-
       }
     ]
   )

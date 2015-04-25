@@ -1,0 +1,55 @@
+<md-dialog class="setup consent" aria-label="Preferences">
+  <md-content>
+    <md-subheader class="md-sticky-no-effect subheader">
+      Data Usage Consent
+    </md-subheader>
+    <div class="dialog-content formal">
+
+      <h1></h1>
+
+      <p>
+        Hiermit erkläre ich, dass ich die Probandeninformation zur Studie: <br>
+
+      <h2>Activity Sculpture Web Configurator</h2>
+      Und diese Einverständniserklärung zur Studienteilnahme erhalten habe.
+      </p>
+
+      <ul>
+        <li>
+          Ich wurde für mich ausreichend mündlich und/oder schriftlich über die
+          wissenschaftliche Untersuchung informiert.
+        </li>
+        <li>
+          Ich erkläre mich bereit, dass im Rahmen der Studie Daten über mich
+          gesammelt und anonymisiert aufgezeichnet werden. Es wird
+          gewährleistet,
+          dass meine personenbezogenen Daten nicht an Dritte weitergegeben
+          werden.
+          Bei der Veröffentlichung in einer wissenschaftlichen Zeitung wird aus
+          den Daten nicht hervorgehen, wer an dieser Untersuchung teilgenommen
+          hat. Meine persönlichen Daten unterliegen dem Datenschutzgesetz.
+        </li>
+
+        <li>Ich weiß, dass ich jederzeit meine Einverständniserklärung, ohne
+          Angabe von Gründen, widerrufen kann, ohne dass dies für mich
+          nachteilige Folgen hat.
+        </li>
+        <li>
+          Mit der vorstehend geschilderten Vorgehensweise bin ich
+          einverstanden und bestätige dies mit dem Clicken auf "Einverstanden".
+        </li>
+
+      </ul>
+      <div layout="row" layout-align="center center">
+        <md-button  ng-click="agree()" flex="20"
+                   class="fbtn md-raised">Cancel
+        </md-button>
+        <md-button ng-click="cancel()" flex="20"
+                   class="fbtn md-raised md-accent md-hue-3">Agree
+        </md-button>
+      </div>
+
+    </div>
+  </md-content>
+
+</md-dialog>

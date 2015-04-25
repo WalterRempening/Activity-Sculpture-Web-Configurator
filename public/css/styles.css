@@ -299,6 +299,9 @@ three-viewport {
 /**************************************
 *   6. Dashbaord Site
 **************************************/
+.consent {
+  width: 50%;
+}
 md-dialog.setup md-content {
   padding: 0px;
 }
@@ -306,6 +309,22 @@ md-dialog.setup h2.md-subheader.md-default-theme {
   margin-right: 0px;
   margin-top: 0px;
   background-color: #ecde64;
+}
+md-dialog.setup .formal {
+  background-color: #fff;
+  background-image: url("../img/lmu-logo.png");
+  background-repeat: no-repeat;
+  -webkit-background-size: 568px 577px;
+  -moz-background-size: 568px 577px;
+  background-size: 568px 577px;
+  background-position-y: -51px;
+  background-position-x: 471px;
+}
+md-dialog.setup .formal ul li {
+  margin: 20px 10px;
+}
+md-dialog.setup .formal .fbtn {
+  margin: 10px 20px;
 }
 md-dialog.setup .dialog-content {
   padding: 24px 24px;

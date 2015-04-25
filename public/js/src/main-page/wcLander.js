@@ -3,15 +3,7 @@
   var lander = angular.module( 'wcLander', [] );
 
   lander.controller( 'MenuController', [ function () {
-    this.nav = {
-      main: [ {
-        name: 'Get Started',
-        state: 'tutorial'
-      }, {
-        name: 'About',
-        state: 'about'
-      } ]
-    }
+
   } ] );
 
   lander.controller( 'OauthController',
