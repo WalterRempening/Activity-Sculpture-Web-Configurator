@@ -31,16 +31,6 @@
           wireframe: false
         };
 
-        this.sliderParams = {
-          radialSegments: {
-            min: 1,
-            max: this.data.length - 1
-          },
-          heightSegments: {
-            min: 1,
-            max: this.data[ 0 ].length - 1
-          }
-        };
 
         this.uiGeoParams = {
           data: this.data,
@@ -49,8 +39,24 @@
           height: 100,
           radialSegments: this.data.length - 1,
           heightSegments: this.data[ 0 ].length - 1,
-          definition: 50,
+          definition: ((this.data.length - 1 ) * 10),
           interpolate: false
+        };
+
+        this.sliderParams = {
+          radialSegments: {
+            min: 1,
+            max: this.data.length - 1
+          },
+          heightSegments: {
+            min: 1,
+            max: this.data[ 0 ].length - 1
+          },
+          definition: {
+            step: this.uiGeoParams.radialSegments,
+            min: this.uiGeoParams.radialSegments,
+            max: this.uiGeoParams.definition
+          }
         };
 
         ModelService.addModel( this.uiGeoParams, this.uiMatParams );

@@ -32,7 +32,7 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
   if ( !interpolate ) {
     segmentIncrement = radialSegments === 1 || radialSegments === 2 ? definition : 0;
   } else {
-    segmentIncrement = definition;
+    segmentIncrement = definition -1;
   }
   for ( y = 0; y <= heightSegments; y++ ) {
     var verticesRow = [];

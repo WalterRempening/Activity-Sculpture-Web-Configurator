@@ -61,10 +61,15 @@
       <div class="subslider" ng-show="lefty.uiGeoParams.interpolate">
         <div flex="10" layout="row" layout-align="space-around center">
           <span class="slider-name">Inerpolation Resolution</span>
-          <span class="slider-value">{{lefty.uiGeoParams.definition}}</span>
+          <span class="slider-value"></span>
         </div>
-        <md-slider flex min="10" max="50" aria-label="Control Name"
-                   class="md-hue-3" ng-model='lefty.uiGeoParams.definition'
+        <md-slider flex
+                   step="{{lefty.sliderParams.definition.step}}"
+                   min="{{lefty.sliderParams.definition.min}}"
+                   max="{{lefty.sliderParams.definition.max}}"
+                   aria-label="Control Name"
+                   class="md-hue-3"
+                   ng-model="lefty.uiGeoParams.definition"
                    ng-change="lefty.onUiGeoParamsChange()">
         </md-slider>
       </div>
