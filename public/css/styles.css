@@ -313,14 +313,14 @@ three-viewport {
   background-color: #fff;
   background-image: url("../img/lmu-logo.png");
   background-repeat: no-repeat;
-  -webkit-background-size: 80%;
-  -moz-background-size: 80%;
-  background-size: 80%;
-  background-position-y: -51px;
-  background-position-x: 471px;
-  opacity: 0.1;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
-  filter: alpha(opacity=10);
+  -webkit-background-size: 60%;
+  -moz-background-size: 60%;
+  background-size: 60%;
+  background-position-y: 0%;
+  background-position-x: 120%;
+  opacity: 0.07;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=7)";
+  filter: alpha(opacity=7);
 }
 md-dialog.setup md-content {
   padding: 0px;
