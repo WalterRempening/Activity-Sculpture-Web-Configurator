@@ -1,6 +1,6 @@
 'use strict';
-angular.module('wcGraphs', [])
-  .factory('GraphFactory', [function() {
+angular.module( 'wcGraphs', [] )
+  .factory( 'GraphFactory', [ function () {
 
     var activityIntensityConfig = {
       chart: {
@@ -11,11 +11,11 @@ angular.module('wcGraphs', [])
           bottom: 60,
           left: 75
         },
-        x: function(d) {
-          return d[0];
+        x: function ( d ) {
+          return d[ 0 ];
         },
-        y: function(d) {
-          return d[1];
+        y: function ( d ) {
+          return d[ 1 ];
         },
         useVoronoi: false,
         clipEdge: true,
@@ -25,8 +25,8 @@ angular.module('wcGraphs', [])
         useInteractiveGuideline: true,
         xAxis: {
           showMaxMin: false,
-          tickFormat: function(d) {
-            return d3.time.format('%e/%m/%y')(new Date(d))
+          tickFormat: function ( d ) {
+            return d3.time.format( '%e/%m/%y' )( new Date( d ) )
           }
         },
         yAxis: {
@@ -45,11 +45,11 @@ angular.module('wcGraphs', [])
           bottom: 60,
           left: 75
         },
-        x: function(d) {
-          return d[0];
+        x: function ( d ) {
+          return d[ 0 ];
         },
-        y: function(d) {
-          return d[1];
+        y: function ( d ) {
+          return d[ 1 ];
         },
         useVoronoi: false,
         clipEdge: true,
@@ -59,8 +59,8 @@ angular.module('wcGraphs', [])
         useInteractiveGuideline: true,
         xAxis: {
           showMaxMin: false,
-          tickFormat: function(d) {
-            return d3.time.format('%e/%m/%y')(new Date(d))
+          tickFormat: function ( d ) {
+            return d3.time.format( '%e/%m/%y' )( new Date( d ) )
           }
         },
         yAxis: {
@@ -78,11 +78,11 @@ angular.module('wcGraphs', [])
           bottom: 60,
           left: 75
         },
-        x: function(d) {
-          return d[0];
+        x: function ( d ) {
+          return d[ 0 ];
         },
-        y: function(d) {
-          return d[1];
+        y: function ( d ) {
+          return d[ 1 ];
         },
         useVoronoi: false,
         clipEdge: true,
@@ -92,8 +92,8 @@ angular.module('wcGraphs', [])
         useInteractiveGuideline: true,
         xAxis: {
           showMaxMin: false,
-          tickFormat: function(d) {
-            return d3.time.format('%e/%m/%y')(new Date(d))
+          tickFormat: function ( d ) {
+            return d3.time.format( '%e/%m/%y' )( new Date( d ) )
           }
         },
         yAxis: {
@@ -111,11 +111,11 @@ angular.module('wcGraphs', [])
           bottom: 60,
           left: 75
         },
-        x: function(d) {
-          return d[0];
+        x: function ( d ) {
+          return d[ 0 ];
         },
-        y: function(d) {
-          return d[1];
+        y: function ( d ) {
+          return d[ 1 ];
         },
         useVoronoi: false,
         clipEdge: true,
@@ -126,16 +126,16 @@ angular.module('wcGraphs', [])
         useInteractiveGuideline: true,
         xAxis: {
           showMaxMin: false,
-          tickFormat: function(d) {
-            return d3.time.format('%e/%m/%y')(new Date(d))
+          tickFormat: function ( d ) {
+            return d3.time.format( '%e/%m/%y' )( new Date( d ) )
           }
         },
         yAxis: {
           "axisLabel": "Duration (min)",
-          tickFormat: function(d) {
-            var hours = Math.floor(d / 3600);
+          tickFormat: function ( d ) {
+            var hours = Math.floor( d / 3600 );
             d %= 3600;
-            var minutes = Math.floor(d / 60);
+            var minutes = Math.floor( d / 60 );
             return hours + "h, " + minutes + "min";
           }
         }
@@ -151,11 +151,11 @@ angular.module('wcGraphs', [])
           bottom: 60,
           left: 75
         },
-        x: function(d) {
-          return d[0];
+        x: function ( d ) {
+          return d[ 0 ];
         },
-        y: function(d) {
-          return d[1];
+        y: function ( d ) {
+          return d[ 1 ];
         },
         useVoronoi: false,
         clipEdge: true,
@@ -166,8 +166,8 @@ angular.module('wcGraphs', [])
         useInteractiveGuideline: true,
         xAxis: {
           showMaxMin: false,
-          tickFormat: function(d) {
-            return d3.time.format('%e/%m/%y')(new Date(d))
+          tickFormat: function ( d ) {
+            return d3.time.format( '%e/%m/%y' )( new Date( d ) )
           }
         },
         yAxis: {
@@ -206,7 +206,7 @@ angular.module('wcGraphs', [])
         },
         showDistX: true,
         showDistY: true,
-        tooltipContent: function(key) {
+        tooltipContent: function ( key ) {
           return '<h3>' + key + '</h3>';
         },
         useVoronoi: false,
@@ -215,8 +215,8 @@ angular.module('wcGraphs', [])
         transitionDuration: 500,
         xAxis: {
           showMaxMin: false,
-          tickFormat: function(d) {
-            return d3.time.format('%e/%m/%y')(new Date(d))
+          tickFormat: function ( d ) {
+            return d3.time.format( '%e/%m/%y' )( new Date( d ) )
           }
         },
         yAxis: {
@@ -224,7 +224,6 @@ angular.module('wcGraphs', [])
         }
       }
     };
-
 
 
     return {
@@ -235,4 +234,4 @@ angular.module('wcGraphs', [])
       wakeupConfig: wakeupConfig,
       bodyConfig: bodyConfig
     };
-  }]);
+  } ] );

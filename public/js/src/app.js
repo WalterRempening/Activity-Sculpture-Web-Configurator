@@ -4,6 +4,7 @@ var app = angular.module( 'MainApp',
     'ngMaterial',
     'ngCookies',
     'ui.router',
+    'mp.colorPicker',
     'nvd3',
     'wcGraphs',
     'wcLander',
@@ -47,9 +48,9 @@ app.config(
       $stateProvider.state( 'home', {
         url: '/',
         views: {
-          '': { templateUrl: '../views/core/landing-page.html' },
-          'tutorial@home': { templateUrl: '../views/core/tutorial-partial.html' },
-          'about@home': { templateUrl: '../views/core/about-partial.html' }
+          '': { templateUrl: '../../views/core/landing-page.html' },
+          'tutorial@home': { templateUrl: '../../views/core/tutorial-partial.html' },
+          'about@home': { templateUrl: '../../views/core/about-partial.html' }
         },
         onEnter: [ '$state', '$mdDialog', function ( $state, $mdDialog ) {
 
@@ -79,13 +80,18 @@ app.config(
 
       } ).state( '404', {
         url: '/404',
-        templateUrl: '../views/core/404.html'
+        templateUrl: '../../views/core/404.html'
       } );
 
       // User routes
       $stateProvider.state( 'configurator', {
         url: '/user/{userid}/configurator/',
-        templateUrl: '../views/configurator/configurator-page.html'
+        views: {
+          '': { templateUrl: '../../views/configurator/configurator-page.html' },
+          'left-panel@configurator': { templateUrl: '../../views/configurator/left-panel.html' },
+          'right-panel@configurator': { templateUrl: '../../views/configurator/right-panel.html' },
+          'bottom-panel@configurator': { templateUrl: '../../views/configurator/bottom-panel.html' }
+        }
       } )
         .state( 'settings', {
           url: '/user/{userid}',
@@ -136,7 +142,7 @@ app.config(
                      } ]
         } )
         .state( 'dashboard', {
-          templateUrl: '../views/dashboard/dashboard.html',
+          templateUrl: '../../views/dashboard/dashboard.html',
           controller: 'DashboardController'
         } );
 

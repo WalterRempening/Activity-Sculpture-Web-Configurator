@@ -11,10 +11,6 @@
     "SCULPTURE": SCULPTURE
   };
 
-  //exports.normalize = normalizeArray;
-
-
-
   //Restructure activty, sleep, body data for graphs/models =============================
   function formatActivityData ( resData, target ) {
     var graphData = [];
@@ -57,8 +53,8 @@
       };
     } else if ( target === SCULPTURE ) {
       data = [];
-      for (var k = 0; k < graphData.length; k++){
-        data.push( normalizeArray(graphData[ k ].values, 50) );
+      for ( var k = 0; k < graphData.length; k++ ) {
+        data.push( normalizeArray( graphData[ k ].values, 50 ) );
       }
       data.push( [] );
     }

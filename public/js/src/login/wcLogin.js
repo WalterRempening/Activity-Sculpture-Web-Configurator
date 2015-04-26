@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('wcLogin')
-  .factory('Auth', function($http, $cookies){
+angular.module( 'wcLogin' )
+  .factory( 'Auth', function ( $http, $cookies ) {
     //
     //
     //var accessLevels = routingConfig.accessLevels
@@ -52,4 +52,4 @@ angular.module('wcLogin')
     //  userRoles: userRoles,
     //  user: currentUser
     //};
-  });
+  } );

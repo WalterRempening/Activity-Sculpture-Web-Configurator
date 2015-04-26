@@ -54,20 +54,21 @@ angular.module( 'wcDashboard', [] )
 
       DataUpdaterService.listenForUserData( wcEvents.ACTIVITY,
         function ( data ) {
-          $scope.graph.activity = utilsFormater.Activity( data , utilsTarget.GRAPH );
+          $scope.graph.activity = utilsFormater.Activity( data,
+            utilsTarget.GRAPH );
         } );
 
       DataUpdaterService.listenForUserData( wcEvents.BODY,
         function ( data ) {
-          $scope.graph.body = utilsFormater.Body(data, utilsTarget.GRAPH);
+          $scope.graph.body = utilsFormater.Body( data, utilsTarget.GRAPH );
         } );
-
 
       DataUpdaterService.listenForUserData( wcEvents.SLEEP,
         function ( data ) {
-          $scope.graph.sleep = utilsFormater.Sleep(data, utilsTarget.GRAPH);
+          $scope.graph.sleep = utilsFormater.Sleep( data, utilsTarget.GRAPH );
         } );
 
+      $scope.progress = UserDataFactory.getProgress();
       DataUpdaterService.listenForUserData( wcEvents.PROGRESS,
         function ( data ) {
           $scope.progress = data;

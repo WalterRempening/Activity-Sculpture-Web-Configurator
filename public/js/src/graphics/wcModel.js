@@ -55,15 +55,15 @@
         this.rotate = false;
 
         this.update = function ( delta ) {
-          if ( this.rotate ) {
-            rotationSpeed = delta * 0.2;
-          }
-          else {
-            rotationSpeed = 0;
-          }
-
-          rotationY += rotationSpeed;
-          sculpture.rotation.y = rotationY;
+          //if ( this.rotate ) {
+          //  rotationSpeed = delta * 0.2;
+          //}
+          //else {
+          //  rotationSpeed = 0;
+          //}
+          //
+          //rotationY += rotationSpeed;
+          //sculpture.rotation.y = rotationY;
         };
 
 

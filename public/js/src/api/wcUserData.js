@@ -10,7 +10,6 @@ angular.module( 'wcUserData', [] )
                wcEvents ) {
 
       var sessuser = JSON.parse( $cookies.user );
-      var format = wcDataUtils.format;
       var DATA_RESPONSE_ERROR = 'An error was found while fetching data for your user. Try again later';
       var SAVE_SETTINGS_RESPONSE_ERROR = 'User settings could not be saved';
       var progress = 0;

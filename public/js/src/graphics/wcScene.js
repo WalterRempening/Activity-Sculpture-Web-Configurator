@@ -5,10 +5,7 @@
     this.scene = new THREE.Scene();
 
     return {
-      scene: this.scene,
-      destroy: function () {
-        this.scene = null;
-      }
+      scene: this.scene
     };
   } );
 })();
