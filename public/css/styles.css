@@ -302,6 +302,26 @@ three-viewport {
 .consent {
   width: 50%;
 }
+.consent md-content.md-default-theme {
+  background: none;
+}
+.logo {
+  z-index: -9999;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  background-image: url("../img/lmu-logo.png");
+  background-repeat: no-repeat;
+  -webkit-background-size: 80%;
+  -moz-background-size: 80%;
+  background-size: 80%;
+  background-position-y: -51px;
+  background-position-x: 471px;
+  opacity: 0.1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+  filter: alpha(opacity=10);
+}
 md-dialog.setup md-content {
   padding: 0px;
 }
@@ -309,16 +329,6 @@ md-dialog.setup h2.md-subheader.md-default-theme {
   margin-right: 0px;
   margin-top: 0px;
   background-color: #ecde64;
-}
-md-dialog.setup .formal {
-  background-color: #fff;
-  background-image: url("../img/lmu-logo.png");
-  background-repeat: no-repeat;
-  -webkit-background-size: 568px 577px;
-  -moz-background-size: 568px 577px;
-  background-size: 568px 577px;
-  background-position-y: -51px;
-  background-position-x: 471px;
 }
 md-dialog.setup .formal ul li {
   margin: 20px 10px;
