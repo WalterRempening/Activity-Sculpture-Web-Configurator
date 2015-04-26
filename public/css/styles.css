@@ -224,6 +224,11 @@ md-slider .md-focus-thumb {
   width: 80%;
   margin-left: 60px;
 }
+.angular-color-picker {
+  border: none;
+  background: none;
+  margin: 0px 28px 10px;
+}
 .angular-color-picker > ._hues > ._cursor {
   width: 42px;
 }

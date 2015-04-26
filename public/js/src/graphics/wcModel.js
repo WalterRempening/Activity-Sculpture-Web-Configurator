@@ -26,7 +26,7 @@
               ambient: 0xfaeb07,
               emissive: 0x000000,
               specular: 0xffffff,
-              shininess: 3,
+              shininess: matArgs.shininess,
               wireframe: matArgs.wireframe,
               wireframeLinewidth: 1
             } )

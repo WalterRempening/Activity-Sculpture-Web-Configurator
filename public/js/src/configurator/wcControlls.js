@@ -25,9 +25,11 @@ controlls.controller( 'LeftController',
       };
 
       console.log( $mdSidenav( 'left' ).isOpen() );
+      this.color;
 
       this.uiMatParams = {
-        color: 0xfffe00,
+        color: '#fffe00',
+        shininess: 3,
         wireframe: false
       };
 
@@ -56,18 +58,22 @@ controlls.controller( 'LeftController',
           step: this.uiGeoParams.radialSegments,
           min: this.uiGeoParams.radialSegments,
           max: this.uiGeoParams.definition
+        },
+        shininess: {
+          min: 0,
+          max: 15
         }
       };
 
       ModelService.addModel( this.uiGeoParams, this.uiMatParams );
 
-      this.onUiGeoParamsChange = function () {
+      this.onUiParamsChange = function () {
         ModelService.updateMesh( this.uiGeoParams, this.uiMatParams );
       }
 
-      this.onUiMatParamsChange = function () {
-        ModelService.updateMesh( this.uiGeoParams, this.uiMatParams );
-      }
+      //this.onUiMatParamsChange = function () {
+      //  ModelService.updateMesh( this.uiGeoParams, this.uiMatParams );
+      //}
 
 
       this.toggle = {
