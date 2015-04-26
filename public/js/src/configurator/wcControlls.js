@@ -15,17 +15,15 @@ controlls.controller( 'LeftController',
 
       $scope.data = utils.format.Activity( UserDataFactory.getUserActivity(),
         utils.target.SCULPTURE );
-      DataUpdaterService.listenForUserData( wcEvents.ACTIVITY,
-        function ( data ) {
-          $scope.data = utils.format.Activity( data, utils.target.SCULPTURE );
-        } );
+      $scope.$watch('data', function ( newVal, oldVal ) {
+        if ( newVal != oldVal ) {
+          $scope.data = utils.format.Activity( UserDataFactory.getUserActivity(),
+            utils.target.SCULPTURE );
+        }
+      } );
 
-      this.toggleLeft = function () {
-        $mdSidenav( 'left' ).toggle();
-      };
 
-      console.log( $mdSidenav( 'left' ).isOpen() );
-      this.color;
+      this.test = [ 'activity', 'intense', 'normal' ];
 
       this.uiMatParams = {
         color: '#fffe00',
@@ -34,26 +32,25 @@ controlls.controller( 'LeftController',
         linewidth: 1
       };
 
-
       this.uiGeoParams = {
-        data: $scope.data,
+        data: $scope.data.values,
         outerRadius: 30,
         innerRadius: 40,
         height: 100,
-        radialSegments: $scope.data.length - 1,
-        heightSegments: $scope.data[ 0 ].length - 1,
-        definition: (($scope.data.length - 1 ) * 10),
+        radialSegments: $scope.data.values.length - 1,
+        heightSegments: $scope.data.values[ 0 ].length - 1,
+        definition: (($scope.data.values.length - 1 ) * 10),
         interpolate: false
       };
 
       this.sliderParams = {
         radialSegments: {
           min: 1,
-          max: $scope.data.length - 1
+          max: $scope.data.values.length - 1
         },
         heightSegments: {
           min: 1,
-          max: $scope.data[ 0 ].length - 1
+          max: $scope.data.values[ 0 ].length - 1
         },
         definition: {
           step: this.uiGeoParams.radialSegments,
@@ -61,7 +58,7 @@ controlls.controller( 'LeftController',
           max: this.uiGeoParams.definition
         },
         shininess: {
-          min: 0,
+          min: 3,
           max: 15
         },
         linewidth: {
@@ -76,11 +73,6 @@ controlls.controller( 'LeftController',
         ModelService.updateMesh( this.uiGeoParams, this.uiMatParams );
       }
 
-      //this.onUiMatParamsChange = function () {
-      //  ModelService.updateMesh( this.uiGeoParams, this.uiMatParams );
-      //}
-
-
       this.toggle = {
         rotate: false
       }
@@ -92,9 +84,3 @@ controlls.controller( 'LeftController',
     }
   ]
 );
-
-controlls.controller( 'RightController', [ '$mdSidenav', function ( $mdSidenav ) {
-  console.log($mdSidenav('right').isOpen());
-
-  this.color;
-} ] );

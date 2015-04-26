@@ -1,26 +1,179 @@
-<!--<section layout="row" flex>-->
-  <!--&lt;!&ndash;Left Panel &ndash;&gt;-->
-  <!--<div ui-view="left-panel"></div>-->
+<section layout="row" flex>
+  <div ng-controller="LeftController as lefty">
+    <!--////////////////////////////////////////   Left Panel ///////////////////////////////////////////!-->
+    <md-sidenav id="ctrls-left" class="md-sidenav-left md-whiteframe-z2"
+                md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 
-  <!--&lt;!&ndash;Bottom Panel &ndash;&gt;-->
-  <!--<div ui-view="bottom-panel"></div>-->
+      <md-tabs md-dynamic-height md-border-bottom class="md-primary">
+        <md-tab label="data">
+          <md-content class="md-padding">
+            <div layout="column">
+              <div class="catalog">
+                <h2>Activity</h2>
+                <md-button class="md-raised md-primary"
+                           ng-repeat="key in data.keys">{{key}}
+                </md-button>
+                <md-divider></md-divider>
+              </div>
+              <div class="catalog">
+                <h2>Sleep</h2>
+                <md-button class="md-raised md-primary"
+                           ng-repeat="key in data.keys">{{key}}
+                </md-button>
+                <md-divider></md-divider>
+              </div>
+              <div class="catalog">
+                <h2>Body</h2>
+                <md-button class="md-raised md-primary"
+                           ng-repeat="key in data.keys">{{key}}
+                </md-button>
+              </div>
+            </div>
+          </md-content>
 
-  <!--&lt;!&ndash;3D Scene&ndash;&gt;-->
-  <!--<three-viewport></three-viewport>-->
 
-  <!--&lt;!&ndash;Right Panel &ndash;&gt;-->
-  <!--<div ui-view="right-panel"></div>-->
+        </md-tab>
+        <md-tab label="geometry">
+          <md-content class="md-padding">
+            <div layout="column">
+              <div flex="10" layout="row" layout-align="space-around center">
+                <span class="slider-name">Radius</span>
+                <span
+                  class="slider-value">{{lefty.uiGeoParams.outerRadius}}</span>
+              </div>
+              <md-slider flex min="5" max="80" aria-label="Control Name"
+                         class="md-hue-3"
+                         ng-model='lefty.uiGeoParams.outerRadius'
+                         ng-change="lefty.onUiParamsChange()">
+              </md-slider>
 
-<!--</section>-->
+              <div flex="10" layout="row" layout-align="space-around center">
+                <span class="slider-name">Height</span>
+                <span class="slider-value">{{lefty.uiGeoParams.height}}</span>
+              </div>
+              <md-slider flex min="60" max="300" aria-label="Control Name"
+                         class="md-hue-3" ng-model='lefty.uiGeoParams.height'
+                         ng-change="lefty.onUiParamsChange()">
+              </md-slider>
 
+              <div flex="10" layout="row" layout-align="space-around center">
+                <span class="slider-name">Radial Segments</span>
+            <span
+              class="slider-value">{{lefty.uiGeoParams.radialSegments}}</span>
+              </div>
+              <md-slider flex
+                         min="{{lefty.sliderParams.radialSegments.min}}"
+                         max="{{lefty.sliderParams.radialSegments.max}}"
+                         aria-label="Control Name"
+                         class="md-hue-3"
+                         ng-model='lefty.uiGeoParams.radialSegments'
+                         ng-change="lefty.onUiParamsChange()">
+              </md-slider>
 
-  <section layout="row" flex>
-    <!--Left Panel -->
-    <div ui-view="left-panel"></div>
+              <div flex="10" layout="row" layout-align="space-around center">
+                <span class="slider-name">Date Range</span>
+            <span
+              class="slider-value">{{lefty.uiGeoParams.heightSegments}}</span>
+              </div>
+              <md-slider flex
+                         min="{{lefty.sliderParams.heightSegments.min}}"
+                         max="{{lefty.sliderParams.heightSegments.max}}"
+                         aria-label="Control Name"
+                         class="md-hue-3"
+                         ng-model='lefty.uiGeoParams.heightSegments'
+                         ng-change="lefty.onUiParamsChange()">
+              </md-slider>
+            </div>
 
-    <!--<md-content flex class="md-padding">-->
-      <three-viewport></three-viewport>
-    <!--</md-content>-->
-    <!--Right Panel -->
-    <!--<div ui-view="right-panel"></div>-->
-  </section>
+            <md-switch ng-model="lefty.uiGeoParams.interpolate"
+                       aria-label="Interpolate"
+                       ng-change="lefty.onUiParamsChange()"
+                       class="md-hue-3">
+              <span class="slider-name ">Interpolate</span>
+            </md-switch>
+
+            <div class="subslider animate-show"
+                 ng-show="lefty.uiGeoParams.interpolate">
+              <div flex="10" layout="row" layout-align="space-around center">
+                <span class="slider-name">Inerpolation Resolution</span>
+          <span class="slider-value">
+            {{(lefty.uiGeoParams.definition /
+            lefty.sliderParams.definition.max) * 100 | number: 0 }}%
+          </span>
+              </div>
+              <md-slider flex
+                         step="{{lefty.sliderParams.definition.step}}"
+                         min="{{lefty.sliderParams.definition.min}}"
+                         max="{{lefty.sliderParams.definition.max}}"
+                         aria-label="Control Name"
+                         class="md-hue-3"
+                         ng-model="lefty.uiGeoParams.definition"
+                         ng-change="lefty.onUiParamsChange()">
+              </md-slider>
+            </div>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </md-sidenav>
+    <!--////////////////////////////////////////   Right Panel ///////////////////////////////////////////!-->
+
+    <md-sidenav id="ctrls-right" class="md-sidenav-right md-whiteframe-z2"
+                md-component-id="right"
+                md-is-locked-open="$mdMedia('gt-md')">
+      <md-tabs md-dynamic-height md-border-bottom class="md-primary">
+        <md-tab label="Material">
+          <md-content class="md-padding">
+            <div flex="10" layout="row" layout-align="space-around center">
+              <span class="slider-name">HEX Color</span>
+        <span
+          class="slider-value">{{lefty.uiMatParams.color | uppercase}}</span>
+            </div>
+            <color-picker ng-model="lefty.uiMatParams.color"
+                          ng-change="lefty.onUiParamsChange()"></color-picker>
+
+            <div flex="10" layout="row" layout-align="space-around center">
+              <span class="slider-name">Shininess</span>
+              <span class="slider-value">{{lefty.uiMatParams.shininess }}</span>
+            </div>
+            <md-slider flex
+                       step=1
+                       min="{{lefty.sliderParams.shininess.min}}"
+                       max="{{lefty.sliderParams.shininess.max}}"
+                       aria-label="Control Name"
+                       class="md-hue-3" ng-model='lefty.uiMatParams.shininess'
+                       ng-change="lefty.onUiParamsChange()">
+            </md-slider>
+            <md-switch ng-model="lefty.uiMatParams.wireframe" class="md-hue-3"
+                       aria-label="Wireframe"
+                       ng-change="lefty.onUiParamsChange()">
+              <span class="slider-name ">Wireframe</span>
+            </md-switch>
+            <div class="subslider animate-show"
+                 ng-show="lefty.uiMatParams.wireframe">
+              <div flex="10" layout="row" layout-align="space-around center">
+                <span class="slider-name">Line Width</span>
+          <span class="slider-value">
+            {{lefty.uiMatParams.linewidth }}
+          </span>
+              </div>
+              <md-slider flex
+                         step="{{lefty.sliderParams.linewidth.step}}"
+                         min="{{lefty.sliderParams.linewidth.min}}"
+                         max="{{lefty.sliderParams.linewidth.max}}"
+                         aria-label="Control Name"
+                         class="md-hue-3"
+                         ng-model="lefty.uiMatParams.linewidth"
+                         ng-change="lefty.onUiParamsChange()">
+              </md-slider>
+            </div>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </md-sidenav>
+  </div>
+
+  <!--////////////////////////////////////////   Bottom Panel  ///////////////////////////////////////////!-->
+
+  <!--////////////////////////////////////////   3D Scene  ///////////////////////////////////////////!-->
+  <three-viewport></three-viewport>
+</section>

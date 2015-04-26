@@ -18,7 +18,6 @@ viewport.directive( 'threeViewport',
 
         function init () {
           // Add statistics monitor
-          //emptyScene();
           stats.setMode( 0 );
           stats.domElement.style.position = 'absolute';
           stats.domElement.style.right = '0px';
@@ -121,8 +120,6 @@ viewport.directive( 'threeViewport',
             }
           }
         }
-
-
       };
 
 

@@ -86,12 +86,7 @@ app.config(
       // User routes
       $stateProvider.state( 'configurator', {
         url: '/user/{userid}/configurator/',
-        views: {
-          '': { templateUrl: '../../views/configurator/configurator-page.html' },
-          'left-panel@configurator': { templateUrl: '../../views/configurator/left-panel.html' },
-          'right-panel@configurator': { templateUrl: '../../views/configurator/right-panel.html' },
-          'bottom-panel@configurator': { templateUrl: '../../views/configurator/bottom-panel.html' }
-        }
+        templateUrl: '../../views/configurator/configurator-page.html'
       } )
         .state( 'settings', {
           url: '/user/{userid}',

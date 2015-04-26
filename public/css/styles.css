@@ -171,13 +171,19 @@ md-content.error-box {
 /**************************************
 *   . Configurator Controlls
 **************************************/
+md-content .catalog .md-button {
+  margin: 5px;
+}
+md-content .catalog md-divider {
+  margin: 20px 0px;
+}
 #ctrls-left,
 #ctrls-right {
   position: absolute;
   width: 35px;
   min-width: 370px;
   background-color: rgba(255,255,255,0.7);
-  min-height: 100%;
+  min-height: 50%;
   height: 100%;
 }
 #ctrls-left md-content,
@@ -185,8 +191,8 @@ md-content.error-box {
   background-color: rgba(0,0,0,0);
 }
 #ctrls-right {
-  min-height: 60%;
-  height: 72%;
+  min-height: 50%;
+  height: 75%;
   left: auto;
   right: 0;
 }
@@ -311,6 +317,26 @@ three-viewport
   -o-transform: translate3d(100px, 0, 0);
   -ms-transform: translate3d(100px, 0, 0);
   transform: translate3d(100px, 0, 0);
+}
+.animate-show {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+  color: #000;
+}
+.animate-show.ng-hide-add.ng-hide-add-active,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+  -webkit-transition: all linear 0.3s;
+  -moz-transition: all linear 0.3s;
+  -o-transition: all linear 0.3s;
+  -ms-transition: all linear 0.3s;
+  transition: all linear 0.3s;
+}
+.animate-show.ng-hide {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  color: #fff;
 }
 /**************************************
 *   6. Dashbaord Site
