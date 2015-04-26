@@ -28,7 +28,7 @@
               specular: 0xffffff,
               shininess: matArgs.shininess,
               wireframe: matArgs.wireframe,
-              wireframeLinewidth: 1
+              wireframeLinewidth: matArgs.linewidth
             } )
           );
           sculpture.castShadow = true;

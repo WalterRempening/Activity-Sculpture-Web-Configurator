@@ -30,7 +30,8 @@ controlls.controller( 'LeftController',
       this.uiMatParams = {
         color: '#fffe00',
         shininess: 3,
-        wireframe: false
+        wireframe: false,
+        linewidth: 1
       };
 
 
@@ -62,6 +63,10 @@ controlls.controller( 'LeftController',
         shininess: {
           min: 0,
           max: 15
+        },
+        linewidth: {
+          min: 0,
+          max: 5
         }
       };
 

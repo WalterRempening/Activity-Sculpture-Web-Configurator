@@ -1,5 +1,5 @@
 <div ng-controller="LeftController as lefty">
-
+  <!--////////////////////////////////////////   Left Panel ///////////////////////////////////////////!-->
 
   <md-sidenav id="ctrls-left" class="md-sidenav-left md-whiteframe-z2"
               md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
@@ -55,8 +55,9 @@
 
       <md-switch ng-model="lefty.uiGeoParams.interpolate"
                  aria-label="Interpolate"
-                 ng-change="lefty.onUiParamsChange()">
-        <span class="slider-name">Interpolate</span>
+                 ng-change="lefty.onUiParamsChange()"
+                 class="md-hue-3">
+        <span class="slider-name ">Interpolate</span>
       </md-switch>
 
       <div class="subslider" ng-show="lefty.uiGeoParams.interpolate">
@@ -78,19 +79,13 @@
         </md-slider>
       </div>
 
-
-      <md-switch ng-model="lefty.uiMatParams.wireframe" aria-label="Wireframe"
-                 ng-change="lefty.onUiParamsChange()">
-        <span class="slider-name">Wireframe</span>
-      </md-switch>
-
       <!--<md-switch ng-model="lefty.toggle.rotate" aria-label="Rotate"-->
       <!--ng-change="lefty.onRotateToggle()">-->
       <!--<span class="slider-name">Rotate</span>-->
       <!--</md-switch>-->
     </md-content>
   </md-sidenav>
-
+  <!--////////////////////////////////////////   Right Panel ///////////////////////////////////////////!-->
   <md-sidenav id="ctrls-right" class="md-sidenav-right md-whiteframe-z2"
               md-component-id="right" md-is-locked-open="$mdMedia('gt-md')">
     <md-toolbar class="md-theme-light">
@@ -99,7 +94,8 @@
     <md-content class="md-padding">
       <div flex="10" layout="row" layout-align="space-around center">
         <span class="slider-name">HEX Color</span>
-        <span class="slider-value">{{lefty.uiMatParams.color | uppercase}}</span>
+        <span
+          class="slider-value">{{lefty.uiMatParams.color | uppercase}}</span>
       </div>
       <color-picker ng-model="lefty.uiMatParams.color"
                     ng-change="lefty.onUiParamsChange()"></color-picker>
@@ -116,7 +112,30 @@
                  class="md-hue-3" ng-model='lefty.uiMatParams.shininess'
                  ng-change="lefty.onUiParamsChange()">
       </md-slider>
+      <md-switch ng-model="lefty.uiMatParams.wireframe" class="md-hue-3"
+                 aria-label="Wireframe"
+                 ng-change="lefty.onUiParamsChange()">
+        <span class="slider-name ">Wireframe</span>
+      </md-switch>
+      <div class="subslider" ng-show="lefty.uiMatParams.wireframe">
+        <div flex="10" layout="row" layout-align="space-around center">
+          <span class="slider-name">Line Width</span>
+          <span class="slider-value">
+            {{lefty.uiMatParams.linewidth }}
+          </span>
+        </div>
+        <md-slider flex
+                   step="{{lefty.sliderParams.linewidth.step}}"
+                   min="{{lefty.sliderParams.linewidth.min}}"
+                   max="{{lefty.sliderParams.linewidth.max}}"
+                   aria-label="Control Name"
+                   class="md-hue-3"
+                   ng-model="lefty.uiMatParams.linewidth"
+                   ng-change="lefty.onUiParamsChange()">
+        </md-slider>
+      </div>
     </md-content>
+
 
 </div>
 
