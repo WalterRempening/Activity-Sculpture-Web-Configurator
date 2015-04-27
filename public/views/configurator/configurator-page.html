@@ -17,12 +17,16 @@
               </div>
               <div class="catalog">
                 <h2>Sleep</h2>
-                <md-button class="md-raised md-primary"
-                           ng-repeat="key in data.keys">{{key}}
+                <md-button ng-repeat="key in data.keys"
+                           ng-click="toggle(key, selected)"
+                           ng-class="exists(key, selected) ? 'md-raised md-primary':'md-raised'"
+                           >{{key}}
                 </md-button>
+                {{selected}}
                 <md-divider></md-divider>
               </div>
-              <div class="catalog">
+              <div class=" catalog
+                ">
                 <h2>Body</h2>
                 <md-button class="md-raised md-primary"
                            ng-repeat="key in data.keys">{{key}}

@@ -1,8 +1,8 @@
-(function () {
+(function ( angular ) {
   'use strict';
-  var model = angular.module( 'wcModel', [] );
+  angular.module( 'wcModel', [] )
 
-  model.service( 'ModelService',
+  .service( 'ModelService',
     [ 'SceneService',
       function ( SceneService ) {
 
@@ -68,4 +68,4 @@
 
 
       } ] );
-})();
+})( angular );

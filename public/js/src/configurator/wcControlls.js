@@ -15,7 +15,7 @@ controlls.controller( 'LeftController',
 
       $scope.data = utils.format.Activity( UserDataFactory.getUserActivity(),
         utils.target.SCULPTURE );
-      $scope.$watch('data', function ( newVal, oldVal ) {
+      $scope.$watch( 'data', function ( newVal, oldVal ) {
         if ( newVal != oldVal ) {
           $scope.data = utils.format.Activity( UserDataFactory.getUserActivity(),
             utils.target.SCULPTURE );
@@ -23,7 +23,22 @@ controlls.controller( 'LeftController',
       } );
 
 
-      this.test = [ 'activity', 'intense', 'normal' ];
+      $scope.selected = [];
+
+      $scope.toggle = function ( item, list ) {
+        var idx = list.indexOf( item );
+        if ( idx > -1 ) list.splice( idx, 1 );
+        else list.push( item );
+      };
+
+      $scope.exists = function ( item, list ) {
+        if ( list.indexOf( item ) > -1 ) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+
 
       this.uiMatParams = {
         color: '#fffe00',
