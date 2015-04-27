@@ -54,6 +54,13 @@
 
         }
 
+        this.removeMesh = function () {
+          var oldSculpture = SceneService.scene.getObjectByName( 'vase' );
+          if ( oldSculpture !== undefined ) {
+            SceneService.scene.remove( oldSculpture );
+          }
+        };
+
         var rotationY = 0;
         var rotationSpeed = 0;
         this.rotate = false;

@@ -24,25 +24,30 @@ controlls.controller( 'LeftController',
       };
 
       function updateSculpture () {
-        $scope.uiGeoParams[ "radialSegments" ] = $scope.selected.data.length !== 1 ? $scope.selected.data.length - 1 : $scope.selected.data.length;
-        $scope.uiGeoParams[ "heightSegments" ] = $scope.selected.data[ 0 ].length - 1;
+        $scope.uiGeoParams[ "radialSegments" ] = $scope.selected.data.length !== 1 ? $scope.selected.data.length -1 : $scope.selected.data.length;
+        $scope.uiGeoParams[ "heightSegments" ] = $scope.selected.data[ 0 ]!==undefined? $scope.selected.data[ 0 ].length - 1  : 0;
 
+        if($scope.uiGeoParams.heightSegments !== 0)ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
+        else ModelService.removeMesh();
 
-        ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
       }
 
       $scope.toggle = function ( item, list, index ) {
+
+        for(var r = 0; r < list.length; r++){
+          if (list[r][0] === undefined)list.splice( r, 1 );
+        }
         var idx = index.indexOf( item );
         if ( idx !== -1 ) {
           index.splice( idx, 1 );
           list.splice( idx, 1 );
           updateSculpture();
-          //ModelService.addModel( $scope.uiGeoParams, $scope.uiMatParams );
         } else {
           index.push( item );
           list.push( $scope.data[ item ] );
+          list.push([]);
+          //if(!$scope.uiGeoParams.interpolate)list.push(['joker']);
           updateSculpture();
-          //ModelService.addModel( $scope.uiGeoParams, $scope.uiMatParams );
         }
       };
 

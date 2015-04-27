@@ -15,28 +15,28 @@
                            ng-class="exists(key, selected.indices) ? 'md-raised md-primary':'md-raised'">
                   {{key}}
                 </md-button>
-                {{selected.data}}
-                {{selected.indices}}
                 <md-divider></md-divider>
+
               </div>
               <!--<div class="catalog">-->
-                <!--<h2>Sleep</h2>-->
-                <!--<md-button ng-repeat="key in data.keys"-->
-                           <!--ng-click="toggle(key, selected)"-->
-                           <!--ng-class="exists(key, selected) ? 'md-raised md-primary':'md-raised'"-->
-                  <!--{{key}}-->
-                <!--</md-button>-->
-                <!--<md-divider></md-divider>-->
+              <!--<h2>Sleep</h2>-->
+              <!--<md-button ng-repeat="key in data.keys"-->
+              <!--ng-click="toggle(key, selected)"-->
+              <!--ng-class="exists(key, selected) ? 'md-raised md-primary':'md-raised'"-->
+              <!--{{key}}-->
+              <!--</md-button>-->
+              <!--<md-divider></md-divider>-->
               <!--</div>-->
               <!--<div class=" catalog-->
-                <!--">-->
-                <!--<h2>Body</h2>-->
-                <!--<md-button ng-repeat="key in data.keys"-->
-                           <!--ng-click="toggle(key, selected)"-->
-                           <!--ng-class="exists(key, selected) ? 'md-raised md-primary':'md-raised'">-->
-                  <!--{{key}}-->
-                <!--</md-button>-->
+              <!--">-->
+              <!--<h2>Body</h2>-->
+              <!--<md-button ng-repeat="key in data.keys"-->
+              <!--ng-click="toggle(key, selected)"-->
+              <!--ng-class="exists(key, selected) ? 'md-raised md-primary':'md-raised'">-->
+              <!--{{key}}-->
+              <!--</md-button>-->
               <!--</div>-->
+              {{selected.data}}
             </div>
           </md-content>
 
@@ -67,19 +67,19 @@
                          ng-change=" onUiParamsChange()">
               </md-slider>
 
-              <div flex="10" layout="row" layout-align="space-around center">
-                <span class="slider-name">Radial Segments</span>
-            <span
-              class="slider-value">{{ uiGeoParams.radialSegments}}</span>
-              </div>
-              <md-slider flex
-                         min="{{ sliderParams.radialSegments.min}}"
-                         max="{{ sliderParams.radialSegments.max}}"
-                         aria-label="Control Name"
-                         class="md-hue-3"
-                         ng-model=' uiGeoParams.radialSegments'
-                         ng-change=" onUiParamsChange()">
-              </md-slider>
+              <!--<div flex="10" layout="row" layout-align="space-around center">-->
+                <!--<span class="slider-name">Radial Segments</span>-->
+            <!--<span-->
+              <!--class="slider-value">{{ uiGeoParams.radialSegments}}</span>-->
+              <!--</div>-->
+              <!--<md-slider flex-->
+                         <!--min="{{ sliderParams.radialSegments.min}}"-->
+                         <!--max="{{ sliderParams.radialSegments.max}}"-->
+                         <!--aria-label="Control Name"-->
+                         <!--class="md-hue-3"-->
+                         <!--ng-model=' uiGeoParams.radialSegments'-->
+                         <!--ng-change=" onUiParamsChange()">-->
+              <!--</md-slider>-->
 
               <div flex="10" layout="row" layout-align="space-around center">
                 <span class="slider-name">Date Range</span>

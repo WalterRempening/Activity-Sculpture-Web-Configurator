@@ -14,8 +14,8 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
     definition: definition,
     interpolation: interpolate
   };
-  //data = data !== undefined ? data : [];
-  //data.push( [] );
+
+
   interpolate = interpolate !== undefined ? interpolate : false;
   definition = definition !== undefined ? definition : 50;
   outerRadius = outerRadius !== undefined ? outerRadius : 20;
