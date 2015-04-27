@@ -1,119 +1,128 @@
 <section layout="row" flex>
-  <div ng-controller="LeftController as lefty">
+  <div ng-controller="LeftController">
     <!--////////////////////////////////////////   Left Panel ///////////////////////////////////////////!-->
     <md-sidenav id="ctrls-left" class="md-sidenav-left md-whiteframe-z2"
                 md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-
+      <!--////////////////////////////////////////  Data Catalog Tab   ///////////////////////////////////////////!-->
       <md-tabs md-dynamic-height md-border-bottom class="md-primary">
         <md-tab label="data">
           <md-content class="md-padding">
             <div layout="column">
               <div class="catalog">
                 <h2>Activity</h2>
-                <md-button class="md-raised md-primary"
-                           ng-repeat="key in data.keys">{{key}}
+                <md-button ng-repeat="key in keys"
+                           ng-click="toggle(key, selected.data, selected.indices)"
+                           ng-class="exists(key, selected.indices) ? 'md-raised md-primary':'md-raised'">
+                  {{key}}
                 </md-button>
+                {{selected.data}}
+                {{selected.indices}}
                 <md-divider></md-divider>
               </div>
-              <div class="catalog">
-                <h2>Sleep</h2>
-                <md-button ng-repeat="key in data.keys"
-                           ng-click="toggle(key, selected)"
-                           ng-class="exists(key, selected) ? 'md-raised md-primary':'md-raised'"
-                           >{{key}}
-                </md-button>
-                {{selected}}
-                <md-divider></md-divider>
-              </div>
-              <div class=" catalog
-                ">
-                <h2>Body</h2>
-                <md-button class="md-raised md-primary"
-                           ng-repeat="key in data.keys">{{key}}
-                </md-button>
-              </div>
+              <!--<div class="catalog">-->
+                <!--<h2>Sleep</h2>-->
+                <!--<md-button ng-repeat="key in data.keys"-->
+                           <!--ng-click="toggle(key, selected)"-->
+                           <!--ng-class="exists(key, selected) ? 'md-raised md-primary':'md-raised'"-->
+                  <!--{{key}}-->
+                <!--</md-button>-->
+                <!--<md-divider></md-divider>-->
+              <!--</div>-->
+              <!--<div class=" catalog-->
+                <!--">-->
+                <!--<h2>Body</h2>-->
+                <!--<md-button ng-repeat="key in data.keys"-->
+                           <!--ng-click="toggle(key, selected)"-->
+                           <!--ng-class="exists(key, selected) ? 'md-raised md-primary':'md-raised'">-->
+                  <!--{{key}}-->
+                <!--</md-button>-->
+              <!--</div>-->
             </div>
           </md-content>
 
 
         </md-tab>
+
+        <!--////////////////////////////////////////  Geometry Tab   ///////////////////////////////////////////!-->
         <md-tab label="geometry">
           <md-content class="md-padding">
             <div layout="column">
               <div flex="10" layout="row" layout-align="space-around center">
                 <span class="slider-name">Radius</span>
                 <span
-                  class="slider-value">{{lefty.uiGeoParams.outerRadius}}</span>
+                  class="slider-value">{{ uiGeoParams.outerRadius}}</span>
               </div>
               <md-slider flex min="5" max="80" aria-label="Control Name"
                          class="md-hue-3"
-                         ng-model='lefty.uiGeoParams.outerRadius'
-                         ng-change="lefty.onUiParamsChange()">
+                         ng-model=' uiGeoParams.outerRadius'
+                         ng-change=" onUiParamsChange()">
               </md-slider>
 
               <div flex="10" layout="row" layout-align="space-around center">
                 <span class="slider-name">Height</span>
-                <span class="slider-value">{{lefty.uiGeoParams.height}}</span>
+                <span class="slider-value">{{ uiGeoParams.height}}</span>
               </div>
               <md-slider flex min="60" max="300" aria-label="Control Name"
-                         class="md-hue-3" ng-model='lefty.uiGeoParams.height'
-                         ng-change="lefty.onUiParamsChange()">
+                         class="md-hue-3" ng-model=' uiGeoParams.height'
+                         ng-change=" onUiParamsChange()">
               </md-slider>
 
               <div flex="10" layout="row" layout-align="space-around center">
                 <span class="slider-name">Radial Segments</span>
             <span
-              class="slider-value">{{lefty.uiGeoParams.radialSegments}}</span>
+              class="slider-value">{{ uiGeoParams.radialSegments}}</span>
               </div>
               <md-slider flex
-                         min="{{lefty.sliderParams.radialSegments.min}}"
-                         max="{{lefty.sliderParams.radialSegments.max}}"
+                         min="{{ sliderParams.radialSegments.min}}"
+                         max="{{ sliderParams.radialSegments.max}}"
                          aria-label="Control Name"
                          class="md-hue-3"
-                         ng-model='lefty.uiGeoParams.radialSegments'
-                         ng-change="lefty.onUiParamsChange()">
+                         ng-model=' uiGeoParams.radialSegments'
+                         ng-change=" onUiParamsChange()">
               </md-slider>
 
               <div flex="10" layout="row" layout-align="space-around center">
                 <span class="slider-name">Date Range</span>
             <span
-              class="slider-value">{{lefty.uiGeoParams.heightSegments}}</span>
+              class="slider-value">{{ uiGeoParams.heightSegments}}</span>
               </div>
               <md-slider flex
-                         min="{{lefty.sliderParams.heightSegments.min}}"
-                         max="{{lefty.sliderParams.heightSegments.max}}"
+                         min="{{ sliderParams.heightSegments.min}}"
+                         max="{{ sliderParams.heightSegments.max}}"
                          aria-label="Control Name"
                          class="md-hue-3"
-                         ng-model='lefty.uiGeoParams.heightSegments'
-                         ng-change="lefty.onUiParamsChange()">
+                         ng-model=' uiGeoParams.heightSegments'
+                         ng-change=" onUiParamsChange()">
               </md-slider>
             </div>
 
-            <md-switch ng-model="lefty.uiGeoParams.interpolate"
+            <md-switch ng-model=" uiGeoParams.interpolate"
                        aria-label="Interpolate"
-                       ng-change="lefty.onUiParamsChange()"
+                       ng-change=" onUiParamsChange()"
                        class="md-hue-3">
               <span class="slider-name ">Interpolate</span>
             </md-switch>
 
             <div class="subslider animate-show"
-                 ng-show="lefty.uiGeoParams.interpolate">
+                 ng-show=" uiGeoParams.interpolate">
               <div flex="10" layout="row" layout-align="space-around center">
                 <span class="slider-name">Inerpolation Resolution</span>
           <span class="slider-value">
-            {{(lefty.uiGeoParams.definition /
-            lefty.sliderParams.definition.max) * 100 | number: 0 }}%
+            {{uiGeoParams.definition }}%
           </span>
+
               </div>
               <md-slider flex
-                         step="{{lefty.sliderParams.definition.step}}"
-                         min="{{lefty.sliderParams.definition.min}}"
-                         max="{{lefty.sliderParams.definition.max}}"
+                         step="{{ sliderParams.definition.step}}"
+                         min="{{ sliderParams.definition.min}}"
+                         max="{{ sliderParams.definition.max}}"
                          aria-label="Control Name"
                          class="md-hue-3"
-                         ng-model="lefty.uiGeoParams.definition"
-                         ng-change="lefty.onUiParamsChange()">
+                         ng-model=" uiGeoParams.definition"
+                         ng-change=" onUiParamsChange()">
               </md-slider>
+
+
             </div>
           </md-content>
         </md-tab>
@@ -125,49 +134,50 @@
                 md-component-id="right"
                 md-is-locked-open="$mdMedia('gt-md')">
       <md-tabs md-dynamic-height md-border-bottom class="md-primary">
+
+        <!--////////////////////////////////////////   Material Tab ///////////////////////////////////////////!-->
         <md-tab label="Material">
           <md-content class="md-padding">
             <div flex="10" layout="row" layout-align="space-around center">
               <span class="slider-name">HEX Color</span>
         <span
-          class="slider-value">{{lefty.uiMatParams.color | uppercase}}</span>
+          class="slider-value">{{ uiMatParams.color | uppercase}}</span>
             </div>
-            <color-picker ng-model="lefty.uiMatParams.color"
-                          ng-change="lefty.onUiParamsChange()"></color-picker>
+            <color-picker ng-model=" uiMatParams.color"
+                          ng-change=" onUiParamsChange()"></color-picker>
 
             <div flex="10" layout="row" layout-align="space-around center">
               <span class="slider-name">Shininess</span>
-              <span class="slider-value">{{lefty.uiMatParams.shininess }}</span>
+              <span class="slider-value">{{ uiMatParams.shininess }}</span>
             </div>
             <md-slider flex
                        step=1
-                       min="{{lefty.sliderParams.shininess.min}}"
-                       max="{{lefty.sliderParams.shininess.max}}"
+                       min="{{sliderParams.shininess.min}}"
+                       max="{{sliderParams.shininess.max}}"
                        aria-label="Control Name"
-                       class="md-hue-3" ng-model='lefty.uiMatParams.shininess'
-                       ng-change="lefty.onUiParamsChange()">
+                       class="md-hue-3" ng-model=' uiMatParams.shininess'
+                       ng-change=" onUiParamsChange()">
             </md-slider>
-            <md-switch ng-model="lefty.uiMatParams.wireframe" class="md-hue-3"
+            <md-switch ng-model=" uiMatParams.wireframe" class="md-hue-3"
                        aria-label="Wireframe"
-                       ng-change="lefty.onUiParamsChange()">
+                       ng-change=" onUiParamsChange()">
               <span class="slider-name ">Wireframe</span>
             </md-switch>
             <div class="subslider animate-show"
-                 ng-show="lefty.uiMatParams.wireframe">
+                 ng-show=" uiMatParams.wireframe">
               <div flex="10" layout="row" layout-align="space-around center">
                 <span class="slider-name">Line Width</span>
           <span class="slider-value">
-            {{lefty.uiMatParams.linewidth }}
           </span>
               </div>
               <md-slider flex
-                         step="{{lefty.sliderParams.linewidth.step}}"
-                         min="{{lefty.sliderParams.linewidth.min}}"
-                         max="{{lefty.sliderParams.linewidth.max}}"
+                         step="{{ sliderParams.linewidth.step}}"
+                         min="{{ sliderParams.linewidth.min}}"
+                         max="{{ sliderParams.linewidth.max}}"
                          aria-label="Control Name"
                          class="md-hue-3"
-                         ng-model="lefty.uiMatParams.linewidth"
-                         ng-change="lefty.onUiParamsChange()">
+                         ng-model="uiMatParams.linewidth"
+                         ng-change="onUiParamsChange()">
               </md-slider>
             </div>
           </md-content>

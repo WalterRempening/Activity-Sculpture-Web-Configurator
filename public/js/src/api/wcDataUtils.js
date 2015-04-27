@@ -52,20 +52,13 @@
         ]
       };
     } else if ( target === SCULPTURE ) {
-      var values = [];
+      var values = {};
       for ( var k = 0; k < graphData.length; k++ ) {
-        values.push( normalizeArray( graphData[ k ].values, 50 ) );
+        values[ keys[ k ] ] = normalizeArray( graphData[ k ].values, 50 );
       }
-      values.push( [] );
-
-      data = {
-        keys: keys,
-        values: values
-      };
+      data = values;
 
     }
-
-    //return [ keys, data ];
     return data;
   }
 

@@ -2,13 +2,14 @@
   'use strict';
   angular.module( 'wcModel', [] )
 
-  .service( 'ModelService',
+    .service( 'ModelService',
     [ 'SceneService',
       function ( SceneService ) {
 
         var SCULPTURE_NAME = 'vase';
 
         function makeSculpture ( geoArgs, matArgs ) {
+          //var keys = geoArgs.keys;
           var sculpture = new THREE.Mesh(
             new WCVaseGeometry(
               geoArgs.data,
@@ -45,9 +46,12 @@
 
         this.updateMesh = function ( geoArgs, matArgs ) {
           var oldSculpture = SceneService.scene.getObjectByName( 'vase' );
-          SceneService.scene.remove( oldSculpture );
+          if ( oldSculpture !== undefined ) {
+            SceneService.scene.remove( oldSculpture );
+          }
           sculpture = makeSculpture( geoArgs, matArgs );
           SceneService.scene.add( sculpture );
+
         }
 
         var rotationY = 0;
