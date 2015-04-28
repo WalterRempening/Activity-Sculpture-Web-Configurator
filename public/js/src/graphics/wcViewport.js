@@ -9,7 +9,7 @@ viewport.directive( 'threeViewport',
         var controls;
         var delta;
         var INV_MAX_FPS = 1 / 60;
-        var stats = new Stats();
+        //var stats = new Stats();
         var clock = new THREE.Clock();
         clock.start();
 
@@ -18,11 +18,11 @@ viewport.directive( 'threeViewport',
 
         function init () {
           // Add statistics monitor
-          stats.setMode( 0 );
-          stats.domElement.style.position = 'absolute';
-          stats.domElement.style.right = '0px';
-          stats.domElement.style.top = '0px';
-          document.body.appendChild( stats.domElement );
+          //stats.setMode( 0 );
+          //stats.domElement.style.position = 'absolute';
+          //stats.domElement.style.right = '0px';
+          //stats.domElement.style.top = '0px';
+          //document.body.appendChild( stats.domElement );
           // Add Camera
           CameraService.perspectiveCam.position.set( 0, 0, 350 );
           SceneService.scene.add( CameraService.perspectiveCam );
@@ -83,9 +83,9 @@ viewport.directive( 'threeViewport',
 
         function animate () {
           requestAnimationFrame( animate );
-          stats.begin();
+          //stats.begin();
           render();
-          stats.end();
+          //stats.end();
         }
 
         function render () {

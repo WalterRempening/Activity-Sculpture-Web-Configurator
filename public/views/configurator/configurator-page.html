@@ -8,34 +8,16 @@
         <md-tab label="data">
           <md-content class="md-padding">
             <div layout="column">
-              <div class="catalog">
-                <h2>Activity</h2>
-                <md-button ng-repeat="key in keys"
-                           ng-click="toggle(key, selected.data, selected.indices)"
+              <div class="catalog" ng-repeat="category in data">
+                <h2>{{category.name}}</h2>
+                <md-button ng-repeat="key in category.keys"
+                           ng-click="toggle(category.name, key, selected.data, selected.indices)"
                            ng-class="exists(key, selected.indices) ? 'md-raised md-primary':'md-raised'">
                   {{key}}
                 </md-button>
                 <md-divider></md-divider>
 
               </div>
-              <!--<div class="catalog">-->
-              <!--<h2>Sleep</h2>-->
-              <!--<md-button ng-repeat="key in data.keys"-->
-              <!--ng-click="toggle(key, selected)"-->
-              <!--ng-class="exists(key, selected) ? 'md-raised md-primary':'md-raised'"-->
-              <!--{{key}}-->
-              <!--</md-button>-->
-              <!--<md-divider></md-divider>-->
-              <!--</div>-->
-              <!--<div class=" catalog-->
-              <!--">-->
-              <!--<h2>Body</h2>-->
-              <!--<md-button ng-repeat="key in data.keys"-->
-              <!--ng-click="toggle(key, selected)"-->
-              <!--ng-class="exists(key, selected) ? 'md-raised md-primary':'md-raised'">-->
-              <!--{{key}}-->
-              <!--</md-button>-->
-              <!--</div>-->
             </div>
           </md-content>
 
@@ -65,20 +47,6 @@
                          class="md-hue-3" ng-model=' uiGeoParams.height'
                          ng-change=" onUiParamsChange()">
               </md-slider>
-
-              <!--<div flex="10" layout="row" layout-align="space-around center">-->
-                <!--<span class="slider-name">Radial Segments</span>-->
-            <!--<span-->
-              <!--class="slider-value">{{ uiGeoParams.radialSegments}}</span>-->
-              <!--</div>-->
-              <!--<md-slider flex-->
-                         <!--min="{{ sliderParams.radialSegments.min}}"-->
-                         <!--max="{{ sliderParams.radialSegments.max}}"-->
-                         <!--aria-label="Control Name"-->
-                         <!--class="md-hue-3"-->
-                         <!--ng-model=' uiGeoParams.radialSegments'-->
-                         <!--ng-change=" onUiParamsChange()">-->
-              <!--</md-slider>-->
 
               <div flex="10" layout="row" layout-align="space-around center">
                 <span class="slider-name">Date Range</span>

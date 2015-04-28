@@ -90,11 +90,7 @@
         }
 
         function getDataForSculpture () {
-          return [
-            user.activity,
-            user.sleep,
-            user.body
-          ];
+          return [ user.activity, user.sleep, user.body ];
         }
 
         //User Sculpture Management =============================

@@ -52,7 +52,7 @@
         ]
       };
     } else if ( target === SCULPTURE ) {
-      var values = {};
+      var values = [];
       for ( var k = 0; k < graphData.length; k++ ) {
         values[ keys[ k ] ] = normalizeArray( graphData[ k ].values, 50 );
       }
@@ -96,13 +96,11 @@
         ]
       };
     } else if ( target === SCULPTURE ) {
-      data = [
-        graphData[ 0 ],
-        graphData[ 1 ],
-        graphData[ 2 ],
-        graphData[ 3 ],
-        graphData[ 4 ]
-      ];
+      var values = [];
+      for(var b = 0; b < graphData.length; b++){
+        values[ keys[ b ] ] = normalizeArray( graphData[ b ].values, 50 );
+      }
+      data = values;
     }
     return data;
   }
@@ -154,12 +152,10 @@
         ]
       };
     } else if ( target === SCULPTURE ) {
-      data = [
-        graphData[ 'Weight' ],
-        graphData[ 'Height' ],
-        graphData[ 'Heart Pulse' ],
-        graphData[ 'SPO2' ]
-      ];
+      var values = [];
+      values[ 'Heart Pulse' ] = normalizeArray( graphData[ 'Heart Pulse' ].values, 50 );
+        values[ 'SPO2' ] = normalizeArray( graphData[ 'SPO2' ].values, 50 );
+      data = values;
     }
 
     return data;

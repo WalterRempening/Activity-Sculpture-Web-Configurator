@@ -14,9 +14,46 @@ controlls.controller( 'LeftController',
         target: wcDataUtils.target
       };
 
-      $scope.data = utils.format.Activity( UserDataFactory.getUserActivity(),
-        utils.target.SCULPTURE );
-      $scope.keys = $scope.data !== undefined ? Object.keys( $scope.data ) : [ 'Loading Data' ];
+      function processSculptureData ( usr ) {
+        var data = {
+          Activity: {
+            name: "Activity",
+            keys: [],
+            values: []
+          },
+          Sleep: {
+            name: "Sleep",
+            keys: [],
+            values: []
+          },
+          Body: {
+            name: "Body",
+            keys: [],
+            values: []
+          }
+        };
+        data.Activity.values = utils.format.Activity( usr[ 0 ],
+          utils.target.SCULPTURE );
+        data.Activity.keys = Object.keys( data.Activity.values );
+        data.Sleep.values = utils.format.Sleep( usr[ 1 ],
+          utils.target.SCULPTURE );
+        data.Sleep.keys = Object.keys( data.Sleep.values );
+        data.Body.values = utils.format.Body( usr[ 2 ],
+          utils.target.SCULPTURE );
+        data.Body.keys = Object.keys( data.Body.values );
+
+      return data;
+      }
+
+      $scope.data = processSculptureData( UserDataFactory.getDataForSculpture() );
+      //$scope.data = utils.format.Activity( UserDataFactory.getUserActivity(),
+      //  utils.target.SCULPTURE );
+      //$scope.keys = Object.keys( $scope.data );
+      //function () {
+      //for()
+
+      //}
+
 
       $scope.selected = {
         indices: [],
@@ -24,19 +61,20 @@ controlls.controller( 'LeftController',
       };
 
       function updateSculpture () {
-        $scope.uiGeoParams[ "radialSegments" ] = $scope.selected.data.length !== 1 ? $scope.selected.data.length -1 : $scope.selected.data.length;
-        $scope.uiGeoParams[ "heightSegments" ] = $scope.selected.data[ 0 ]!==undefined? $scope.selected.data[ 0 ].length - 1  : 0;
-        $scope.uiGeoParams['keys']= $scope.selected.indices;
+        $scope.uiGeoParams[ "radialSegments" ] = $scope.selected.data.length !== 1 ? $scope.selected.data.length - 1 : $scope.selected.data.length;
+        $scope.uiGeoParams[ "heightSegments" ] = $scope.selected.data[ 0 ] !== undefined ? $scope.selected.data[ 0 ].length - 1 : 0;
+        $scope.uiGeoParams[ 'keys' ] = $scope.selected.indices;
 
-        if($scope.uiGeoParams.heightSegments !== 0)ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
+        if ( $scope.uiGeoParams.heightSegments !== 0 )ModelService.updateMesh( $scope.uiGeoParams,
+          $scope.uiMatParams );
         else ModelService.removeMesh();
 
       }
 
-      $scope.toggle = function ( item, list, index ) {
+      $scope.toggle = function ( category, item, list, index ) {
 
-        for(var r = 0; r < list.length; r++){
-          if (list[r][0] === undefined)list.splice( r, 1 );
+        for ( var r = 0; r < list.length; r++ ) {
+          if ( list[ r ][ 0 ] === undefined )list.splice( r, 1 );
         }
         var idx = index.indexOf( item );
         if ( idx !== -1 ) {
@@ -45,8 +83,8 @@ controlls.controller( 'LeftController',
           updateSculpture();
         } else {
           index.push( item );
-          list.push( $scope.data[ item ] );
-          list.push([]);
+          list.push( $scope.data[category].values[ item ] );
+          list.push( [] );
           updateSculpture();
         }
       };
@@ -79,11 +117,11 @@ controlls.controller( 'LeftController',
       $scope.sliderParams = {
         radialSegments: {
           min: 1,
-          max: $scope.selected.data.length -1
+          max: $scope.selected.data.length - 1
         },
         heightSegments: {
           min: 1,
-          max: $scope.data[ $scope.keys[ 0 ] ].length - 1
+          max: $scope.data['Activity' ].values['steps'].length - 1
         },
         shininess: {
           min: 3,
