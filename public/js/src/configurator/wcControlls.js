@@ -42,18 +42,27 @@ controlls.controller( 'LeftController',
           utils.target.SCULPTURE );
         data.Body.keys = Object.keys( data.Body.values );
 
-      return data;
+        if ( data.Sleep.values[ 'wakeupcount' ].length < data.Activity.values[ 'steps' ].length ) {
+          for ( var k = 0; k < data.Sleep.keys.length; k++ ) {
+            var diff = data.Activity.values[ 'steps' ].length - data.Sleep.values[ data.Sleep.keys[ k ] ].length;
+            for ( var z = 0; z < diff; z++ ) {
+              data.Sleep.values[ data.Sleep.keys[ k ] ].push( 0 );
+            }
+          }
+        }
+
+        if ( data.Body.values[ 'SPO2' ].length < data.Activity.values[ 'steps' ].length ) {
+          for ( var k = 0; k < data.Body.keys.length; k++ ) {
+            var diff = data.Activity.values[ 'steps' ].length - data.Body.values[ data.Body.keys[ k ] ].length;
+            for ( var z = 0; z < diff; z++ ) {
+              data.Body.values[ data.Body.keys[ k ] ].push( 0 );
+            }
+          }
+        }
+        return data;
       }
 
       $scope.data = processSculptureData( UserDataFactory.getDataForSculpture() );
-      //$scope.data = utils.format.Activity( UserDataFactory.getUserActivity(),
-      //  utils.target.SCULPTURE );
-      //$scope.keys = Object.keys( $scope.data );
-      //function () {
-      //for()
-
-      //}
-
 
       $scope.selected = {
         indices: [],
@@ -83,7 +92,7 @@ controlls.controller( 'LeftController',
           updateSculpture();
         } else {
           index.push( item );
-          list.push( $scope.data[category].values[ item ] );
+          list.push( $scope.data[ category ].values[ item ] );
           list.push( [] );
           updateSculpture();
         }
@@ -121,7 +130,7 @@ controlls.controller( 'LeftController',
         },
         heightSegments: {
           min: 1,
-          max: $scope.data['Activity' ].values['steps'].length - 1
+          max: $scope.data[ 'Activity' ].values[ 'steps' ].length - 1
         },
         shininess: {
           min: 3,
@@ -144,5 +153,4 @@ controlls.controller( 'LeftController',
       }
     }
   ]
-)
-;
+);
