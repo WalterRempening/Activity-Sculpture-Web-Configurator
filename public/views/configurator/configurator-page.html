@@ -36,7 +36,6 @@
               <!--{{key}}-->
               <!--</md-button>-->
               <!--</div>-->
-              {{selected.data}}
             </div>
           </md-content>
 
@@ -52,7 +51,7 @@
                 <span
                   class="slider-value">{{ uiGeoParams.outerRadius}}</span>
               </div>
-              <md-slider flex min="5" max="80" aria-label="Control Name"
+              <md-slider flex min="1" max="50" aria-label="Control Name"
                          class="md-hue-3"
                          ng-model=' uiGeoParams.outerRadius'
                          ng-change=" onUiParamsChange()">
@@ -62,7 +61,7 @@
                 <span class="slider-name">Height</span>
                 <span class="slider-value">{{ uiGeoParams.height}}</span>
               </div>
-              <md-slider flex min="60" max="300" aria-label="Control Name"
+              <md-slider flex min="100" max="500" aria-label="Control Name"
                          class="md-hue-3" ng-model=' uiGeoParams.height'
                          ng-change=" onUiParamsChange()">
               </md-slider>
@@ -84,7 +83,7 @@
               <div flex="10" layout="row" layout-align="space-around center">
                 <span class="slider-name">Date Range</span>
             <span
-              class="slider-value">{{ uiGeoParams.heightSegments}}</span>
+              class="slider-value">{{ uiGeoParams.heightSegments}} days</span>
               </div>
               <md-slider flex
                          min="{{ sliderParams.heightSegments.min}}"
@@ -106,9 +105,9 @@
             <div class="subslider animate-show"
                  ng-show=" uiGeoParams.interpolate">
               <div flex="10" layout="row" layout-align="space-around center">
-                <span class="slider-name">Inerpolation Resolution</span>
+                <span class="slider-name">Number of Segments</span>
           <span class="slider-value">
-            {{uiGeoParams.definition }}%
+            {{uiGeoParams.definition }}
           </span>
 
               </div>
@@ -122,8 +121,12 @@
                          ng-change=" onUiParamsChange()">
               </md-slider>
 
-
             </div>
+            <md-switch ng-model=" uiGeoParams.showLables" class="md-hue-3"
+                       aria-label="Show Lables"
+                       ng-change=" onUiParamsChange()">
+              <span class="slider-name ">Show Labels</span>
+            </md-switch>
           </md-content>
         </md-tab>
       </md-tabs>
@@ -167,7 +170,7 @@
                  ng-show=" uiMatParams.wireframe">
               <div flex="10" layout="row" layout-align="space-around center">
                 <span class="slider-name">Line Width</span>
-          <span class="slider-value">
+          <span class="slider-value">{{uiMatParams.linewidth}}
           </span>
               </div>
               <md-slider flex

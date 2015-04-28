@@ -9,7 +9,6 @@
         var SCULPTURE_NAME = 'vase';
 
         function makeSculpture ( geoArgs, matArgs ) {
-          //var keys = geoArgs.keys;
           var sculpture = new THREE.Mesh(
             new WCVaseGeometry(
               geoArgs.data,
@@ -32,9 +31,47 @@
               wireframeLinewidth: matArgs.linewidth
             } )
           );
+
           sculpture.castShadow = true;
           sculpture.name = SCULPTURE_NAME;
 
+          if ( geoArgs.showLables ) {
+            var legendMat = new THREE.MeshBasicMaterial( {
+              shading: THREE.FlatShading,
+              color: 0xb4b4b4,
+              side: THREE.DoubleSide
+            } );
+            var radius = geoArgs.outerRadius + 55;
+            var circleLegend = new THREE.Mesh(
+              new THREE.RingGeometry( radius, radius + 1, 70, 2, 2,
+                6.283185307179586 ),
+              legendMat
+            );
+
+            circleLegend.rotateX( -Math.PI / 2 );
+            circleLegend.position.y = -geoArgs.height / 2;
+            sculpture.add( circleLegend );
+
+            var tags = [];
+            for ( var w = 0; w < geoArgs.keys.length; w++ ) {
+              tags.push( new THREE.Mesh(
+                new THREE.TextGeometry( geoArgs.keys[ w ].toUpperCase(), {
+                  size: 7,
+                  height: 0,
+                  curveSegments: 2
+                } ),
+                legendMat
+              ) );
+              tags[ w ].rotateX( -Math.PI / 2 );
+              tags[ w ].rotateZ( (-Math.PI / 2) + ( w * ((-2 * Math.PI) / (geoArgs.keys.length))) );
+              tags[ w ].position.x = (10 + radius) * Math.sin( (w / geoArgs.keys.length) * (-2 * Math.PI) );
+              tags[ w ].position.y = -geoArgs.height / 2;
+              tags[ w ].position.z = (10 + radius) * Math.cos( (w / geoArgs.keys.length) * (-2 * Math.PI) );
+
+              sculpture.add( tags[ w ] );
+
+            }
+          }
           return sculpture;
         }
 

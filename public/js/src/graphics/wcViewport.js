@@ -24,7 +24,7 @@ viewport.directive( 'threeViewport',
           stats.domElement.style.top = '0px';
           document.body.appendChild( stats.domElement );
           // Add Camera
-          CameraService.perspectiveCam.position.set( 0, 0, 200 );
+          CameraService.perspectiveCam.position.set( 0, 0, 350 );
           SceneService.scene.add( CameraService.perspectiveCam );
           // Create Renderer
           renderer = new THREE.WebGLRenderer( {
@@ -42,7 +42,7 @@ viewport.directive( 'threeViewport',
           );
 
           controls.minDistance = 200;
-          controls.maxDistance = 500;
+          controls.maxDistance = 700;
 
           // init world scenary
           var ambientLight = new THREE.AmbientLight( 0x000000 );

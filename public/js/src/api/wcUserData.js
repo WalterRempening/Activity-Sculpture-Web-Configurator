@@ -116,7 +116,6 @@
         SocketFactory.on( 'receive:user:sculptures', function ( responseData ) {
           var data = responseData;
           user.sculptures = data;
-          //console.log(user.sculptures);
         } );
 
 
@@ -159,7 +158,6 @@
 
         //receive user data through sockets =============================
         SocketFactory.on( 'receive:user:activity', function ( responseData ) {
-          //var data = format.Activity( responseData );
           user.activity = responseData;
           DataUpdaterService.broadcastUserData( wcEvents.ACTIVITY,
             user.activity );

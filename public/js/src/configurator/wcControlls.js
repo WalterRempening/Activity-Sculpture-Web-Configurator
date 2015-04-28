@@ -26,6 +26,7 @@ controlls.controller( 'LeftController',
       function updateSculpture () {
         $scope.uiGeoParams[ "radialSegments" ] = $scope.selected.data.length !== 1 ? $scope.selected.data.length -1 : $scope.selected.data.length;
         $scope.uiGeoParams[ "heightSegments" ] = $scope.selected.data[ 0 ]!==undefined? $scope.selected.data[ 0 ].length - 1  : 0;
+        $scope.uiGeoParams['keys']= $scope.selected.indices;
 
         if($scope.uiGeoParams.heightSegments !== 0)ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
         else ModelService.removeMesh();
@@ -46,7 +47,6 @@ controlls.controller( 'LeftController',
           index.push( item );
           list.push( $scope.data[ item ] );
           list.push([]);
-          //if(!$scope.uiGeoParams.interpolate)list.push(['joker']);
           updateSculpture();
         }
       };
@@ -68,12 +68,12 @@ controlls.controller( 'LeftController',
 
       $scope.uiGeoParams = {
         data: $scope.selected.data,
-        //keys: $scope.selected.keys,
         outerRadius: 30,
         innerRadius: 40,
-        height: 100,
+        height: 150,
         interpolate: false,
-        definition: 50
+        definition: 50,
+        showLables: false
       };
 
       $scope.sliderParams = {
@@ -90,13 +90,13 @@ controlls.controller( 'LeftController',
           max: 15
         },
         linewidth: {
-          min: 0,
+          min: 1,
           max: 5
         },
         definition: {
           step: 1,
-          min: 10,
-          max: 100
+          min: 20,
+          max: 60
         }
       };
 
