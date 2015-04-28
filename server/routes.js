@@ -107,11 +107,13 @@ module.exports = function(app, passport) {
 
       WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
         if (err) throw err;
-        console.log(req.body);
-        //dbuser.sculptures.push = req.body.sculpture
+        var sculpture = req.body;
+        dbuser.sculptures.push(sculpture);
         dbuser.save(function(err) {
           if (err) {
             res.sendStatus(500);
+          }else{
+            res.end();
           }
         });
       });

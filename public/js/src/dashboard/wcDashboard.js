@@ -38,7 +38,7 @@ angular.module( 'wcDashboard', [] )
       }
 
       //User Data Assignment =========================================================
-      var ALL_MESSAGES_RECEIVED = 4;
+      var ALL_MESSAGES_RECEIVED = 5;
       $scope.showProgress = function () {
         if ( $scope.progress === ALL_MESSAGES_RECEIVED ) {
           return true;

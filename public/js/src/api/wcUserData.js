@@ -13,6 +13,7 @@
         var sessuser = JSON.parse( $cookies.user );
         var DATA_RESPONSE_ERROR = 'An error was found while fetching data for your user. Try again later';
         var SAVE_SETTINGS_RESPONSE_ERROR = 'User settings could not be saved';
+        var SAVE_SCULPTURE_SUCCESS = 'Sculpture saved successfully';
         var progress = 0;
 
         // initialize user object
@@ -86,6 +87,7 @@
         }
 
         function getUserSettings () {
+          user.settings = user.settings.length !== undefined ? user.settings : JSON.parse( $cookies.settings );
           return user.settings;
         }
 
@@ -101,7 +103,8 @@
         function saveUserSculptures ( sculpture ) {
           $http.post( "/api/user/" + user.id + "/sculptures", sculpture )
             .success( function ( data, status, headers, config ) {
-              SocketFactory.emit( 'get:user:sculptures', user.id );
+              //SocketFactory.emit( 'get:user:sculptures', user.id );
+              errorDialog(SAVE_SCULPTURE_SUCCESS);
             } )
             .error( function ( data, status, headers, config ) {
               // Display error dialog
@@ -117,6 +120,7 @@
 
         function init () {
           // Query User Data to API======================================
+          getUserSculptures();
           $http.get( "/api/user/" + user.id + "/data/activity" )
             .success( function ( data, status, headers, config ) {
               SocketFactory.emit( 'get:user:activity', user.id );
@@ -153,6 +157,15 @@
         }
 
         //receive user data through sockets =============================
+        SocketFactory.on( 'receive:user:sculptures', function ( responseData ) {
+          user.sculptures = responseData;
+          DataUpdaterService.broadcastUserData( wcEvents.SCULPTURES,
+            user.sculptures );
+          //console.log(user.profile);
+          progress++;
+          DataUpdaterService.broadcastUserData( wcEvents.PROGRESS, progress );
+        } );
+
         SocketFactory.on( 'receive:user:activity', function ( responseData ) {
           user.activity = responseData;
           DataUpdaterService.broadcastUserData( wcEvents.ACTIVITY,
@@ -188,6 +201,7 @@
           progress++;
           DataUpdaterService.broadcastUserData( wcEvents.PROGRESS, progress );
         } );
+
 
 
         return {

@@ -62,6 +62,8 @@ controlls.controller( 'LeftController',
         return data;
       }
 
+      $scope.settings = UserDataFactory.getUserSettings();
+
       $scope.data = processSculptureData( UserDataFactory.getDataForSculpture() );
 
       $scope.selected = {
@@ -147,10 +149,25 @@ controlls.controller( 'LeftController',
         }
       };
 
-
       $scope.onUiParamsChange = function () {
         ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
       }
+
+      $scope.saveSculpture = function () {
+        UserDataFactory.saveUserSculptures( {
+          date: new Date( Date.now() ),
+          geometry: $scope.uiGeoParams,
+          material: $scope.uiMatParams,
+          variables: [
+            $scope.selected.data,
+            $scope.selected.indices
+          ]
+        } );
+      };
+
+      $scope.exportSTL = function () {
+
+      };
     }
   ]
 );
