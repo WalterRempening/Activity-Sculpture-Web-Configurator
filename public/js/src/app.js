@@ -67,7 +67,6 @@ app.config(
 
             } );
 
-
           function ConsentController ( $scope, $mdDialog ) {
             $scope.agree = function ( save ) {
               $mdDialog.hide();
@@ -85,7 +84,7 @@ app.config(
 
       // User routes
       $stateProvider.state( 'configurator', {
-        url: '/user/{userid}/configurator/',
+        url: '/user/{userid}/configurator/{sculpture}',
         templateUrl: '../../views/configurator/configurator-page.html'
       } )
         .state( 'settings', {
@@ -117,7 +116,6 @@ app.config(
                          }
                        } );
 
-
                        function SetupController ( $scope, $mdDialog ) {
                          $scope.settings = {
                            age: '',
@@ -141,7 +139,6 @@ app.config(
           controller: 'DashboardController'
         } );
 
-
       $httpProvider.interceptors.push( function ( $q, $location ) {
         return {
           'responseError': function ( response ) {
@@ -152,4 +149,18 @@ app.config(
           }
         };
       } );
+    } ] );
+
+app.run(
+  [ '$rootScope', '$urlRouter', '$window', '$state',
+    function ( $rootScope, $urlRouter, $window, $state ) {
+      $rootScope.$on( '$stateChangeSuccess',
+        function ( event, toState, toParams, fromState, fromParams ) {
+          if ( fromState.name == 'configurator' && toState.name == 'settings' ) {
+            console.log( 'reload window' );
+            $window.location.reload();
+          }
+        } );
+      // Configures $urlRouter's listener *after* your custom listener
+      $urlRouter.listen();
     } ] );
