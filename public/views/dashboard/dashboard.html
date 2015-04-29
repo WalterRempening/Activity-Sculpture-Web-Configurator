@@ -26,7 +26,8 @@
         </md-grid-tile>
         <md-grid-tile ng-style="{'background-color': sculpture.material.color}"
           md-rowspan="1" md-colspan="1" md-colspan-sm="1"
-          ng-repeat="sculpture in sculptures" class="animate-show">
+          ng-repeat="sculpture in sculptures" class="animate-show"
+                      ng-click="loadSculpture(sculpture)">
           <md-grid-tile-footer>
             <h3>{{sculpture.date | date : 'longDate'}}</h3>
           </md-grid-tile-footer>

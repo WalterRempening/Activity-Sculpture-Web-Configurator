@@ -2,13 +2,14 @@
 var controlls = angular.module( 'wcControlls', [] );
 
 controlls.controller( 'LeftController',
-  [ '$mdSidenav', 'ModelService', 'UserDataFactory', 'DataUpdaterService', 'wcEvents', '$scope',
+  [ '$mdSidenav', 'ModelService', 'UserDataFactory', 'DataUpdaterService', 'wcEvents', '$scope', '$stateParams',
     function ( $mdSidenav,
                ModelService,
                UserDataFactory,
                DataUpdaterService,
                wcEvents,
-               $scope ) {
+               $scope,
+               $stateParams ) {
       var utils = {
         format: wcDataUtils.format,
         target: wcDataUtils.target
@@ -66,20 +67,22 @@ controlls.controller( 'LeftController',
 
       $scope.data = processSculptureData( UserDataFactory.getDataForSculpture() );
 
+
       $scope.selected = {
         indices: [],
         data: []
       };
 
       function updateSculpture () {
-        $scope.uiGeoParams[ "radialSegments" ] = $scope.selected.data.length !== 1 ? $scope.selected.data.length - 1 : $scope.selected.data.length;
-        $scope.uiGeoParams[ "heightSegments" ] = $scope.selected.data[ 0 ] !== undefined ? $scope.selected.data[ 0 ].length - 1 : 0;
-        $scope.uiGeoParams[ 'keys' ] = $scope.selected.indices;
+        $scope.uiGeoParams[ "radialSegments" ] = $scope.selected.data.length - 1;
+
+        if( $scope.uiGeoParams.heightSegments === undefined){
+          $scope.uiGeoParams[ "heightSegments" ] = $scope.selected.data[0].length - 1;
+        }
 
         if ( $scope.uiGeoParams.heightSegments !== 0 )ModelService.updateMesh( $scope.uiGeoParams,
           $scope.uiMatParams );
         else ModelService.removeMesh();
-
       }
 
       $scope.toggle = function ( category, item, list, index ) {
@@ -91,13 +94,17 @@ controlls.controller( 'LeftController',
         if ( idx !== -1 ) {
           index.splice( idx, 1 );
           list.splice( idx, 1 );
-          updateSculpture();
         } else {
           index.push( item );
           list.push( $scope.data[ category ].values[ item ] );
-          list.push( [] );
-          updateSculpture();
+
         }
+        list.push( [] );
+
+        $scope.selected.data = list;
+        $scope.selected.indices = index;
+        $scope.uiGeoParams.data = $scope.selected.data;
+        updateSculpture( $scope.uiGeoParams, $scope.uiMatParams );
       };
 
       $scope.exists = function ( item, index ) {
@@ -122,8 +129,10 @@ controlls.controller( 'LeftController',
         height: 150,
         interpolate: false,
         definition: 50,
-        showLables: false
+        showLables: false,
+        keys: $scope.selected.indices
       };
+
 
       $scope.sliderParams = {
         radialSegments: {
@@ -164,6 +173,17 @@ controlls.controller( 'LeftController',
           ]
         } );
       };
+
+      if ( $stateParams.sculpture ) {
+        console.log( 'gotcha' );
+        var loadeds = JSON.parse( $stateParams.sculpture );
+        $scope.selected.indices = loadeds.variables[ 1 ];
+        $scope.selected.data = loadeds.variables[ 0 ];
+        $scope.uiGeoParams = loadeds.geometry;
+        $scope.uiMatParams = loadeds.material
+        ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
+      }
+
 
       $scope.exportSTL = function () {
 

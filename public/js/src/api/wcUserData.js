@@ -162,8 +162,8 @@
           DataUpdaterService.broadcastUserData( wcEvents.SCULPTURES,
             user.sculptures );
           //console.log(user.profile);
-          progress++;
-          DataUpdaterService.broadcastUserData( wcEvents.PROGRESS, progress );
+          //progress++;
+          //DataUpdaterService.broadcastUserData( wcEvents.PROGRESS, progress );
         } );
 
         SocketFactory.on( 'receive:user:activity', function ( responseData ) {

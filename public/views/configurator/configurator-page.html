@@ -41,7 +41,7 @@
                 <span class="slider-name">Height</span>
                 <span class="slider-value">{{ uiGeoParams.height}}</span>
               </div>
-              <md-slider flex min="100" max="500" aria-label="Control Name"
+              <md-slider flex min="5" max="500" aria-label="Control Name"
                          class="md-hue-3" ng-model=' uiGeoParams.height'
                          ng-change=" onUiParamsChange()">
               </md-slider>
@@ -165,12 +165,14 @@
                   for the
                   following variables: <br/>
                   <span class="slider-value"
-                        ng-repeat="cat in selected.indices" ng-class="$even ? 'lighter' : 'darker'">
+                        ng-repeat="cat in selected.indices"
+                        ng-class="$even ? 'lighter' : 'darker'">
                     {{cat}}
                   </span>
                 </p>
               </div>
               <md-divider></md-divider>
+              <h2>File Management</h2>
               <div layout="row" layout-align="space-around end">
                 <md-button class="md-raised md-accent md-hue-3" flex="45"
                            ng-click="saveSculpture()">

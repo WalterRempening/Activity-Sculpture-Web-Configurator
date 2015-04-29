@@ -32,13 +32,17 @@ angular.module( 'wcDashboard', [] )
           $scope.sculptures = data;
         } );
 
+      var id = UserDataFactory.getUserId();
       $scope.toConfigurator = function () {
-        var id = UserDataFactory.getUserId();
         $state.go( 'configurator', { userid: id } );
       }
 
+      $scope.loadSculpture = function ( sculpture ) {
+        $state.go( 'configurator', { userid: id, sculpture: JSON.stringify(sculpture) } );
+      };
+
       //User Data Assignment =========================================================
-      var ALL_MESSAGES_RECEIVED = 5;
+      var ALL_MESSAGES_RECEIVED = 4;
       $scope.showProgress = function () {
         if ( $scope.progress === ALL_MESSAGES_RECEIVED ) {
           return true;
