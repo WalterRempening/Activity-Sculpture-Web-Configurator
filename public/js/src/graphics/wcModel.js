@@ -98,6 +98,19 @@
           }
         };
 
+
+        var stlwriter = wcBinarySTLWriter.save;
+
+        this.saveToSTL = function (name) {
+          var configSculpture = SceneService.scene.getObjectByName( 'vase' );
+          var file = name + ".stl";
+          if ( configSculpture !== undefined ) {
+            var geometry = configSculpture.geometry;
+            stlwriter( geometry, file );
+
+          }
+        };
+
         var rotationY = 0;
         var rotationSpeed = 0;
         this.rotate = false;

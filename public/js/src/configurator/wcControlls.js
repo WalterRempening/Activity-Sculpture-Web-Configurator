@@ -162,8 +162,11 @@ controlls.controller( 'LeftController',
         ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
       }
 
+      $scope.filename = 'MySculpture';
+
       $scope.saveSculpture = function () {
         UserDataFactory.saveUserSculptures( {
+          name: $scope.filename,
           date: new Date( Date.now() ),
           geometry: $scope.uiGeoParams,
           material: $scope.uiMatParams,
@@ -184,9 +187,8 @@ controlls.controller( 'LeftController',
         ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
       }
 
-
       $scope.exportSTL = function () {
-
+        ModelService.saveToSTL($scope.filename);
       };
     }
   ]
