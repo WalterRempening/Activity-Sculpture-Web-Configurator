@@ -12,18 +12,21 @@
 <md-content class="md-padding setup">
   <div class="container"
        ng-class="showProgress() ? 'show-dash' : 'hide-dash'">
-    <h1>Sculptures</h1>
+    <div layout="row" layout-align="start center">
+      <h1 flex="20">Sculptures</h1>
+      <md-button flex="20" class="md-raised"
+                 ng-click="toConfigurator()">
+        New Sculpture
+      </md-button>
+    </div>
+
     <md-content class="md-padding">
       <md-grid-list
         md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
         md-row-height-gt-md="1:1" md-row-height="2:2"
         md-gutter="12px" md-gutter-gt-sm="8px">
-        <md-grid-tile md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-          <md-button class="md-raised newconfig"
-                     ng-click="toConfigurator()">
-            New Sculpture
-          </md-button>
-        </md-grid-tile>
+
+
         <md-grid-tile
           md-rowspan="1" md-colspan="1" md-colspan-sm="1"
           ng-repeat="sculpture in sculptures"
@@ -38,8 +41,9 @@
                 class="gallery-tile">{{sculpture.date | date : 'longDate'}}</h4>
             </md-grid-tile-footer>
           </md-button>
-
         </md-grid-tile>
+
+
       </md-grid-list>
     </md-content>
     <md-divider></md-divider>
