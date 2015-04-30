@@ -11,86 +11,87 @@
 <!--<![endif]-->
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="js/libs/nvd3/nv.d3.min.css" />
-    <link rel="stylesheet" href="js/libs/angular-color-picker/angular-color-picker.css"
-    type="text/css" />
-    <link rel="stylesheet" href="../css/styles.css" type="text/css" />
-    <!-- Hotjar Tracking Code for www.app.walterrempening.com -->
-    <script>
-        (function(f, b)
-        {
-            var c;
-            f.hj = f.hj || function()
-            {
-                (f.hj.q = f.hj.q || []).push(arguments)
-            };
-            f._hjSettings = {
-                hjid: 31795,
-                hjsv: 4
-            };
-            c = b.createElement("script");
-            c.async = 1;
-            c.src = "//static.hotjar.com/c/hotjar-" + f._hjSettings.hjid +
-                ".js?sv=" + f._hjSettings.hjsv;
-            b.getElementsByTagName("head")[0].appendChild(c);
-        })(window, document);
-    </script>
-    <title>Activity Sculptures Configurator</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="js/libs/nvd3/nv.d3.min.css"/>
+  <link rel="stylesheet"
+        href="js/libs/angular-color-picker/angular-color-picker.css"
+        type="text/css"/>
+  <link rel="stylesheet" href="../css/styles.css" type="text/css"/>
+  <!-- Hotjar Tracking Code for www.app.walterrempening.com -->
+  <script>
+    (function ( f, b ) {
+      var c;
+      f.hj = f.hj || function () {
+          (f.hj.q = f.hj.q || []).push( arguments )
+        };
+      f._hjSettings = {
+        hjid: 31795,
+        hjsv: 4
+      };
+      c = b.createElement( "script" );
+      c.async = 1;
+      c.src = "//static.hotjar.com/c/hotjar-" + f._hjSettings.hjid +
+        ".js?sv=" + f._hjSettings.hjsv;
+      b.getElementsByTagName( "head" )[ 0 ].appendChild( c );
+    })( window, document );
+  </script>
+  <title>Activity Sculptures Configurator</title>
 </head>
 
 <body ng-app="MainApp">
-    <!--[if lt IE 8]>
+<!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser.
   Please <a
     href="http://browsehappy.com/">upgrade your browser</a> to improve your
   experience.</p>
 <![endif]-->
-    <div class="wrapper">
-        <div class="ui-view-container">
-            <div ui-view></div>
-        </div>
-    </div>
+<div class="wrapper">
+  <div class="ui-view-container">
+    <div ui-view></div>
+  </div>
+</div>
 
-    <!-- Angular -->
-    <script src="js/libs/angular/angular.min.js"></script>
-    <script src="js/libs/angular-cookies/angular-cookies.min.js"></script>
-    <script src="js/libs/angular-animate/angular-animate.min.js"></script>
-    <script src="js/libs/angular-material/angular-material.min.js"></script>
-    <script src="js/libs/angular-aria/angular-aria.min.js"></script>
-    <script src="js/libs/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <!-- Libraries -->
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/libs/d3/d3.min.js"></script>
-    <script src="js/libs/nvd3/nv.d3.js"></script>
-    <script src="js/libs/angular-nvd3/dist/angular-nvd3.min.js"></script>
-    <script src="js/libs/angular-color-picker/angular-color-picker.js"></script>
-    <script src="js/libs/threejs/build/three.min.js"></script>
-    <script src="js/libs/threejs-stats/Stats.js"></script>
-    <script src="js/libs/threejs/examples/js/Detector.js"></script>
-    <script src="js/libs/threejs/examples/js/controls/OrbitControls.js"></script>
-    <script src="http://mrdoob.github.com/three.js/examples/fonts/helvetiker_regular.typeface.js"></script>
-    <script src="js/libs/file-saver.js/FileSaver.js"></script>
-    <!-- App files-->
-    <script src="js/src/api/wcSocket.js"></script>
-    <script src="js/src/api/wcDataUtils.js"></script>
-    <script src="js/src/api/wcUserData.js"></script>
-    <script src="js/src/main-page/wcLander.js"></script>
-    <script src="js/src/main-page/wcFooter.js"></script>
-    <script src="js/src/configurator/wcControlls.js"></script>
-    <script src="js/src/dashboard/wcDashboard.js"></script>
-    <script src="js/src/dashboard/wcGraphs.js"></script>
-    <script src="js/src/graphics/WCVaseGeometry.js"></script>
-    <script src="js/src/graphics/wcBinarySTLWriter.js"></script>
-    <script src="js/src/graphics/wcScene.js"></script>
-    <script src="js/src/graphics/wcCamera.js"></script>
-    <script src="js/src/graphics/wcModel.js"></script>
-    <script src="js/src/graphics/wcViewport.js"></script>
-    <script src="js/src/app.js"></script>
+<!-- Angular -->
+<script src="js/libs/angular/angular.min.js"></script>
+<script src="js/libs/angular-cookies/angular-cookies.min.js"></script>
+<script src="js/libs/angular-animate/angular-animate.min.js"></script>
+<script src="js/libs/angular-material/angular-material.min.js"></script>
+<script src="js/libs/angular-aria/angular-aria.min.js"></script>
+<script
+  src="js/libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+<!-- Libraries -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/libs/d3/d3.min.js"></script>
+<script src="js/libs/nvd3/nv.d3.js"></script>
+<script src="js/libs/angular-nvd3/dist/angular-nvd3.min.js"></script>
+<script src="js/libs/angular-color-picker/angular-color-picker.js"></script>
+<script src="js/libs/threejs/build/three.min.js"></script>
+<script src="js/libs/threejs-stats/Stats.js"></script>
+<script src="js/libs/threejs/examples/js/Detector.js"></script>
+<script src="js/libs/threejs/examples/js/controls/OrbitControls.js"></script>
+<script
+  src="http://mrdoob.github.com/three.js/examples/fonts/helvetiker_regular.typeface.js"></script>
+<script src="js/libs/file-saver.js/FileSaver.js"></script>
+<!-- App files-->
+<script src="js/src/api/wcSocket.js"></script>
+<script src="js/src/api/wcDataUtils.js"></script>
+<script src="js/src/api/wcUserData.js"></script>
+<script src="js/src/main-page/wcLander.js"></script>
+<script src="js/src/main-page/wcFooter.js"></script>
+<script src="js/src/configurator/wcControlls.js"></script>
+<script src="js/src/dashboard/wcDashboard.js"></script>
+<script src="js/src/dashboard/wcGraphs.js"></script>
+<script src="js/src/graphics/WCVaseGeometry.js"></script>
+<script src="js/src/graphics/wcBinarySTLWriter.js"></script>
+<script src="js/src/graphics/wcScene.js"></script>
+<script src="js/src/graphics/wcCamera.js"></script>
+<script src="js/src/graphics/wcModel.js"></script>
+<script src="js/src/graphics/wcViewport.js"></script>
+<script src="js/src/app.js"></script>
 
 </body>
 
