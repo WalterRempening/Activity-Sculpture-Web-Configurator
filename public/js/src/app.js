@@ -157,6 +157,7 @@ app.run(
       $rootScope.$on( '$stateChangeSuccess',
         function ( event, toState, toParams, fromState, fromParams ) {
           if ( fromState.name == 'configurator' && toState.name == 'settings' ) {
+            event.preventDefault;
             console.log( 'reload window' );
             $window.location.reload();
           }

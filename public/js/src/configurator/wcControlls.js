@@ -1,7 +1,7 @@
 'use strict';
 var controlls = angular.module( 'wcControlls', [] );
 
-controlls.controller( 'LeftController',
+controlls.controller( 'PanelController',
   [ '$mdSidenav', 'ModelService', 'UserDataFactory', 'DataUpdaterService', 'wcEvents', '$scope', '$stateParams',
     function ( $mdSidenav,
                ModelService,
@@ -63,7 +63,6 @@ controlls.controller( 'LeftController',
         return data;
       }
 
-      $scope.settings = UserDataFactory.getUserSettings();
 
       $scope.data = processSculptureData( UserDataFactory.getDataForSculpture() );
 
@@ -76,8 +75,8 @@ controlls.controller( 'LeftController',
       function updateSculpture () {
         $scope.uiGeoParams[ "radialSegments" ] = $scope.selected.data.length - 1;
 
-        if( $scope.uiGeoParams.heightSegments === undefined){
-          $scope.uiGeoParams[ "heightSegments" ] = $scope.selected.data[0].length - 1;
+        if ( $scope.uiGeoParams.heightSegments === undefined ) {
+          $scope.uiGeoParams[ "heightSegments" ] = $scope.selected.data[ 0 ].length - 1;
         }
 
         if ( $scope.uiGeoParams.heightSegments !== 0 )ModelService.updateMesh( $scope.uiGeoParams,
@@ -163,10 +162,11 @@ controlls.controller( 'LeftController',
       }
 
       $scope.filename = 'MySculpture';
+      $scope.settings = UserDataFactory.getUserSettings();
 
-      $scope.saveSculpture = function () {
+      $scope.saveSculpture = function (name) {
         UserDataFactory.saveUserSculptures( {
-          name: $scope.filename,
+          name: name,
           date: new Date( Date.now() ),
           geometry: $scope.uiGeoParams,
           material: $scope.uiMatParams,
@@ -184,11 +184,12 @@ controlls.controller( 'LeftController',
         $scope.selected.data = loadeds.variables[ 0 ];
         $scope.uiGeoParams = loadeds.geometry;
         $scope.uiMatParams = loadeds.material
+        $scope.filename = loadeds.name + '(1)';
         ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
       }
 
-      $scope.exportSTL = function () {
-        ModelService.saveToSTL($scope.filename);
+      $scope.exportSTL = function (name) {
+        ModelService.saveToSTL( name );
       };
     }
   ]

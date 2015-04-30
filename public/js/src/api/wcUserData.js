@@ -11,6 +11,10 @@
                  wcEvents ) {
 
         var sessuser = JSON.parse( $cookies.user );
+        var SERVER_ERROR_TITLE = 'Server Error';
+        var SAVE_ERROR_TITLE = 'Save Error';
+        var EXPORT_TITLE = 'STL File Export';
+        var SAVE_TITLE = 'Save Sculpture';
         var DATA_RESPONSE_ERROR = 'An error was found while fetching data for your user. Try again later';
         var SAVE_SETTINGS_RESPONSE_ERROR = 'User settings could not be saved';
         var SAVE_SCULPTURE_SUCCESS = 'Sculpture saved successfully';
@@ -55,12 +59,12 @@
 
         function getProgress () {return progress};
 
-        function errorDialog ( msg ) {
+        function popupDialog ( title, msg ) {
           $mdDialog.show(
             $mdDialog.alert()
-              .title( 'Server Error' )
+              .title( title )
               .content( msg )
-              .ariaLabel( 'Server Error Dialog' )
+              .ariaLabel( title )
               .ok( 'OK' )
           );
         }
@@ -71,7 +75,8 @@
               callback( data );
             } )
             .error( function ( data, status, headers, config ) {
-              if ( status == 500 ) errorDialog( SAVE_SETTINGS_RESPONSE_ERROR );
+              if ( status == 500 ) popupDialog( SAVE_ERROR_TITLE,
+                SAVE_SETTINGS_RESPONSE_ERROR );
             } );
         }
 
@@ -82,7 +87,8 @@
               console.log( 'User saved successfully' );
             } )
             .error( function ( data, status, headers, config ) {
-              if ( status == 500 ) errorDialog( SAVE_SETTINGS_RESPONSE_ERROR );
+              if ( status == 500 ) popupDialog( SAVE_ERROR_TITLE,
+                SAVE_SETTINGS_RESPONSE_ERROR );
             } );
         }
 
@@ -104,11 +110,12 @@
           $http.post( "/api/user/" + user.id + "/sculptures", sculpture )
             .success( function ( data, status, headers, config ) {
               //SocketFactory.emit( 'get:user:sculptures', user.id );
-              errorDialog(SAVE_SCULPTURE_SUCCESS);
+              //TODO change erro dialog to success and remove tutorials and about from front page
+              popupDialog( SAVE_TITLE, SAVE_SCULPTURE_SUCCESS );
             } )
             .error( function ( data, status, headers, config ) {
               // Display error dialog
-              if ( status === 500 ) errorDialog( DATA_RESPONSE_ERROR );
+              if ( status === 500 ) popupDialog( DATA_RESPONSE_ERROR );
             } );
         }
 
@@ -127,7 +134,7 @@
             } )
             .error( function ( data, status, headers, config ) {
               // Display error dialog
-              if ( status === 500 ) errorDialog( DATA_RESPONSE_ERROR );
+              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE, DATA_RESPONSE_ERROR );
             } );
 
           $http.get( "/api/user/" + user.id + "/data/sleep" )
@@ -135,7 +142,7 @@
               SocketFactory.emit( 'get:user:sleep', user.id );
             } )
             .error( function ( data, status, headers, config ) {
-              if ( status === 500 ) errorDialog( DATA_RESPONSE_ERROR );
+              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE, DATA_RESPONSE_ERROR );
             } );
 
           $http.get( "/api/user/" + user.id + "/data/body" )
@@ -143,7 +150,7 @@
               SocketFactory.emit( 'get:user:body', user.id );
             } )
             .error( function ( data, status, headers, config ) {
-              if ( status === 500 ) errorDialog( DATA_RESPONSE_ERROR );
+              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE, DATA_RESPONSE_ERROR );
             } );
 
 
@@ -152,7 +159,7 @@
               SocketFactory.emit( 'get:user:profile', user.id );
             } )
             .error( function ( data, status, headers, config ) {
-              if ( status === 500 ) errorDialog( DATA_RESPONSE_ERROR );
+              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE, DATA_RESPONSE_ERROR );
             } );
         }
 
@@ -201,7 +208,6 @@
           progress++;
           DataUpdaterService.broadcastUserData( wcEvents.PROGRESS, progress );
         } );
-
 
 
         return {

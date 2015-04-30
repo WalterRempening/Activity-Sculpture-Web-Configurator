@@ -1,5 +1,5 @@
 <section layout="row" flex>
-  <div ng-controller="LeftController">
+  <div ng-controller="PanelController">
     <!--////////////////////////////////////////   Left Panel ///////////////////////////////////////////!-->
     <md-sidenav id="ctrls-left" class="md-sidenav-left md-whiteframe-z2"
                 md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
@@ -155,21 +155,21 @@
           <md-content class="md-padding">
             <div layout="column" layout-align="space-around ">
               <div>
-                <h3>Summary</h2>
-
-                <p>
-                  This sculpture is visualizing activity data from
-                  <span class="slider-value"> {{settings.startDate | date: 'longDate'}}</span>
-                  to
-                  <span class="slider-value">{{settings.endDate | date: 'longDate'}}</span>,
-                  for the
-                  following variables: <br/>
+                <h2>Summary</h2>
+                  <p>
+                    This sculpture is visualizing activity data from
+                    <span class="slider-value"> {{settings.startDate | date: 'longDate'}}</span>
+                    to
+                    <span
+                      class="slider-value">{{settings.endDate | date:'longDate'}}</span>,
+                    for the
+                    following variables: <br/>
                   <span class="slider-value"
                         ng-repeat="cat in selected.indices"
                         ng-class="$even ? 'lighter' : 'darker'">
                     {{cat}}
                   </span>
-                </p>
+                  </p>
               </div>
               <md-divider></md-divider>
               <h2>Save and Export</h2>
@@ -182,12 +182,12 @@
 
 
                 <md-button class="md-raised md-accent md-hue-3" flex="45"
-                           ng-click="saveSculpture()">
+                           ng-click="saveSculpture(filename)">
                   Save Sculpture
                 </md-button>
 
                 <md-button class="md-raised md-accent md-hue-3" flex="45"
-                           ng-click="exportSTL()">
+                           ng-click="exportSTL(filename)">
                   Export STL
                 </md-button>
               </div>
