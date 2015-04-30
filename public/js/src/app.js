@@ -52,7 +52,7 @@ app.config(
           'tutorial@home': { templateUrl: '../../views/core/tutorial-partial.html' },
           'about@home': { templateUrl: '../../views/core/about-partial.html' }
         },
-        onEnter: [ '$state', '$mdDialog', function ( $state, $mdDialog ) {
+        onEnter: [ '$window', '$mdDialog', function ( $window, $mdDialog ) {
 
           $mdDialog.show( {
             controller: ConsentController,
@@ -62,9 +62,10 @@ app.config(
           } )
             .then( function ( save ) {
               // move on
-              $state.go( '404' );
             }, function () {
-
+              //$state.go( '404' );
+              // Go watch some kittens instead
+              $window.location.href = 'https://www.youtube.com/results?search_query=kittens&page=&utm_source=opensearch';
             } );
 
           function ConsentController ( $scope, $mdDialog ) {

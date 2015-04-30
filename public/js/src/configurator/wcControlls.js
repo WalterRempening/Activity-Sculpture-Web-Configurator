@@ -2,14 +2,16 @@
 var controlls = angular.module( 'wcControlls', [] );
 
 controlls.controller( 'PanelController',
-  [ '$mdSidenav', 'ModelService', 'UserDataFactory', 'DataUpdaterService', 'wcEvents', '$scope', '$stateParams',
+  [ '$mdSidenav', 'ModelService', 'UserDataFactory', 'DataUpdaterService', 'wcEvents', '$scope', '$stateParams', '$state', '$mdDialog',
     function ( $mdSidenav,
                ModelService,
                UserDataFactory,
                DataUpdaterService,
                wcEvents,
                $scope,
-               $stateParams ) {
+               $stateParams,
+               $state,
+               $mdDialog ) {
       var utils = {
         format: wcDataUtils.format,
         target: wcDataUtils.target
@@ -164,7 +166,18 @@ controlls.controller( 'PanelController',
       $scope.filename = 'MySculpture';
       $scope.settings = UserDataFactory.getUserSettings();
 
-      $scope.saveSculpture = function (name) {
+      if ( $stateParams.sculpture ) {
+        console.log( 'gotcha' );
+        var loadeds = JSON.parse( $stateParams.sculpture );
+        $scope.selected.indices = loadeds.variables[ 1 ];
+        $scope.selected.data = loadeds.variables[ 0 ];
+        $scope.uiGeoParams = loadeds.geometry;
+        $scope.uiMatParams = loadeds.material
+        $scope.filename = loadeds.name + '-edit';
+        ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
+      }
+
+      $scope.saveSculpture = function ( name ) {
         UserDataFactory.saveUserSculptures( {
           name: name,
           date: new Date( Date.now() ),
@@ -177,20 +190,10 @@ controlls.controller( 'PanelController',
         } );
       };
 
-      if ( $stateParams.sculpture ) {
-        console.log( 'gotcha' );
-        var loadeds = JSON.parse( $stateParams.sculpture );
-        $scope.selected.indices = loadeds.variables[ 1 ];
-        $scope.selected.data = loadeds.variables[ 0 ];
-        $scope.uiGeoParams = loadeds.geometry;
-        $scope.uiMatParams = loadeds.material
-        $scope.filename = loadeds.name + '(1)';
-        ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
-      }
-
-      $scope.exportSTL = function (name) {
+      $scope.exportSTL = function ( name ) {
         ModelService.saveToSTL( name );
       };
+
     }
   ]
 );

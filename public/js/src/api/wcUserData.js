@@ -2,10 +2,11 @@
   'use strict';
   angular.module( 'wcUserData', [] )
     .factory( 'UserDataFactory',
-    [ '$http', 'SocketFactory', '$cookies', '$mdDialog', 'DataUpdaterService', 'wcEvents',
+    [ '$http', 'SocketFactory', '$cookies', '$window','$mdDialog', 'DataUpdaterService', 'wcEvents',
       function ( $http,
                  SocketFactory,
                  $cookies,
+                 $window,
                  $mdDialog,
                  DataUpdaterService,
                  wcEvents ) {
@@ -109,9 +110,7 @@
         function saveUserSculptures ( sculpture ) {
           $http.post( "/api/user/" + user.id + "/sculptures", sculpture )
             .success( function ( data, status, headers, config ) {
-              //SocketFactory.emit( 'get:user:sculptures', user.id );
-              //TODO change erro dialog to success and remove tutorials and about from front page
-              popupDialog( SAVE_TITLE, SAVE_SCULPTURE_SUCCESS );
+              toSurvey();
             } )
             .error( function ( data, status, headers, config ) {
               // Display error dialog
@@ -124,6 +123,21 @@
           user.sculptures = data;
         } );
 
+        function toSurvey () {
+          var confirm = $mdDialog.confirm()
+            .title('Saved Sculpture Successfully')
+            .content('Would you take a few moments to answer a short survey about your experience using this configurator?')
+            .ariaLabel('Saved Sculpture')
+            .ok('Yes, take me to the survey')
+            .cancel("Later, I'm having fun with this")
+          $mdDialog.show(confirm).then(function() {
+            // add survey url
+            $window.location.href = 'https://www.youtube.com/results?search_query=kittens&page=&utm_source=opensearch';
+          }, function() {
+            $mdDialog.hide()
+          });
+
+        };
 
         function init () {
           // Query User Data to API======================================
@@ -134,7 +148,8 @@
             } )
             .error( function ( data, status, headers, config ) {
               // Display error dialog
-              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE, DATA_RESPONSE_ERROR );
+              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE,
+                DATA_RESPONSE_ERROR );
             } );
 
           $http.get( "/api/user/" + user.id + "/data/sleep" )
@@ -142,7 +157,8 @@
               SocketFactory.emit( 'get:user:sleep', user.id );
             } )
             .error( function ( data, status, headers, config ) {
-              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE, DATA_RESPONSE_ERROR );
+              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE,
+                DATA_RESPONSE_ERROR );
             } );
 
           $http.get( "/api/user/" + user.id + "/data/body" )
@@ -150,7 +166,8 @@
               SocketFactory.emit( 'get:user:body', user.id );
             } )
             .error( function ( data, status, headers, config ) {
-              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE, DATA_RESPONSE_ERROR );
+              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE,
+                DATA_RESPONSE_ERROR );
             } );
 
 
@@ -159,7 +176,8 @@
               SocketFactory.emit( 'get:user:profile', user.id );
             } )
             .error( function ( data, status, headers, config ) {
-              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE, DATA_RESPONSE_ERROR );
+              if ( status === 500 ) popupDialog( SERVER_ERROR_TITLE,
+                DATA_RESPONSE_ERROR );
             } );
         }
 

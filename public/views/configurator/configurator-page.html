@@ -156,20 +156,21 @@
             <div layout="column" layout-align="space-around ">
               <div>
                 <h2>Summary</h2>
-                  <p>
-                    This sculpture is visualizing activity data from
-                    <span class="slider-value"> {{settings.startDate | date: 'longDate'}}</span>
-                    to
+
+                <p>
+                  This sculpture is visualizing activity data from
+                  <span class="slider-value"> {{settings.startDate | date: 'longDate'}}</span>
+                  to
                     <span
                       class="slider-value">{{settings.endDate | date:'longDate'}}</span>,
-                    for the
-                    following variables: <br/>
+                  for the
+                  following variables: <br/>
                   <span class="slider-value"
                         ng-repeat="cat in selected.indices"
                         ng-class="$even ? 'lighter' : 'darker'">
                     {{cat}}
                   </span>
-                  </p>
+                </p>
               </div>
               <md-divider></md-divider>
               <h2>Save and Export</h2>
@@ -179,8 +180,6 @@
                        name="filename">
               </md-input-container>
               <div layout="row" layout-align="space-around end">
-
-
                 <md-button class="md-raised md-accent md-hue-3" flex="45"
                            ng-click="saveSculpture(filename)">
                   Save Sculpture
