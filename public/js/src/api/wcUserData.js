@@ -58,7 +58,7 @@
 
         function getUserActivity () {return user.activity;}
 
-        function getProgress () {return progress};
+        function getProgress () {return progress;}
 
         function popupDialog ( title, msg ) {
           $mdDialog.show(
@@ -129,15 +129,15 @@
             .content('Would you take a few moments to answer a short survey about your experience using this configurator?')
             .ariaLabel('Saved Sculpture')
             .ok('Yes, take me to the survey')
-            .cancel("Later, I'm having fun with this")
+            .cancel("Later, I'm having fun with this");
           $mdDialog.show(confirm).then(function() {
             // add survey url
-            $window.location.href = 'https://www.youtube.com/results?search_query=kittens&page=&utm_source=opensearch';
+            $window.location.href = 'https://docs.google.com/forms/d/1Jwrh-L0MJhsMLtlCU8OWnaSNjcjb8PWFMe7yG27eOkE/viewform?usp=send_form';
           }, function() {
-            $mdDialog.hide()
+            $mdDialog.hide();
           });
 
-        };
+        }
 
         function init () {
           // Query User Data to API======================================

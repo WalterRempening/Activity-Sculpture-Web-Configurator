@@ -49,7 +49,7 @@ passport.use(new WithingsStrategy({
     }, function(err, dbuser) {
       if (err) throw err;
       if (!dbuser) {
-        console.log("User not found, creating new user")
+        console.log("User not found, creating new user");
         WCUser.create({
           oauth: {
             token: token,

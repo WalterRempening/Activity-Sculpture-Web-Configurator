@@ -9,12 +9,10 @@ function formatDate(date, format) {
   switch (format) {
     case NORMAL_DATE:
       return formated;
-      breake;
 
     case UTC_DATE:
       var utc = date.split('-');
       return Date.UTC(utc[0], utc[1], utc[2]) / 1000;
-      breake;
   }
 }
 

@@ -32,7 +32,7 @@ function sortByDate(data) {
     for (var j = i - 1; j >= 0 && new Date(data[j].date) > new Date(temp.date); j--) {
       data[j + 1] = data[j];
     }
-    data[j + 1] = temp
+    data[j + 1] = temp;
   }
   return data;
 }
@@ -214,7 +214,7 @@ module.exports = function(app, passport) {
 
           bodymes.forEach(function(mes) {
             mes.date = mes.date * 1000;
-          })
+          });
 
           WCUser.findOne({'meta.userid': userid}, function(err, dbuser) {
             if (err) throw err;
