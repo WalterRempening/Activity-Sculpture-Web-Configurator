@@ -89,7 +89,7 @@
           sculpture = makeSculpture( geoArgs, matArgs );
           SceneService.scene.add( sculpture );
 
-        }
+        };
 
         this.removeMesh = function () {
           var oldSculpture = SceneService.scene.getObjectByName( 'vase' );

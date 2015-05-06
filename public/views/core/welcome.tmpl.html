@@ -1,57 +1,49 @@
 <md-dialog class="setup consent" aria-label="Preferences">
-  <div class="logo"></div>
-  <md-content>
-    <md-subheader class="md-sticky-no-effect subheader">
-      Data Usage Consent
-    </md-subheader>
+    <div class="logo"></div>
+    <md-content>
+        <md-subheader class="md-sticky-no-effect subheader">
+            Data Usage Consent
+        </md-subheader>
 
-    <div class="dialog-content formal">
+        <div class="dialog-content formal">
 
-      <h1></h1>
+            <p>
+                <h2>Activity Sculpture Web Configurator</h2>
+                Hello I am Walter Rempening Diaz. This project is part of my Master's 
+                thesis in the Mediainformatics Department at
+                the Munich Unversity. I am researching on how to build a user friendly
+                web configurator for activity sculptures created from personal
+                activity data. The activity data is gathered using an activity
+                tracker. The configurator can be used by signing in with your
+                Withings&reg; account.
+                <br>After you login, the configurator will present you an overview
+                of your data. When you have familiarized yourself with the data,
+                go ahead and create a new sculpture. When you are happy with your
+                sculpture please save it, you will then be invited to take part
+                in a short survey.
+            </p>
+            <p>
+                <h3>Terms of Use</h3>
+                The goal of this configurator is to find out how do you interact with the configurator
+                and how easy is it for you to use the system. The configurator
+                stores your activity data in a private server owned by me. The information
+                stored will only be used for research purposes. The data will be
+                anonymized and it will not be available to third parties. After
+                the thesis is done, all data will be erased from the server.
+                <br>
+                This project is by no means affiliated to Withings&reg;. I only
+                make use of their API for gathering their Data. 
+            </p>
+            <p>For any questions or concerns you can contact me at:
+            w.rempening&#64;campus.lmu.de</p>
+            <div layout="row" layout-align="center center">
+                <md-button ng-click="cancel()" flex="20" class="fbtn md-raised">Cancel
+                </md-button>
+                <md-button ng-click="agree()" flex="20" class="fbtn md-raised md-accent md-hue-3">Agree
+                </md-button>
+            </div>
 
-      <p>
-        Hiermit erkläre ich, dass ich die Probandeninformation zur Studie: <br>
-
-      <h2>Activity Sculpture Web Configurator</h2>
-      Und diese Einverständniserklärung zur Studienteilnahme erhalten habe.
-      </p>
-
-      <ul>
-        <li>
-          Ich wurde für mich ausreichend mündlich und/oder schriftlich über die
-          wissenschaftliche Untersuchung informiert.
-        </li>
-        <li>
-          Ich erkläre mich bereit, dass im Rahmen der Studie Daten über mich
-          gesammelt und anonymisiert aufgezeichnet werden. Es wird
-          gewährleistet,
-          dass meine personenbezogenen Daten nicht an Dritte weitergegeben
-          werden.
-          Bei der Veröffentlichung in einer wissenschaftlichen Zeitung wird aus
-          den Daten nicht hervorgehen, wer an dieser Untersuchung teilgenommen
-          hat. Meine persönlichen Daten unterliegen dem Datenschutzgesetz.
-        </li>
-
-        <li>Ich weiß, dass ich jederzeit meine Einverständniserklärung, ohne
-          Angabe von Gründen, widerrufen kann, ohne dass dies für mich
-          nachteilige Folgen hat.
-        </li>
-        <li>
-          Mit der vorstehend geschilderten Vorgehensweise bin ich
-          einverstanden und bestätige dies mit dem Clicken auf "Einverstanden".
-        </li>
-
-      </ul>
-      <div layout="row" layout-align="center center">
-        <md-button  ng-click="cancel()" flex="20"
-                   class="fbtn md-raised">Cancel
-        </md-button>
-        <md-button ng-click="agree()" flex="20"
-                   class="fbtn md-raised md-accent md-hue-3">Agree
-        </md-button>
-      </div>
-
-    </div>
-  </md-content>
+        </div>
+    </md-content>
 
 </md-dialog>

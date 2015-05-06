@@ -1,4 +1,5 @@
-'use strict';
+(function (angular){
+  "use strict";
 var controlls = angular.module( 'wcControlls', [] );
 
 controlls.controller( 'PanelController',
@@ -130,7 +131,7 @@ controlls.controller( 'PanelController',
         height: 150,
         interpolate: false,
         definition: 50,
-        showLables: false,
+        showLables: true,
         keys: $scope.selected.indices
       };
 
@@ -161,18 +162,17 @@ controlls.controller( 'PanelController',
 
       $scope.onUiParamsChange = function () {
         ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
-      }
+      };
 
       $scope.filename = 'MySculpture';
       $scope.settings = UserDataFactory.getUserSettings();
 
       if ( $stateParams.sculpture ) {
-        console.log( 'gotcha' );
         var loadeds = JSON.parse( $stateParams.sculpture );
         $scope.selected.indices = loadeds.variables[ 1 ];
         $scope.selected.data = loadeds.variables[ 0 ];
         $scope.uiGeoParams = loadeds.geometry;
-        $scope.uiMatParams = loadeds.material
+        $scope.uiMatParams = loadeds.material;
         $scope.filename = loadeds.name + '-edit';
         ModelService.updateMesh( $scope.uiGeoParams, $scope.uiMatParams );
       }
@@ -197,3 +197,5 @@ controlls.controller( 'PanelController',
     }
   ]
 );
+})(angular);
+
