@@ -29,6 +29,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(session({
   secret: process.env.COOKIE_SECRET || 'Superdupertopsecret',
   resave: true,
+  saveUninitialized: true,
   store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 app.use(csrf());
