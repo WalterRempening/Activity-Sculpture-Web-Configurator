@@ -14,6 +14,7 @@ var methodOverride = require('method-override');
 var csrf = require('csurf');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var MongoStore = require('connect-mongo')(session);
 var WCUser = require('./server/models/user');
 var port = process.env.PORT || 3000;
 mongoose.connect(db.url);
@@ -28,7 +29,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(session({
   secret: process.env.COOKIE_SECRET || 'Superdupertopsecret',
   resave: true,
-  saveUninitialized: true
+  store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 app.use(csrf());
 app.use(function(req, res, next) {

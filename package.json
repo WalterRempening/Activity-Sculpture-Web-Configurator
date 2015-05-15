@@ -19,6 +19,7 @@
     "passport": "~0.2.1",
     "passport-withings": "~0.1.0",
     "csurf": "~1.8.0",
+    "connect-mongo": "0.8.1",
     "request" : "2.54.0"
   }
 }
