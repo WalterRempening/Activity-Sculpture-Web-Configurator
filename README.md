@@ -27,12 +27,12 @@ User feedback showed that our prototype was easy to operate and that the
 obtained sculptures were appealing and meaningful to users.
 
 Features:
-*Entirely coded in JavaScript with the MEAN stack
-*Easiley import activity data through the Withings API
-*Offer activity data overview
-*User friendly configurator
-*Generate 3D sculpture from the data
-*Wide range of controls for customization
-*Export sculpture to .stl for 3D print
+  *Entirely coded in JavaScript with the MEAN stack
+  *Easiley import activity data through the Withings API
+  *Offer activity data overview
+  *User friendly configurator
+  *Generate 3D sculpture from the data
+  *Wide range of controls for customization
+  *Export sculpture to .stl for 3D print
 
 ![3D Printed Render](softboxes2.jpg)
