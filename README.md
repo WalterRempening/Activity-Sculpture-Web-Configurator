@@ -2,7 +2,7 @@
 
 ![Configurator UI](configurator-ui.png)
 
-## Abstract ##
+## Motivation for the project ##
 The recollection of personal activity data has been greatly facilitated by the
 increasing amount of applications and devices that encourage users to measure
 their activity with the primary goal of health improvement. These
@@ -34,5 +34,17 @@ Features:
   * Generate 3D sculpture from the data
   * Wide range of controls for customization
   * Export sculpture to .stl for 3D print
+
+Try it online: [app.walterrempening.com]:
+http://app.walterrempening.com
+You'll need an active Withings account to login.
+
+## Installation Guide ##
+1. Clone this repository on your system
+2. Install node.js and mongodb
+3. Install the node package manger npm and bower
+4. In the root folder from the command line run npm install && bower install
+5. From the command line run node server.js
+6. Open in a browser under http://localhost:3000
 
 ![3D Printed Render](softboxes2.jpg)
