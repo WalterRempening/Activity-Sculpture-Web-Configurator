@@ -35,8 +35,7 @@ Features:
   * Wide range of controls for customization
   * Export sculpture to .stl for 3D print
 
-Try it online: [app.walterrempening.com]:
-http://app.walterrempening.com
+Try it online: [app.walterrempening.com](http://app.walterrempening.com) .
 You'll need an active Withings account to login.
 
 ## Installation Guide ##
