@@ -43,8 +43,10 @@ You'll need an active Withings account to login.
 1. Clone this repository on your system
 2. Install node.js and mongodb
 3. Install the node package manger npm and bower
-4. In the root folder from the command line run npm install && bower install
-5. From the command line run node server.js
-6. Open in a browser under http://localhost:3000
+4. From the command line start mongodb with `$ sudo mongod` 
+5. In the root folder from the command line run: 
+  `$ npm install && bower install`
+6. From the command line run `$ node server.js`
+7. Open in a browser under http://localhost:3000
 
 ![3D Printed Render](softboxes2.jpg)
