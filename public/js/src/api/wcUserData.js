@@ -1,8 +1,15 @@
+/**
+ * User Data Factory,
+ * user objects holds user data for the application
+ * implements API calls and Socket IO events for querying
+ * and receiving user data
+ */
+
 (function ( angular ) {
   'use strict';
   angular.module( 'wcUserData', [] )
     .factory( 'UserDataFactory',
-    [ '$http', 'SocketFactory', '$cookies', '$window','$mdDialog', 'DataUpdaterService', 'wcEvents',
+    [ '$http', 'SocketFactory', '$cookies', '$window', '$mdDialog', 'DataUpdaterService', 'wcEvents',
       function ( $http,
                  SocketFactory,
                  $cookies,
@@ -125,17 +132,17 @@
 
         function toSurvey () {
           var confirm = $mdDialog.confirm()
-            .title('Saved Sculpture Successfully')
-            .content('Would you take a few moments to answer a short survey about your experience using this configurator?')
-            .ariaLabel('Saved Sculpture')
-            .ok('Yes, take me to the survey')
-            .cancel("Later, I'm having fun with this");
-          $mdDialog.show(confirm).then(function() {
+            .title( 'Saved Sculpture Successfully' )
+            .content( 'Would you take a few moments to answer a short survey about your experience using this configurator?' )
+            .ariaLabel( 'Saved Sculpture' )
+            .ok( 'Yes, take me to the survey' )
+            .cancel( "Later, I'm having fun with this" );
+          $mdDialog.show( confirm ).then( function () {
             // add survey url
             $window.location.href = 'https://docs.google.com/forms/d/1Jwrh-L0MJhsMLtlCU8OWnaSNjcjb8PWFMe7yG27eOkE/viewform?usp=send_form';
-          }, function() {
+          }, function () {
             $mdDialog.hide();
-          });
+          } );
 
         }
 
@@ -246,6 +253,7 @@
         };
       } ] )
 
+    // Interchange data between controllers
     .service( 'DataUpdaterService', [ '$rootScope', function ( $rootScope ) {
 
       this.broadcastUserData = function ( event, data ) {

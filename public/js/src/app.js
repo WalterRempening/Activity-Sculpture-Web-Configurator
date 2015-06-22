@@ -1,3 +1,10 @@
+/**
+ * Main class for Angular App
+ * Load Angular modules
+ * Configure UI Routes
+ * Handles route transitions
+ */
+
 'use strict';
 var app = angular.module( 'MainApp',
   [ 'ngAnimate',
@@ -31,6 +38,7 @@ app.config(
                $httpProvider,
                $mdThemingProvider ) {
 
+      // Setup angular material theme
       $mdThemingProvider.theme( 'default' )
         .primaryPalette( 'blue' )
         .accentPalette( 'yellow' )
@@ -44,7 +52,7 @@ app.config(
         }
       );
 
-      // Public routes
+      // Publi routes
       $stateProvider.state( 'home', {
         url: '/',
         views: {
@@ -52,6 +60,7 @@ app.config(
           'tutorial@home': { templateUrl: '../../views/core/tutorial-partial.html' },
           'about@home': { templateUrl: '../../views/core/about-partial.html' }
         },
+        // Display consent dialog when entering the homepage
         onEnter: [ '$window', '$mdDialog', function ( $window, $mdDialog ) {
 
           $mdDialog.show( {
@@ -90,10 +99,12 @@ app.config(
       } )
         .state( 'settings', {
           url: '/user/{userid}',
+          // Display setup window if user is new
           onEnter: [ '$mdDialog', '$stateParams', '$state', '$cookieStore', 'UserDataFactory',
                      function ( $mdDialog, $stateParams, $state, $cookieStore,
                                 UserDataFactory ) {
                        var params = {};
+                       // Check for user settings
                        UserDataFactory.queryUserSettings( function ( data ) {
                          if ( data !== 'undefined' ) {
                            $state.go( 'dashboard' );
@@ -152,6 +163,8 @@ app.config(
       } );
     } ] );
 
+// Force refreshing dashboard if returning from configurator (quickfix)
+// TODO bugfix: configurator keeps rendering when returning to dashboard
 app.run(
   [ '$rootScope', '$urlRouter', '$window', '$state',
     function ( $rootScope, $urlRouter, $window, $state ) {
@@ -163,6 +176,5 @@ app.run(
             $window.location.reload();
           }
         } );
-      // Configures $urlRouter's listener *after* your custom listener
       $urlRouter.listen();
     } ] );

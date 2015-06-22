@@ -1,3 +1,9 @@
+/**
+ * Activity Vase Sculpture
+ * author: Walter Rempening Diaz
+ * Threejs geometry object for the generation of the activity vase sculpture
+ */
+
 var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
                                 radialSegments,
                                 heightSegments, definition, interpolate ) {
@@ -15,7 +21,7 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
     interpolation: interpolate
   };
 
-
+  // Set default values
   interpolate = interpolate !== undefined ? interpolate : false;
   definition = definition !== undefined ? definition : 50;
   outerRadius = outerRadius !== undefined ? outerRadius : 20;
@@ -30,18 +36,20 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
   var tanTheta = (outerRadius) / height;
   var radialIncrement, segmentIncrement;
 
+  // Set segments depending on interpolate mode
   if ( !interpolate ) {
     segmentIncrement = radialSegments === 1 || radialSegments === 2 ? definition : 0;
   } else {
     segmentIncrement = definition - 1;
   }
+  // iterate height segments
   for ( y = 0; y <= heightSegments; y++ ) {
     var verticesRow = [];
     var uvsRow = [];
     var v = y / heightSegments;
 
     if ( !interpolate ) {
-
+      // set radius values for each radial segment
       for ( x = 0; x <= radialSegments + segmentIncrement; x++ ) {
         var radius, percent;
         if ( radialSegments === 1 ) {
@@ -58,7 +66,7 @@ var WCVaseGeometry = function ( data, outerRadius, innerRadius, height,
           radialIncrement = x;
           radius = data[ radialIncrement ][ y ] + outerRadius;
         }
-
+        // Add normalized value to base radius
         var u = x / (radialSegments + segmentIncrement);
         var vertex = new THREE.Vector3();
         vertex.x = radius * Math.sin( u * 2 * Math.PI ); // Math.PI is for thetaLength

@@ -1,3 +1,9 @@
+/**
+ * Socket IO into an Angular factory
+ * for more info:
+ * http://www.interaktionsdesigner.de/2013/die-killerapplikation-mit-node.js-socket.io-und-angularjs/
+ */
+
 (function () {
   'use sctrict';
   var wcio = angular.module( 'wcSocket', [] );

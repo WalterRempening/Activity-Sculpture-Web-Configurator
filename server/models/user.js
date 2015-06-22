@@ -1,7 +1,10 @@
-var mongoose = require('mongoose');
+/**
+ * Mongoose Model for configurator Users
+ */
+var mongoose = require( 'mongoose' );
 var Schema = mongoose.Schema;
 
-var userSchema = new Schema({
+var userSchema = new Schema( {
   profile: {
     name: String,
     gender: Number,
@@ -9,12 +12,12 @@ var userSchema = new Schema({
     location: String
   },
   oauth: {
-    token: {type: String, required: true},
-    token_secret: {type: String, required: true, unique: true}
+    token: { type: String, required: true },
+    token_secret: { type: String, required: true, unique: true }
   },
   meta: {
-    userid: {type: Number, unique: true},
-    deviceid: {type: Number, unique: true},
+    userid: { type: Number, unique: true },
+    deviceid: { type: Number, unique: true },
     created_at: Date,
     updated_at: Date
   },
@@ -28,18 +31,19 @@ var userSchema = new Schema({
     endDate: Date,
     show: Boolean
   },
-  sculptures: {type: Array, "default": []}
-});
+  sculptures: { type: Array, "default": [] }
+} );
 
-userSchema.pre('save', function(next) {
+// function called before saving to the DB
+userSchema.pre( 'save', function ( next ) {
   var currentDate = new Date();
   this.updated_at = currentDate;
 
-  if (!this.created_at) {
+  if ( !this.created_at ) {
     this.created_at = currentDate;
   }
 
   next();
-});
+} );
 
-module.exports = mongoose.model('WCUser', userSchema);
+module.exports = mongoose.model( 'WCUser', userSchema );

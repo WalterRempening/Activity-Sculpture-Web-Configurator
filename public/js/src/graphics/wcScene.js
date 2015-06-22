@@ -1,11 +1,16 @@
-(function () {
-  var scene = angular.module( 'wcScene', [] );
+/**
+ * Threejs Scene Service
+ */
 
-  scene.service( 'SceneService', function () {
-    this.scene = new THREE.Scene();
+(function ( angular ) {
+  'use strict';
+  angular.module( 'wcScene', [] )
 
-    return {
-      scene: this.scene
-    };
-  } );
-})();
+    .service( 'SceneService', function () {
+      this.scene = new THREE.Scene();
+
+      return {
+        scene: this.scene
+      };
+    } );
+})( angular );

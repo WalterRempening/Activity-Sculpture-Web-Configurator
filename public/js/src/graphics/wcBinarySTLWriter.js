@@ -1,3 +1,7 @@
+/**
+ * STL file writer
+ */
+
 (function ( exports ) {
   'use strict';
 

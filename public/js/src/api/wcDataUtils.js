@@ -1,5 +1,10 @@
+/**
+ * Utility Functions for data formatting
+ */
+
 (function ( exports ) {
   'use strict';
+
   exports.format = {
     Activity: formatActivityData,
     Sleep: formatSleepData,
@@ -11,7 +16,7 @@
     "SCULPTURE": SCULPTURE
   };
 
-  //Restructure activty, sleep, body data for graphs/models =============================
+  //Restructure activity, sleep, body data for graphs & models
   function formatActivityData ( resData, target ) {
     var graphData = [];
     var keys = Object.keys( resData[ 0 ] );
@@ -97,7 +102,7 @@
       };
     } else if ( target === SCULPTURE ) {
       var values = [];
-      for(var b = 0; b < graphData.length; b++){
+      for ( var b = 0; b < graphData.length; b++ ) {
         values[ keys[ b ] ] = normalizeArray( graphData[ b ].values, 50 );
       }
       data = values;
@@ -153,14 +158,14 @@
       };
     } else if ( target === SCULPTURE ) {
       var values = [];
-      values[ 'Heart Pulse' ] = normalizeArray( graphData[ 'Heart Pulse' ].values, 50 );
-        values[ 'SPO2' ] = normalizeArray( graphData[ 'SPO2' ].values, 50 );
+      values[ 'Heart Pulse' ] = normalizeArray( graphData[ 'Heart Pulse' ].values,
+        50 );
+      values[ 'SPO2' ] = normalizeArray( graphData[ 'SPO2' ].values, 50 );
       data = values;
     }
 
     return data;
   }
-
 
   function normalizeArray ( data, max ) {
     var normalized = [];
@@ -173,5 +178,5 @@
     return normalized;
   }
 
-  //return exports;
+  //return exports
 })( typeof exports === 'undefined' ? this[ 'wcDataUtils' ] = {} : exports );

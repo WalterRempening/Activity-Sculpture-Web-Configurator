@@ -1,3 +1,8 @@
+/**
+ * Model manager service
+ * Generate and update sculpture geometry
+ */
+
 (function ( angular ) {
   'use strict';
   angular.module( 'wcModel', [] )
@@ -8,6 +13,13 @@
 
         var SCULPTURE_NAME = 'vase';
 
+        /**
+         * Create sculpture form param objects from
+         * wcControlls.js controller
+         * @param geoArgs
+         * @param matArgs
+         * @returns {THREE.Mesh}
+         */
         function makeSculpture ( geoArgs, matArgs ) {
           var sculpture = new THREE.Mesh(
             new WCVaseGeometry(
@@ -35,6 +47,7 @@
           sculpture.castShadow = true;
           sculpture.name = SCULPTURE_NAME;
 
+          // Generate text labels under sculpture
           if ( geoArgs.showLables ) {
             var legendMat = new THREE.MeshBasicMaterial( {
               shading: THREE.FlatShading,
@@ -76,6 +89,7 @@
         }
 
         var sculpture;
+
         this.addModel = function ( geoArgs, matArgs ) {
           sculpture = makeSculpture( geoArgs, matArgs );
           SceneService.scene.add( sculpture );
@@ -98,24 +112,29 @@
           }
         };
 
-
+        // STL export
         var stlwriter = wcBinarySTLWriter.save;
 
-        this.saveToSTL = function (name) {
+        this.saveToSTL = function ( name ) {
           var configSculpture = SceneService.scene.getObjectByName( 'vase' );
           var file = name + ".stl";
           if ( configSculpture !== undefined ) {
             var geometry = configSculpture.geometry;
             stlwriter( geometry, file );
+            var exporter = new THREE.STLExporter();
+            exporter.saveSTL( SceneService.scene, 'vase' );
+
 
           }
         };
 
-        var rotationY = 0;
-        var rotationSpeed = 0;
-        this.rotate = false;
+        //var rotationY = 0;
+        //var rotationSpeed = 0;
+        //this.rotate = false;
 
         this.update = function ( delta ) {
+          // Put animation code here
+
           //if ( this.rotate ) {
           //  rotationSpeed = delta * 0.2;
           //}

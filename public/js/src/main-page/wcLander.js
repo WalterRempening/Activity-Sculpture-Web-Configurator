@@ -1,12 +1,14 @@
-(function () {
+/**
+ * Landing page Controller
+ * Starts oAuth flow
+ */
+(function ( angular ) {
   'use strict';
-  var lander = angular.module( 'wcLander', [] );
+  angular.module( 'wcLander', [] )
 
-  lander.controller( 'MenuController', [ function () {
+    .controller( 'MenuController', [ function () { } ] )
 
-  } ] );
-
-  lander.controller( 'OauthController',
+    .controller( 'OauthController',
     [ '$window', '$cookies', '$http', function ( $window, $cookies, $http ) {
       this.startFlow = function () {
         if ( !$cookies.user ) {
@@ -22,11 +24,9 @@
           //
           //  } );
         }
-
-
       };
     } ] );
 
-})();
+})( angular );
 
 

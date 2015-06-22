@@ -1,20 +1,42 @@
 /**************************************
+ _    _      _      ______                    _
+| |  | |    | |     | ___ \                  | |
+| |  | | ___| |__   | |_/ / __ _ ___  ___  __| |
+| |/\| |/ _ \ '_ \  | ___ \/ _` / __|/ _ \/ _` |
+\  /\  /  __/ |_) | | |_/ / (_| \__ \  __/ (_| |
+ \/  \/ \___|_.__/  \____/ \__,_|___/\___|\__,_|
+  ___       _   _       _ _           _____            _       _
+ / _ \     | | (_)     (_) |         /  ___|          | |     | |
+/ /_\ \ ___| |_ ___   ___| |_ _   _  \ `--.  ___ _   _| |_ __ | |_ _   _ _ __ ___
+|  _  |/ __| __| \ \ / / | __| | | |  `--. \/ __| | | | | '_ \| __| | | | '__/ _ \
+| | | | (__| |_| |\ V /| | |_| |_| | /\__/ / (__| |_| | | |_) | |_| |_| | | |  __/
+\_| |_/\___|\__|_| \_/ |_|\__|\__, | \____/ \___|\__,_|_| .__/ \__|\__,_|_|  \___|
+ _____                _        __/ |                    | |
+/  __ \              | |      |___/                     |_|
+| /  \/_ __ ___  __ _| |_ ___  _ __
+| |   | '__/ _ \/ _` | __/ _ \| '__|
+| \__/\ | |  __/ (_| | || (_) | |
+ \____/_|  \___|\__,_|\__\___/|_|
 
-Styles for the activity sculpture webconfigurator
+Styles for the activity sculpture web-configurator
 a project part of a master thesis for the LMU Munich
 
-Author  Walter Remepning Diaz
-Date  12.3.2015
-Location  Munich, Germany
+Author: @WalterRempening
+Date:  12.3.2015
+Location:  Munich, Germany
 
 ============================
 Content Index 
   1.Imports
   2.Global Styles
-  3.Welcome Page Login Form
-  4. 404 Error page
-  5. Page transition animations
-
+  3.Footer
+  4.Menu Nav
+  5.Welcome Page Login Form
+  6.404 error page
+  7.Configurator Controls
+  8.WebGL View
+  9.Page transition animations
+  10.Dashbaord Site
 **************************************/
 
 /**************************************
@@ -78,7 +100,7 @@ a
   margin 0px auto
 
 /**************************************
-*   2.Footer
+*   3.Footer
 **************************************/
 
 .footer
@@ -93,7 +115,7 @@ a
     font-size 0.9em
 
 /**************************************
-*   3. Menu Nav
+*   4. Menu Nav
 **************************************/
 
 nav
@@ -114,7 +136,7 @@ nav
         min-height 64px
 
 /**************************************
-*   3.Welcome Page Login Form
+*   5. Welcome Page Login Form
 **************************************/
 .lander
   .container
@@ -135,7 +157,7 @@ form.login
     margin-bottom 15px
 
 /**************************************
-*   4. 404 error page
+*   6. 404 error page
 **************************************/
 
 md-content.error-box
@@ -180,7 +202,7 @@ md-content.error-box
   left 0
 
 /**************************************
-*   . Configurator Controlls
+*   7. Configurator Controls
 **************************************/
 
 md-content .catalog
@@ -243,10 +265,12 @@ md-slider .md-focus-thumb
 
 .lighter
   color #9a9a9a
+
 .darker
   color #414141
+
 /**************************************
-*   5. WebGL view
+*   8. WebGL View
 **************************************/
 three-viewport
   height 100vh
@@ -260,7 +284,7 @@ three-viewport
   position absolute
 
 /**************************************
-*   5. Page transition animations
+*   9. Page Transition Animations
 **************************************/
 [ui-view].ng-enter, [ui-view].ng-leave
   position absolute
@@ -294,7 +318,7 @@ three-viewport
 
 .animate-show
   opacity 1
-  color rgb(0,0,0)
+  color rgb(0, 0, 0)
 
 .animate-show.ng-hide-add.ng-hide-add-active,
 .animate-show.ng-hide-remove.ng-hide-remove-active
@@ -302,11 +326,10 @@ three-viewport
 
 .animate-show.ng-hide
   opacity 0
-  color rgb(255,255,255)
-
+  color rgb(255, 255, 255)
 
 /**************************************
-*   6. Dashbaord Site
+*   10. Dashbaord Site
 **************************************/
 .consent
   width 50%
@@ -380,10 +403,4 @@ md-dialog.setup
   height 100%
 
 .gallery-tile
-    margin-right: 14px
-    
-
-
-
-
-
+  margin-right: 14px

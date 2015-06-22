@@ -1,16 +1,22 @@
-(function () {
-  var camera = angular.module( 'wcCamera', [] );
+/**
+ * Threejs Camera Service
+ */
 
-  camera.service( 'CameraService', function () {
+(function ( angular ) {
+  'use strict';
+  angular.module( 'wcCamera', [] )
+    .service( 'CameraService', function () {
 
-    var viewAngle = 50;
-    var aspectRatio = window.innerWidth / window.innerHeight;
-    var near = 1;
-    var far = 1000;
+      // Configure camera
+      var viewAngle = 50;
+      var aspectRatio = window.innerWidth / window.innerHeight;
+      var near = 1;
+      var far = 1000;
 
-    return {
-      perspectiveCam: new THREE.PerspectiveCamera( viewAngle, aspectRatio, near,
-        far )
-    };
-  } );
-})();
+      return {
+        perspectiveCam: new THREE.PerspectiveCamera( viewAngle, aspectRatio,
+          near,
+          far )
+      };
+    } );
+})( angular );

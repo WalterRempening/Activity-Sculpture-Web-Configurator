@@ -1,3 +1,5 @@
+// Settings for passport oAuth solution for calling the Whitings API
+
 {
   "server": {
     "protocol": "http",
@@ -6,7 +8,7 @@
   "withings": {
     "key": "21d45b7ce43f8f5ec704c56f9708d6f399d96fd071dcb0dd24fdf4cc9e5e7",
     "secret": "d928e4eb0bc6ec865d8979b68e0bbe91ccbfcc4ddf0edb8097c7775bd6bc9",
-    "callback": "http://app.walterrempening.com/auth/withings/callback",
+    "callback": "http://localhost:3000/auth/withings/callback",
     "version": 1.0
   }
 }
