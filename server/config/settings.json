@@ -1,5 +1,3 @@
-// Settings for passport oAuth solution for calling the Whitings API
-
 {
   "server": {
     "protocol": "http",

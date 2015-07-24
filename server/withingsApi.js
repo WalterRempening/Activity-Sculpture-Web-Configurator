@@ -7,7 +7,7 @@
  * @type {module}
  */
 
-var settings = require( 'config/settings.json' );
+var settings = require( './config/settings.json' );
 var withings = require( 'withings-api' );
 var NORMAL_DATE = 0;
 var UTC_DATE = 1;

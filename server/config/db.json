@@ -1,4 +1,3 @@
-// DB Configuration JSON
 {
   "url": "mongodb://localhost/web-configurator"
 }
